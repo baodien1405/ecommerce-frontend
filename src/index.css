@@ -3,7 +3,6 @@
 html {
   height: 100%;
   line-height: 1.2;
-  font-size: 62.5%;
 }
 
 * {
@@ -16,3 +15,11 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
 }
+
+.ant-input-group-addon > button {
+  background-color: #0d5cb6;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
