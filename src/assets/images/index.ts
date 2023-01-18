@@ -5,6 +5,7 @@ import slider2 from '@/assets/images/slider2.webp'
 import slider3 from '@/assets/images/slider3.webp'
 import slider4 from '@/assets/images/slider4.webp'
 import slider5 from '@/assets/images/slider5.webp'
+import officialBadge from '@/assets/images/officialBadge.png'
 
 const images = {
   logo: logoImage,
@@ -13,7 +14,8 @@ const images = {
   slider2: slider2,
   slider3: slider3,
   slider4: slider4,
-  slider5: slider5
+  slider5: slider5,
+  officialBadge: officialBadge
 }
 
 export default images

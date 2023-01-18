@@ -1,6 +1,7 @@
 import ProductType from '@/components/ProductType'
 import SlickSlider from '@/components/SlickSlider'
 import images from '@/assets/images'
+import ProductCard from '@/components/ProductCard'
 
 export default function ProductList() {
   const productTypeList = [
@@ -36,6 +37,10 @@ export default function ProductList() {
 
       <div className='container'>
         <SlickSlider imageList={imageList} />
+
+        <div className='py-[100px]'>
+          <ProductCard />
+        </div>
       </div>
     </div>
   )
