@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <div className='bg-[#1a94ff]'>
       <div className='container w-full'>
-        <Row gutter={16} className='flex items-center justify-between py-[10px] px-[120px]'>
+        <Row gutter={16} className='flex items-center justify-between py-[10px]'>
           <Col span={6}>
             <Image src={images.logo} alt='logo' className='w-[60px]' />
           </Col>
