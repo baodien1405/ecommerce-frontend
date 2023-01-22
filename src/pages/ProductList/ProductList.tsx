@@ -2,6 +2,8 @@ import ProductType from '@/components/ProductType'
 import SlickSlider from '@/components/SlickSlider'
 import images from '@/assets/images'
 import ProductCard from '@/components/ProductCard'
+import { Col, Row } from 'antd'
+import AsideFilter from './components/AsideFilter'
 
 export default function ProductList() {
   const productTypeList = [
@@ -38,8 +40,15 @@ export default function ProductList() {
       <div className='container'>
         <SlickSlider imageList={imageList} />
 
-        <div className='py-[100px]'>
-          <ProductCard />
+        <div className='py-[50px]'>
+          <Row gutter={16}>
+            <Col span={4}>
+              <AsideFilter />
+            </Col>
+            <Col span={20}>
+              <ProductCard />
+            </Col>
+          </Row>
         </div>
       </div>
     </div>
