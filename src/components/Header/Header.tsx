@@ -9,14 +9,15 @@ export default function Header() {
   const handleSearch = () => {
     return null
   }
+
   return (
     <div className='bg-[#1a94ff]'>
       <div className='container w-full'>
         <Row gutter={16} className='flex items-center justify-between py-[10px]'>
-          <Col span={6}>
+          <Col span={5}>
             <Image src={images.logo} alt='logo' className='w-[60px]' />
           </Col>
-          <Col span={12}>
+          <Col span={13}>
             <Search
               placeholder='Search product...'
               onSearch={handleSearch}
