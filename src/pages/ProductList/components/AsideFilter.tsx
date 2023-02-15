@@ -1,8 +1,7 @@
 import { CheckboxGroupField } from '@/components/FormFields'
 import { Rate } from 'antd'
-import React from 'react'
 
-export default function AsideFilter() {
+export function AsideFilter() {
   const productCategoryList = [
     'Điện thoại smartphone',
     'Máy tính bảng',

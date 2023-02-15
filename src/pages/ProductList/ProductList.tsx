@@ -3,7 +3,7 @@ import SlickSlider from '@/components/SlickSlider'
 import images from '@/assets/images'
 import ProductCard from '@/components/ProductCard'
 import { Button, Col, Row } from 'antd'
-import AsideFilter from './components/AsideFilter'
+import { AsideFilter } from './components'
 
 export default function ProductList() {
   const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
