@@ -8,3 +8,16 @@ export interface Product {
   rating: number
   description: string
 }
+
+export interface Pagination {
+  _limit: number
+  _page: number
+  _totalRows: string
+}
+
+export interface ProductResponse {
+  status: string
+  message: string
+  data: Product[]
+  pagination: Pagination
+}

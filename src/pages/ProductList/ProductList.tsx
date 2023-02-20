@@ -7,11 +7,12 @@ import { AsideFilter } from './components'
 import { useQuery } from '@tanstack/react-query'
 import { useQueryString } from '@/hooks/useQueryString'
 import productApi from '@/api/productApi'
+import ProductCardSkeleton from '@/components/ProductCardSkeleton'
+
+const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
+const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
 
 export default function ProductList() {
-  const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
-  const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
-
   const queryString: { _page?: string; _limit?: string } = useQueryString()
   const page = Number(queryString._page) || 1
   const limit = Number(queryString._limit) || 8
@@ -28,7 +29,7 @@ export default function ProductList() {
     keepPreviousData: true,
     retry: 0
   })
-  console.log('🚀 ~ ProductList ~ productsQuery:', productsQuery.data)
+  console.log('🚀 ~ ProductList ~ productsQuery:', productsQuery)
 
   return (
     <div className='bg-[#efefef]'>
@@ -50,13 +51,23 @@ export default function ProductList() {
 
           <div className='flex-1'>
             <Row gutter={[8, 8]}>
-              {Array(10)
-                .fill(0)
-                .map((item, index) => (
-                  <Col key={index}>
-                    <ProductCard />
-                  </Col>
-                ))}
+              {productsQuery.isLoading &&
+                Array(10)
+                  .fill(0)
+                  .map((item, index) => (
+                    <Col key={index}>
+                      <ProductCardSkeleton />
+                    </Col>
+                  ))}
+
+              {!productsQuery.isLoading &&
+                Array(10)
+                  .fill(0)
+                  .map((item, index) => (
+                    <Col key={index}>
+                      <ProductCard />
+                    </Col>
+                  ))}
             </Row>
 
             <Row>

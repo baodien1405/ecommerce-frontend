@@ -1,9 +1,9 @@
-import { Product } from '@/types'
+import { ProductResponse } from '@/types'
 import axiosClient from './axiosClient'
 
 const productApi = {
   getProductList(page: number | string, limit: number | string, signal?: AbortSignal) {
-    return axiosClient.get<Product[]>('/product/get-all', {
+    return axiosClient.get<ProductResponse>('/product/get-all', {
       params: {
         _page: page,
         _limit: limit
