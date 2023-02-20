@@ -21,7 +21,7 @@ export default function Login() {
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>Xin chào,</h4>
           <div className='mb-[20px] text-[15px] leading-[20px]'>Đăng nhập hoặc Tạo tài khoản</div>
 
-          <Form onFinish={handleLogin}>
+          <Form onFinish={handleLogin} colon={false}>
             <InputField name='email' placeholder='abc@email.com' classNameInput='py-2' message='Vui lòng nhập email' />
             <InputPasswordField
               name='password'

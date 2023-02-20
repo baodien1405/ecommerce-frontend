@@ -10,7 +10,7 @@ export interface InputFieldProps extends InputProps {
 export function InputField({ label, name, message, classNameInput, ...rest }: InputFieldProps) {
   return (
     <Form.Item
-      label={<div className='flex w-20 items-start'>{label}</div>}
+      label={label ? <div className='flex w-20 items-start'>{label}</div> : undefined}
       name={name}
       rules={[{ required: false, message: message }]}
     >
