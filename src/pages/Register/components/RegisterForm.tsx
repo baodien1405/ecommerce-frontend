@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Form } from 'antd'
 import { useForm } from 'react-hook-form'
@@ -11,6 +12,7 @@ export interface RegisterFormProps {
 }
 
 export function RegisterForm({ initialValues, onSubmit }: RegisterFormProps) {
+  const { t } = useTranslation()
   const schema = useRegisterFormSchema()
   const {
     control,
@@ -52,7 +54,7 @@ export function RegisterForm({ initialValues, onSubmit }: RegisterFormProps) {
         className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-[20px] font-medium leading-6'
         htmlType='submit'
       >
-        Đăng ký
+        {t('sign up')}
       </Button>
     </Form>
   )

@@ -1,28 +1,34 @@
-import { CheckboxGroupField } from '@/components/FormFields'
 import { Rate } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { CheckboxGroupField } from '@/components/FormFields'
+
+const productCategoryList = [
+  'Điện thoại smartphone',
+  'Máy tính bảng',
+  'Máy đọc sách',
+  'Điện thoại phổ thông',
+  'Điện thoại bàn'
+]
+
+const priceList = ['Dưới 2.000.000', '2.000.000 -> 5.000.000', '5.000.000 -> 22.000.000', 'Trên 22.000.000']
+
+const serviceList = [
+  { label: 'Giao Hàng Siêu Tốc 2H', value: 1 },
+  { label: 'Thưởng Thêm Astra', value: 2 },
+  { label: 'Không Giới Hạn', value: 3 },
+  { label: 'Trả Góp 0%', value: 4 },
+  { label: 'Giảm Sâu', value: 5 }
+]
 
 export function AsideFilter() {
-  const productCategoryList = [
-    'Điện thoại smartphone',
-    'Máy tính bảng',
-    'Máy đọc sách',
-    'Điện thoại phổ thông',
-    'Điện thoại bàn'
-  ]
+  const { t } = useTranslation(['productList', 'login'])
 
-  const priceList = ['Dưới 2.000.000', '2.000.000 -> 5.000.000', '5.000.000 -> 22.000.000', 'Trên 22.000.000']
-
-  const serviceList = [
-    { label: 'Giao Hàng Siêu Tốc 2H', value: 1 },
-    { label: 'Thưởng Thêm Astra', value: 2 },
-    { label: 'Không Giới Hạn', value: 3 },
-    { label: 'Trả Góp 0%', value: 4 },
-    { label: 'Giảm Sâu', value: 5 }
-  ]
   return (
     <div className='w-[200px] overflow-hidden rounded-l-[4px] bg-white px-4 py-3'>
       <div>
-        <h4 className='pb-3 text-sm font-medium text-[#38383d]'>Danh mục sản phẩm</h4>
+        <h4 className='pb-3 text-sm font-medium text-[#38383d]'>
+          {t('aside filter.product categories', { ns: 'productList' })}
+        </h4>
         <ul>
           {productCategoryList.map((item) => (
             <li key={item} className='pb-3 text-xs font-normal text-[#38383d] '>

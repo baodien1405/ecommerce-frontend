@@ -36,34 +36,10 @@ export default function Profile() {
                     </Upload>
 
                     <div className='w-[700px]'>
-                      <InputField
-                        label='Name'
-                        name='name'
-                        placeholder='Thêm tên'
-                        classNameInput='py-2'
-                        message='Vui lòng nhập tên'
-                      />
-                      <InputField
-                        label='Email'
-                        name='email'
-                        placeholder='abc@email.com'
-                        classNameInput='py-2'
-                        message='Vui lòng nhập email'
-                      />
-                      <InputField
-                        label='Phone'
-                        name='phone'
-                        placeholder='Thêm số điện thoại'
-                        classNameInput='py-2'
-                        message='Vui lòng nhập số điện thoại'
-                      />
-                      <InputField
-                        label='Address'
-                        name='address'
-                        placeholder='Thêm địa chỉ'
-                        classNameInput='py-2'
-                        message='Vui lòng nhập address'
-                      />
+                      <InputField label='Name' name='name' placeholder='Thêm tên' classNameInput='py-2' />
+                      <InputField label='Email' name='email' placeholder='abc@email.com' classNameInput='py-2' />
+                      <InputField label='Phone' name='phone' placeholder='Thêm số điện thoại' classNameInput='py-2' />
+                      <InputField label='Address' name='address' placeholder='Thêm địa chỉ' classNameInput='py-2' />
                     </div>
                   </div>
 

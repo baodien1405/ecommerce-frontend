@@ -1,13 +1,18 @@
-import { Col, Row, Input } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { Col, Row, Input, Tooltip } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { CaretDownOutlined, SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import Image from '@/components/Image'
 import images from '@/assets/images'
 import { path } from '@/constants'
+import { GlobalIcon } from '@/components/Icons'
+
 const { Search } = Input
 
 export default function Header() {
   const navigate = useNavigate()
+  const { i18n } = useTranslation()
+  const currentLanguage = i18n.language
 
   const handleSearch = () => {
     return null
@@ -15,6 +20,10 @@ export default function Header() {
 
   const handleNavigateLogin = () => {
     navigate(path.login)
+  }
+
+  const changeLanguage = (lng: 'en' | 'vi') => {
+    i18n.changeLanguage(lng)
   }
 
   return (
@@ -59,6 +68,34 @@ export default function Header() {
                 </div>
                 <span className='text-[12px]'>Cart</span>
               </div>
+
+              <Tooltip
+                title={
+                  <div className='w-[150px] cursor-pointer'>
+                    <div
+                      className={`rounded p-3 text-base font-bold transition ${
+                        currentLanguage === 'vi' ? 'bg-slate-500 text-white' : 'text-black'
+                      }`}
+                      onClick={() => changeLanguage('vi')}
+                    >
+                      Tiếng Việt
+                    </div>
+                    <div
+                      className={`rounded p-3 text-base font-bold transition ${
+                        currentLanguage === 'en' ? 'bg-slate-500 text-white' : 'text-black'
+                      }`}
+                      onClick={() => changeLanguage('en')}
+                    >
+                      English
+                    </div>
+                  </div>
+                }
+                color='white'
+              >
+                <button>
+                  <GlobalIcon className='cursor-pointer text-white' />
+                </button>
+              </Tooltip>
             </div>
           </Col>
         </Row>
