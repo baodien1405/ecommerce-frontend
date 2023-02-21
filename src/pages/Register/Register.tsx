@@ -1,17 +1,17 @@
-import { InputField, InputPasswordField } from '@/components/FormFields'
+import { Link } from 'react-router-dom'
+import { RegisterForm } from './components'
 import Image from '@/components/Image'
 import { path } from '@/constants'
-import { Button, Form } from 'antd'
-import { Link } from 'react-router-dom'
-
-export interface FormData {
-  email: string
-  password: string
-  confirmPassword: string
-}
+import { FormDataRegister } from '@/types'
 
 export default function Register() {
-  const handleRegister = (values: FormData) => {
+  const initialValuesFormRegister = {
+    email: 'capbaodien@gmail.com',
+    password: '123456',
+    confirmPassword: '123456'
+  }
+
+  const handleRegister = (values: FormDataRegister) => {
     console.log(values)
   }
 
@@ -22,32 +22,7 @@ export default function Register() {
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>Tạo tài khoản</h4>
           <div className='mb-[20px] text-[15px] leading-[20px]'>Vui lòng nhập thông tin để đăng ký</div>
 
-          <Form onFinish={handleRegister}>
-            <InputField name='email' placeholder='abc@email.com' classNameInput='py-2' message='Vui lòng nhập email' />
-            <InputPasswordField
-              name='password'
-              type='password'
-              placeholder='Mật khẩu'
-              classNameInput='py-2'
-              message='Vui lòng nhập password'
-            />
-            <InputPasswordField
-              name='confirmPassword'
-              type='password'
-              placeholder='Nhập lại mật khẩu'
-              classNameInput='py-2'
-              message='Vui lòng nhập password'
-            />
-
-            <Button
-              type='primary'
-              danger
-              className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-[20px] font-medium leading-6'
-              htmlType='submit'
-            >
-              Đăng ký
-            </Button>
-          </Form>
+          <RegisterForm initialValues={initialValuesFormRegister} onSubmit={handleRegister} />
 
           <div className='mt-[20px] flex text-[13px]'>
             <span>Bạn đã có tài khoản?</span>

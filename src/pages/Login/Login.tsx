@@ -1,16 +1,16 @@
-import { InputField, InputPasswordField } from '@/components/FormFields'
+import { Link } from 'react-router-dom'
 import Image from '@/components/Image'
 import { path } from '@/constants'
-import { Button, Form } from 'antd'
-import { Link } from 'react-router-dom'
-
-export interface FormData {
-  email: string
-  password: string
-}
+import { FormDataLogin } from '@/types'
+import { LoginForm } from './components'
 
 export default function Login() {
-  const handleLogin = (values: FormData) => {
+  const initialLoginFormValue = {
+    email: 'capbaodien@gmail.com',
+    password: '123456'
+  }
+
+  const handleLogin = (values: FormDataLogin) => {
     console.log(values)
   }
 
@@ -21,24 +21,7 @@ export default function Login() {
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>Xin chào,</h4>
           <div className='mb-[20px] text-[15px] leading-[20px]'>Đăng nhập hoặc Tạo tài khoản</div>
 
-          <Form onFinish={handleLogin} colon={false}>
-            <InputField name='email' placeholder='abc@email.com' classNameInput='py-2' message='Vui lòng nhập email' />
-            <InputPasswordField
-              name='password'
-              type='password'
-              placeholder='Mật khẩu'
-              classNameInput='py-2'
-              message='Vui lòng nhập password'
-            />
-
-            <Button
-              type='primary'
-              danger
-              className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-[20px] font-medium leading-6'
-            >
-              Đăng nhập
-            </Button>
-          </Form>
+          <LoginForm initialValues={initialLoginFormValue} onSubmit={handleLogin} />
 
           <div className='mt-[20px] inline-block cursor-pointer text-[13px] leading-[1.15] text-[#0d5cb6]'>
             Quên mật khẩu?

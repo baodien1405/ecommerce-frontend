@@ -8,7 +8,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     // 'plugin:import/recommended',
-    'plugin:jsx-a11y/recommended',
+    // 'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
     // Disable các rule mà eslint xung đột với prettier.
     // Để cái này ở dưới để nó override các rule phía trên!.

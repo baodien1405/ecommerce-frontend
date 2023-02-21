@@ -1,13 +1,20 @@
 import { Col, Row, Input } from 'antd'
-const { Search } = Input
-
+import { useNavigate } from 'react-router-dom'
+import { CaretDownOutlined, SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import Image from '@/components/Image'
 import images from '@/assets/images'
-import { CaretDownOutlined, SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+import { path } from '@/constants'
+const { Search } = Input
 
 export default function Header() {
+  const navigate = useNavigate()
+
   const handleSearch = () => {
     return null
+  }
+
+  const handleNavigateLogin = () => {
+    navigate(path.login)
   }
 
   return (
@@ -34,7 +41,7 @@ export default function Header() {
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-4 text-white'>
                 <UserOutlined className='text-[32px]' />
-                <div>
+                <div className='cursor-pointer' onClick={handleNavigateLogin}>
                   <span className='text-xs'>Login/Logout</span>
                   <div className='flex items-center text-[13px] leading-[20px]'>
                     <span>Account</span>

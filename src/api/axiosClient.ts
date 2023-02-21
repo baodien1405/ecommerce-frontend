@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-console.log('import.meta.env.VITE_BASE_URL', import.meta.env.VITE_BASE_URL)
+
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10000,

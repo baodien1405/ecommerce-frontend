@@ -1,13 +1,13 @@
-import ProductType from '@/components/ProductType'
-import SlickSlider from '@/components/SlickSlider'
+import { useQuery } from '@tanstack/react-query'
+import { Button, Col, Row } from 'antd'
+import productApi from '@/api/productApi'
 import images from '@/assets/images'
 import ProductCard from '@/components/ProductCard'
-import { Button, Col, Row } from 'antd'
-import { AsideFilter } from './components'
-import { useQuery } from '@tanstack/react-query'
-import { useQueryString } from '@/hooks/useQueryString'
-import productApi from '@/api/productApi'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
+import ProductType from '@/components/ProductType'
+import SlickSlider from '@/components/SlickSlider'
+import { AsideFilter } from './components'
+import { useQueryString } from '@/hooks'
 
 const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
 const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
@@ -54,7 +54,7 @@ export default function ProductList() {
               {productsQuery.isLoading &&
                 Array(10)
                   .fill(0)
-                  .map((item, index) => (
+                  .map((_, index) => (
                     <Col key={index}>
                       <ProductCardSkeleton />
                     </Col>
