@@ -1,20 +1,24 @@
-import { InputField } from '@/components/FormFields'
-import Image from '@/components/Image'
 import { Button, Form, Upload } from 'antd'
+import { useTranslation } from 'react-i18next'
+
+import { InputField } from '@/components/FormFields'
 import { AsideProfile } from './components'
+import Image from '@/components/Image'
 
 export default function Profile() {
+  const [t] = useTranslation('profile')
+
   return (
     <div className='h-[calc(100vh-61px)] bg-[#efefef]'>
       <div className='container'>
-        <h4 className='py-[10px] text-sm font-light text-[#808089]'>{'Trang chủ > Thông tin tài khoản'}</h4>
+        <h4 className='py-[10px] text-sm font-light text-[#808089]'>{t('homepage > account info')}</h4>
 
         <div className='flex gap-[17px]'>
           <AsideProfile />
           <div className='flex-1'>
-            <div className='mt-1 mb-3 text-[20px] font-light leading-8'>Thông tin tài khoản</div>
+            <div className='mt-1 mb-3 text-[20px] font-light leading-8'>{t('account info')}</div>
             <div className='rounded-lg bg-white p-4'>
-              <span className='text-base font-normal text-[#64646d]'>Thông tin cá nhân</span>
+              <span className='text-base font-normal text-[#64646d]'>{t('personal info')}</span>
 
               <div className='mt-4'>
                 <Form colon={false}>
@@ -25,8 +29,6 @@ export default function Profile() {
                       className='block h-[100px] w-[100px]'
                       showUploadList={false}
                       action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-                      // beforeUpload={beforeUpload}
-                      // onChange={handleChange}
                     >
                       <Image
                         className='overflow-hidden rounded-full'
@@ -44,7 +46,7 @@ export default function Profile() {
                   </div>
 
                   <Button type='primary' className='mx-auto block h-10 w-[176px] rounded bg-[#0b74e5]'>
-                    Lưu thay đổi
+                    {t('save change')}
                   </Button>
                 </Form>
               </div>

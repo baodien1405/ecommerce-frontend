@@ -1,3 +1,8 @@
 {
-  "sign in": "Đăng nhập"
+  "sign in": "Đăng nhập",
+  "hello": "Xin chào,",
+  "sign in or create account": "Đăng nhập hoặc Tạo tài khoản",
+  "forgot password": "Quên mật khẩu?",
+  "no account": "Chưa có tài khoản?",
+  "create account": "Tạo tài khoản"
 }

@@ -1,6 +1,9 @@
 {
   "aside filter": {
     "product categories": "Danh mục sản phẩm",
-    "services": "Dịch vụ"
-  }
+    "services": "Dịch vụ",
+    "review": "Đánh giá",
+    "price": "Giá"
+  },
+  "view more": "Xem thêm"
 }

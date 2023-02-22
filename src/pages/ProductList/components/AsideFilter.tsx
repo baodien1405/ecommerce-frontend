@@ -21,7 +21,7 @@ const serviceList = [
 ]
 
 export function AsideFilter() {
-  const { t } = useTranslation(['productList', 'login'])
+  const [t] = useTranslation(['productList'])
 
   return (
     <div className='w-[200px] overflow-hidden rounded-l-[4px] bg-white px-4 py-3'>
@@ -39,12 +39,16 @@ export function AsideFilter() {
       </div>
 
       <div className='border-t-[1px] border-t-[#f7f7f7]'>
-        <h4 className='py-3 pb-3 text-sm font-medium text-[#38383d]'>Dịch vụ</h4>
+        <h4 className='py-3 pb-3 text-sm font-medium text-[#38383d]'>
+          {t('aside filter.services', { ns: 'productList' })}
+        </h4>
         <CheckboxGroupField name='service' options={serviceList} defaultValue={[1]} />
       </div>
 
       <div className='border-t-[1px] border-t-[#f7f7f7]'>
-        <h4 className='py-3 pb-3 text-sm font-medium text-[#38383d]'>Đánh giá</h4>
+        <h4 className='py-3 pb-3 text-sm font-medium text-[#38383d]'>
+          {t('aside filter.review', { ns: 'productList' })}
+        </h4>
         <div>
           {[5, 4, 3].map((option) => (
             <div key={option} className='flex gap-[3px] py-[5px]'>
@@ -56,7 +60,9 @@ export function AsideFilter() {
       </div>
 
       <div className='border-t-[1px] border-t-[#f7f7f7]'>
-        <h4 className='py-3 pb-3 text-sm font-medium text-[#38383d]'>Giá</h4>
+        <h4 className='py-3 pb-3 text-sm font-medium text-[#38383d]'>
+          {t('aside filter.price', { ns: 'productList' })}
+        </h4>
         <div>
           {priceList.map((price) => (
             <div key={price} className='mb-1 inline-block rounded-xl bg-[#eee] py-1 px-3 text-xs text-[#38383d]'>

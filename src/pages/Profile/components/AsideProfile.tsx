@@ -13,20 +13,23 @@ import {
   UserIcon
 } from '@/components/Icons'
 import Image from '@/components/Image'
+import { useTranslation } from 'react-i18next'
 
 export function AsideProfile() {
+  const [t] = useTranslation('profile')
+
   const infoList = [
-    { icon: <UserIcon />, label: 'Thông tin tài khoản', url: '' },
-    { icon: <CustomerNotificationIcon />, label: 'Thông báo của tôi', url: '' },
-    { icon: <OrderHistoryIcon />, label: 'Quản lý đơn hàng', url: '' },
-    { icon: <ReturnTrackingHistoryIcon />, label: 'Quản lý đổi trả', url: '' },
-    { icon: <CustomerAddressIcon />, label: 'Sổ địa chỉ', url: '' },
-    { icon: <CustomerPaymentCardIcon />, label: 'Thông tin thanh toán', url: '' },
-    { icon: <ReviewHubIcon />, label: 'Đánh giá sản phẩm', url: '' },
-    { icon: <EyeOpenIcon />, label: 'Sản phẩm bạn đã xem', url: '' },
-    { icon: <HeartIcon />, label: 'Sản phẩm bạn yêu thích', url: '' },
-    { icon: <CartIcon />, label: 'Sản phẩm bạn mua sau', url: '' },
-    { icon: <StartFillHalfIcon />, label: 'Nhận xét của tôi', url: '' }
+    { icon: <UserIcon />, label: t('aside profile.account info'), url: '' },
+    { icon: <CustomerNotificationIcon />, label: t('aside profile.my notification'), url: '' },
+    { icon: <OrderHistoryIcon />, label: t('aside profile.order management'), url: '' },
+    { icon: <ReturnTrackingHistoryIcon />, label: t('aside profile.refund management'), url: '' },
+    { icon: <CustomerAddressIcon />, label: t('aside profile.address'), url: '' },
+    { icon: <CustomerPaymentCardIcon />, label: t('aside profile.payment info'), url: '' },
+    { icon: <ReviewHubIcon />, label: t('aside profile.product review'), url: '' },
+    { icon: <EyeOpenIcon />, label: t('aside profile.product seen'), url: '' },
+    { icon: <HeartIcon />, label: t('aside profile.product love'), url: '' },
+    { icon: <CartIcon />, label: t('aside profile.product buy later'), url: '' },
+    { icon: <StartFillHalfIcon />, label: t('aside profile.my review'), url: '' }
   ]
 
   return (

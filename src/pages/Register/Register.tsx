@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { RegisterForm } from './components'
 import Image from '@/components/Image'
@@ -5,6 +6,8 @@ import { path } from '@/constants'
 import { FormDataRegister } from '@/types'
 
 export default function Register() {
+  const [t] = useTranslation('register')
+
   const initialValuesFormRegister = {
     email: 'capbaodien@gmail.com',
     password: '123456',
@@ -19,15 +22,15 @@ export default function Register() {
     <div className='flex h-screen items-center justify-center bg-[#efefef]'>
       <div className='flex w-[800px] rounded-[20px] bg-white'>
         <div className='w-[500px] px-[45px] pt-10 pb-6'>
-          <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>Tạo tài khoản</h4>
-          <div className='mb-[20px] text-[15px] leading-[20px]'>Vui lòng nhập thông tin để đăng ký</div>
+          <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('create account')}</h4>
+          <div className='mb-[20px] text-[15px] leading-[20px]'>{t('please enter info to register')}</div>
 
           <RegisterForm initialValues={initialValuesFormRegister} onSubmit={handleRegister} />
 
           <div className='mt-[20px] flex text-[13px]'>
-            <span>Bạn đã có tài khoản?</span>
+            <span>{t('do you have account')}</span>
             <Link to={path.login} className='ml-2 cursor-pointer text-[#0d5cb6]'>
-              Đăng nhập
+              {t('sign in')}
             </Link>
           </div>
         </div>

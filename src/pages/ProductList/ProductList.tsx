@@ -1,5 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Col, Row } from 'antd'
+
 import productApi from '@/api/productApi'
 import images from '@/assets/images'
 import ProductCard from '@/components/ProductCard'
@@ -13,6 +15,7 @@ const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink',
 const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
 
 export default function ProductList() {
+  const [t] = useTranslation('productList')
   const queryString: { _page?: string; _limit?: string } = useQueryString()
   const page = Number(queryString._page) || 1
   const limit = Number(queryString._limit) || 8
@@ -76,7 +79,7 @@ export default function ProductList() {
                 ghost
                 className='mx-auto mt-3 h-[42px] w-60 border-[1px] border-[#0a68ff] px-3 py-2 text-[16px] leading-normal text-[#0a68ff]'
               >
-                Xem thêm
+                {t('view more')}
               </Button>
             </Row>
           </div>

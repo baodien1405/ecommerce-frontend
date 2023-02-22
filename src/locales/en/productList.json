@@ -1,6 +1,9 @@
 {
   "aside filter": {
     "product categories": "Product categories",
-    "services": "Services"
-  }
+    "services": "Services",
+    "review": "Review",
+    "price": "Price"
+  },
+  "view more": "View more"
 }

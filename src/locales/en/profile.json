@@ -1,0 +1,19 @@
+{
+  "aside profile": {
+    "account info": "Account info",
+    "my notification": "My notification",
+    "order management": "Order management",
+    "refund management": "Refund management",
+    "address": "Address",
+    "payment info": "Payment info",
+    "product review": "Product review",
+    "product seen": "Product seen",
+    "product love": "Product love",
+    "product buy later": "Product buy later",
+    "my review": "My review"
+  },
+  "homepage > account info": "Homepage > Account Info",
+  "account info": "Account info",
+  "personal info": "Personal info",
+  "save change": "Save"
+}

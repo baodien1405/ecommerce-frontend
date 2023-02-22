@@ -5,6 +5,10 @@ import LOGIN_EN from '@/locales/en/login.json'
 import PRODUCT_LIST_EN from '@/locales/en/productList.json'
 import LOGIN_VI from '@/locales/vi/login.json'
 import PRODUCT_LIST_VI from '@/locales/vi/productList.json'
+import REGISTER_EN from '@/locales/en/register.json'
+import REGISTER_VI from '@/locales/vi/register.json'
+import PROFILE_EN from '@/locales/en/profile.json'
+import PROFILE_VI from '@/locales/vi/profile.json'
 
 export const locales = {
   en: 'English',
@@ -14,15 +18,19 @@ export const locales = {
 export const resources = {
   en: {
     login: LOGIN_EN,
-    productList: PRODUCT_LIST_EN
+    productList: PRODUCT_LIST_EN,
+    register: REGISTER_EN,
+    profile: PROFILE_EN
   },
   vi: {
     login: LOGIN_VI,
-    productList: PRODUCT_LIST_VI
+    productList: PRODUCT_LIST_VI,
+    register: REGISTER_VI,
+    profile: PROFILE_VI
   }
 } as const
 
-export const defaultNS = 'login'
+export const defaultNS = 'productList'
 
 i18n.use(initReactI18next).init({
   resources,

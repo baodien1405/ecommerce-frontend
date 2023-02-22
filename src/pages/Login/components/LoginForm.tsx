@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Form } from 'antd'
 import { useForm } from 'react-hook-form'
@@ -11,6 +12,7 @@ export interface LoginFormProps {
 }
 
 export function LoginForm({ initialValues, onSubmit }: LoginFormProps) {
+  const [t] = useTranslation('login')
   const schema = useLoginFormSchema()
   const {
     control,
@@ -39,7 +41,7 @@ export function LoginForm({ initialValues, onSubmit }: LoginFormProps) {
         danger
         className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-[20px] font-medium leading-6'
       >
-        Đăng nhập
+        {t('sign in')}
       </Button>
     </Form>
   )

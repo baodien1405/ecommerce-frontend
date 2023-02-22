@@ -12,7 +12,7 @@ export interface RegisterFormProps {
 }
 
 export function RegisterForm({ initialValues, onSubmit }: RegisterFormProps) {
-  const { t } = useTranslation()
+  const [t] = useTranslation('register')
   const schema = useRegisterFormSchema()
   const {
     control,

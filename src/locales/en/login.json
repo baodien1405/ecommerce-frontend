@@ -1,3 +1,8 @@
 {
-  "sign in": "Sign In"
+  "sign in": "Sign In",
+  "hello": "Hello,",
+  "sign in or create account": "Sign in or create account",
+  "forgot password": "Forgot password",
+  "no account": "No account?",
+  "create account": "Create account"
 }
