@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Col, Row } from 'antd'
 
-import productApi from '@/api/productApi'
+import productApi from '@/api/product.api'
 import images from '@/assets/images'
 import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
@@ -32,7 +32,6 @@ export default function ProductList() {
     keepPreviousData: true,
     retry: 0
   })
-  console.log('🚀 ~ ProductList ~ productsQuery:', productsQuery)
 
   return (
     <div className='bg-[#efefef]'>

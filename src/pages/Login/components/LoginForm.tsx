@@ -8,16 +8,17 @@ import { useLoginFormSchema } from '@/hooks'
 
 export interface LoginFormProps {
   initialValues?: FormDataLogin
+  loading?: boolean
   onSubmit?: (values: FormDataLogin) => void
 }
 
-export function LoginForm({ initialValues, onSubmit }: LoginFormProps) {
+export function LoginForm({ initialValues, loading, onSubmit }: LoginFormProps) {
   const [t] = useTranslation('login')
   const schema = useLoginFormSchema()
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting, isValid }
+    formState: { isValid }
   } = useForm<FormDataLogin>({
     mode: 'onChange',
     defaultValues: initialValues,
@@ -34,8 +35,8 @@ export function LoginForm({ initialValues, onSubmit }: LoginFormProps) {
       <InputPasswordField name='password' control={control} placeholder='Mật khẩu' classNameInput='py-2' />
 
       <Button
-        loading={isSubmitting}
-        disabled={!isValid}
+        loading={loading}
+        disabled={!isValid || loading}
         type='primary'
         htmlType='submit'
         danger

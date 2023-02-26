@@ -1,19 +1,54 @@
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
+
 import Image from '@/components/Image'
 import { path } from '@/constants'
-import { FormDataLogin } from '@/types'
+import { ErrorResponse, FormDataLogin } from '@/types'
 import { LoginForm } from './components'
+import authApi from '@/api/auth.api'
+import { isAxiosUnprocessableEntityError, setAccessTokenToLS, setProfileToLS } from '@/utils'
+import userApi from '@/api/user.api'
+import { useContext } from 'react'
+import { AppContext } from '@/contexts'
 
 export default function Login() {
-  const { t } = useTranslation('login')
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const [t] = useTranslation('login')
+  const navigate = useNavigate()
+
+  const loginMutation = useMutation({
+    mutationFn: (body: FormDataLogin) => authApi.login(body)
+  })
+
   const initialLoginFormValue = {
     email: 'capbaodien@gmail.com',
     password: '123456'
   }
 
-  const handleLogin = (values: FormDataLogin) => {
-    console.log(values)
+  const handleLogin = (formValues: FormDataLogin) => {
+    loginMutation.mutate(formValues, {
+      onSuccess: async (data) => {
+        const accessToken = data.data?.access_token
+        if (accessToken) {
+          toast.success(data.data?.message)
+          setAccessTokenToLS(accessToken)
+          const { id } = jwtDecode<{ id: string; isAdmin: string }>(accessToken)
+          const profile = await userApi.getProfile(id)
+          setIsAuthenticated(true)
+          setProfile(profile.data.data)
+          setProfileToLS(profile.data.data)
+          navigate(path.product)
+        }
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+          toast.error(error.response?.data?.message)
+        }
+      }
+    })
   }
 
   return (
@@ -23,7 +58,7 @@ export default function Login() {
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('hello')}</h4>
           <div className='mb-[20px] text-[15px] leading-[20px]'>{t('sign in or create account')}</div>
 
-          <LoginForm initialValues={initialLoginFormValue} onSubmit={handleLogin} />
+          <LoginForm loading={loginMutation.isLoading} initialValues={initialLoginFormValue} onSubmit={handleLogin} />
 
           <div className='mt-[20px] inline-block cursor-pointer text-[13px] leading-[1.15] text-[#0d5cb6]'>
             {t('forgot password')}

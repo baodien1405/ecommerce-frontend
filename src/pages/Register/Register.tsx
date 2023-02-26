@@ -1,12 +1,22 @@
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
 import { RegisterForm } from './components'
 import Image from '@/components/Image'
 import { path } from '@/constants'
-import { FormDataRegister } from '@/types'
+import authApi from '@/api/auth.api'
+import { ErrorResponse, FormDataRegister } from '@/types'
+import { isAxiosUnprocessableEntityError } from '@/utils'
 
 export default function Register() {
   const [t] = useTranslation('register')
+  const navigate = useNavigate()
+
+  const registerAccountMutation = useMutation({
+    mutationFn: (body: FormDataRegister) => authApi.registerAccount(body)
+  })
 
   const initialValuesFormRegister = {
     email: 'capbaodien@gmail.com',
@@ -15,7 +25,17 @@ export default function Register() {
   }
 
   const handleRegister = (values: FormDataRegister) => {
-    console.log(values)
+    registerAccountMutation.mutate(values, {
+      onSuccess: (data) => {
+        toast.success(data.data.message)
+        navigate(path.login)
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+          toast.error(error.response?.data?.message)
+        }
+      }
+    })
   }
 
   return (
@@ -25,7 +45,11 @@ export default function Register() {
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('create account')}</h4>
           <div className='mb-[20px] text-[15px] leading-[20px]'>{t('please enter info to register')}</div>
 
-          <RegisterForm initialValues={initialValuesFormRegister} onSubmit={handleRegister} />
+          <RegisterForm
+            loading={registerAccountMutation.isLoading}
+            initialValues={initialValuesFormRegister}
+            onSubmit={handleRegister}
+          />
 
           <div className='mt-[20px] flex text-[13px]'>
             <span>{t('do you have account')}</span>

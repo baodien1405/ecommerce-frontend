@@ -8,16 +8,17 @@ import { useRegisterFormSchema } from '@/hooks'
 
 export interface RegisterFormProps {
   initialValues?: FormDataRegister
+  loading?: boolean
   onSubmit?: (values: FormDataRegister) => void
 }
 
-export function RegisterForm({ initialValues, onSubmit }: RegisterFormProps) {
+export function RegisterForm({ initialValues, loading, onSubmit }: RegisterFormProps) {
   const [t] = useTranslation('register')
   const schema = useRegisterFormSchema()
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting, isValid }
+    formState: { isValid }
   } = useForm<FormDataRegister>({
     mode: 'onChange',
     defaultValues: initialValues,
@@ -47,8 +48,8 @@ export function RegisterForm({ initialValues, onSubmit }: RegisterFormProps) {
       />
 
       <Button
-        loading={isSubmitting}
-        disabled={!isValid}
+        loading={loading}
+        disabled={!isValid || loading}
         type='primary'
         danger
         className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-[20px] font-medium leading-6'

@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { getAccessTokenFromLS } from '@/utils'
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosHeaders } from 'axios'
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -12,6 +13,11 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config: AxiosRequestConfig) {
     // Do something before request is sent
+    const accessToken = getAccessTokenFromLS()
+    if (accessToken && config.headers) {
+      ;(config.headers as AxiosHeaders).set('Authorization', `Bearer ${accessToken}`)
+      return config
+    }
     return config
   },
   function (error) {
@@ -25,7 +31,7 @@ axiosClient.interceptors.response.use(
   function (response: AxiosResponse) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    return response.data
+    return response
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger

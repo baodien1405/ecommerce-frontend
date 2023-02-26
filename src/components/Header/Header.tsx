@@ -1,16 +1,20 @@
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Col, Row, Input, Tooltip } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { CaretDownOutlined, SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
+
 import Image from '@/components/Image'
 import images from '@/assets/images'
 import { path } from '@/constants'
+import { AppContext } from '@/contexts'
 import { GlobalIcon } from '@/components/Icons'
 
 const { Search } = Input
 
 export default function Header() {
   const navigate = useNavigate()
+  const { profile } = useContext(AppContext)
   const { i18n } = useTranslation()
   const currentLanguage = i18n.language
 
@@ -50,13 +54,17 @@ export default function Header() {
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-4 text-white'>
                 <UserOutlined className='text-[32px]' />
-                <div className='cursor-pointer' onClick={handleNavigateLogin}>
-                  <span className='text-xs'>Login/Logout</span>
-                  <div className='flex items-center text-[13px] leading-[20px]'>
-                    <span>Account</span>
-                    <CaretDownOutlined />
+                {profile?.email ? (
+                  <div>{profile.email}</div>
+                ) : (
+                  <div className='cursor-pointer' onClick={handleNavigateLogin}>
+                    <span className='text-xs'>Login/Logout</span>
+                    <div className='flex items-center text-[13px] leading-[20px]'>
+                      <span>Account</span>
+                      <CaretDownOutlined />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className='flex items-end gap-[8px] text-white'>
@@ -66,7 +74,6 @@ export default function Header() {
                     0
                   </span>
                 </div>
-                <span className='text-[12px]'>Cart</span>
               </div>
 
               <Tooltip
