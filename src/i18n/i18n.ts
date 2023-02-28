@@ -9,6 +9,8 @@ import REGISTER_EN from '@/locales/en/register.json'
 import REGISTER_VI from '@/locales/vi/register.json'
 import PROFILE_EN from '@/locales/en/profile.json'
 import PROFILE_VI from '@/locales/vi/profile.json'
+import HEADER_EN from '@/locales/en/header.json'
+import HEADER_VI from '@/locales/vi/header.json'
 
 export const locales = {
   en: 'English',
@@ -20,13 +22,15 @@ export const resources = {
     login: LOGIN_EN,
     productList: PRODUCT_LIST_EN,
     register: REGISTER_EN,
-    profile: PROFILE_EN
+    profile: PROFILE_EN,
+    header: HEADER_EN
   },
   vi: {
     login: LOGIN_VI,
     productList: PRODUCT_LIST_VI,
     register: REGISTER_VI,
-    profile: PROFILE_VI
+    profile: PROFILE_VI,
+    header: HEADER_VI
   }
 } as const
 

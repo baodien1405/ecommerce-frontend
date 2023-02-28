@@ -3,7 +3,7 @@ import axiosClient from './axiosClient'
 
 const productApi = {
   getProductList(page: number | string, limit: number | string, signal?: AbortSignal) {
-    return axiosClient.get<ProductResponse>('/product/get-all', {
+    return axiosClient.get<ProductResponse>('/product', {
       params: {
         _page: page,
         _limit: limit

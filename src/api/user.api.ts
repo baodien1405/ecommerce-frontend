@@ -2,8 +2,11 @@ import { SuccessResponse, User } from '@/types'
 import axiosClient from './axiosClient'
 
 const userApi = {
-  getProfile(id: string) {
-    return axiosClient.get<SuccessResponse<User>>(`/user/get-detail/${id}`)
+  getProfile() {
+    return axiosClient.get<SuccessResponse<User>>('/user/profile')
+  },
+  updateProfile(id: string, body: Omit<User, '_id' | 'isAdmin' | 'createdAt' | 'updatedAt' | 'email'>) {
+    return axiosClient.put<SuccessResponse<User>>(`user/${id}`, body)
   }
 }
 

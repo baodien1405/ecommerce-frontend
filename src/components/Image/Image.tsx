@@ -7,6 +7,7 @@ export interface ImageProps {
   alt: string
   fallback?: string
   className?: string
+  onClick?: () => void
 }
 
 // eslint-disable-next-line react/display-name

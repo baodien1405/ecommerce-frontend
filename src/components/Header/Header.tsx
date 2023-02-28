@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Col, Row, Input, Tooltip } from 'antd'
+import { Col, Row, Input, Tooltip, Popover } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { CaretDownOutlined, SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 
@@ -9,13 +9,14 @@ import images from '@/assets/images'
 import { path } from '@/constants'
 import { AppContext } from '@/contexts'
 import { GlobalIcon } from '@/components/Icons'
+import { clearLS } from '@/utils'
 
 const { Search } = Input
 
 export default function Header() {
   const navigate = useNavigate()
-  const { profile } = useContext(AppContext)
-  const { i18n } = useTranslation()
+  const { profile, reset } = useContext(AppContext)
+  const [t, i18n] = useTranslation('header')
   const currentLanguage = i18n.language
 
   const handleSearch = () => {
@@ -30,12 +31,17 @@ export default function Header() {
     i18n.changeLanguage(lng)
   }
 
+  const handleLogout = () => {
+    reset()
+    clearLS()
+  }
+
   return (
     <div className='bg-[#1a94ff]'>
       <div className='container w-full'>
         <Row gutter={16} className='flex items-center justify-between py-[10px]'>
           <Col span={5}>
-            <Image src={images.logo} alt='logo' className='w-[60px]' />
+            <Image src={images.logo} alt='logo' className='w-[60px]' onClick={() => navigate(path.product)} />
           </Col>
           <Col span={13}>
             <Search
@@ -53,9 +59,35 @@ export default function Header() {
           <Col span={6}>
             <div className='flex items-center justify-between'>
               <div className='flex items-center gap-4 text-white'>
-                <UserOutlined className='text-[32px]' />
+                {profile?.avatar ? (
+                  <Image className='h-[30px] w-[30px] rounded-full object-cover' alt='image' src={profile?.avatar} />
+                ) : (
+                  <UserOutlined className='text-[32px]' />
+                )}
+
                 {profile?.email ? (
-                  <div>{profile.email}</div>
+                  <Popover
+                    placement='bottom'
+                    content={
+                      <>
+                        <div
+                          className='rounded py-2 px-2 transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
+                          onClick={handleLogout}
+                        >
+                          {t('logout')}
+                        </div>
+                        <div
+                          className='rounded py-2 px-2 transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
+                          onClick={() => navigate(path.profile)}
+                        >
+                          {t('customer information')}
+                        </div>
+                      </>
+                    }
+                    trigger='click'
+                  >
+                    <div className='cursor-pointer py-2'>{profile.name || profile.email}</div>
+                  </Popover>
                 ) : (
                   <div className='cursor-pointer' onClick={handleNavigateLogin}>
                     <span className='text-xs'>Login/Logout</span>
