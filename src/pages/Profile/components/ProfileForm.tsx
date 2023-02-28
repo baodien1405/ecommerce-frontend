@@ -1,54 +1,56 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Form, Upload } from 'antd'
+import { Button, Form } from 'antd'
 import { useForm } from 'react-hook-form'
 import { InputField } from '@/components/FormFields'
 import { FormDataProfile } from '@/types'
 import { useProfileFormSchema } from '@/hooks'
-import Image from '@/components/Image'
+import { UploadAvatar } from './UploadAvatar'
 
 export interface ProfileFormProps {
   initialValues?: FormDataProfile
+  loading?: boolean
   onSubmit?: (values: FormDataProfile) => void
 }
 
-export function ProfileForm({ initialValues, onSubmit }: ProfileFormProps) {
+export function ProfileForm({ initialValues, loading, onSubmit }: ProfileFormProps) {
+  const [avatar, setAvatar] = useState(initialValues?.avatar || '')
   const [t] = useTranslation('profile')
   const schema = useProfileFormSchema()
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting, isValid }
+    formState: { isValid }
   } = useForm<FormDataProfile>({
-    mode: 'onChange',
+    mode: 'onSubmit',
     defaultValues: initialValues,
     resolver: yupResolver(schema)
   })
 
+  const handleAvatarUpload = (avatar: string) => {
+    setAvatar(avatar)
+  }
+
   const handleUpdateProfile = async (values: FormDataProfile) => {
-    await onSubmit?.(values)
+    await onSubmit?.({ ...values, avatar })
   }
 
   return (
     <Form colon={false} initialValues={initialValues} onFinish={handleSubmit(handleUpdateProfile)}>
       <div className='flex gap-5'>
-        <Upload
-          name='avatar'
-          listType='picture'
-          className='block h-[100px] w-[100px]'
-          showUploadList={false}
-          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-        >
-          <Image
-            className='overflow-hidden rounded-full'
-            alt='image'
-            src='https://salt.tikicdn.com/cache/512x512/ts/avatar/03/65/b2/4c98456da9487007e081105f3675b4fa.jpg'
-          />
-        </Upload>
+        <UploadAvatar avatar={avatar} onChange={handleAvatarUpload} />
 
         <div className='w-[700px]'>
           <InputField label='Name' control={control} name='name' placeholder='Thêm tên' classNameInput='py-2' />
-          <InputField label='Email' control={control} name='email' placeholder='abc@email.com' classNameInput='py-2' />
+          <InputField
+            name='email'
+            label='Email'
+            disabled
+            control={control}
+            placeholder='abc@email.com'
+            classNameInput='py-2'
+          />
           <InputField
             label='Phone'
             control={control}
@@ -67,8 +69,8 @@ export function ProfileForm({ initialValues, onSubmit }: ProfileFormProps) {
       </div>
 
       <Button
-        loading={isSubmitting}
-        disabled={!isValid}
+        loading={loading}
+        disabled={!isValid || loading}
         type='primary'
         htmlType='submit'
         className='mx-auto block h-10 w-[176px] rounded bg-[#0b74e5]'
