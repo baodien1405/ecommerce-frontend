@@ -1,4 +1,18 @@
 {
   "logout": "Đăng xuất",
-  "customer information": "Thông tin người dùng"
+  "customer information": "Thông tin người dùng",
+  "search product placeholder": "Search product...",
+  "home page": "Trang chủ",
+  "account": "Tài khoản",
+  "search": "Tìm kiếm",
+  "quick links": {
+    "fruit": "trái cây",
+    "meat, egg": "thịt, trứng",
+    "vegetable": "rau củ quả",
+    "milk, butter, cheese": "sữa, bơ, phô mai",
+    "seafood": "hải sản",
+    "rice, noodles": "gạo, mì ăn liền",
+    "drink, bear, wine": "đồ uống, rượu bia",
+    "cake, candy": "bánh kẹo"
+  }
 }
