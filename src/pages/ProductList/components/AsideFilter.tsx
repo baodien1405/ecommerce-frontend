@@ -24,7 +24,7 @@ export function AsideFilter() {
   const [t] = useTranslation(['productList'])
 
   return (
-    <div className='w-[200px] overflow-hidden rounded-l-[4px] bg-white px-4 py-3'>
+    <div className='max-h-[700px] w-[200px] overflow-hidden rounded-l-[4px] bg-white px-4 py-3'>
       <div>
         <h4 className='pb-3 text-sm font-medium text-[#38383d]'>
           {t('aside filter.product categories', { ns: 'productList' })}
