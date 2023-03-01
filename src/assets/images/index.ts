@@ -15,6 +15,7 @@ import blueLogo from '@/assets/images/blue-logo.png'
 import homeLogo from '@/assets/images/home-logo.png'
 import cartIcon from '@/assets/images/cart-icon.png'
 import locationIcon from '@/assets/images/location-icon.png'
+import pageNotFound from '@/assets/images/page-not-found.png'
 
 const images = {
   logo: logoImage,
@@ -33,7 +34,8 @@ const images = {
   blueLogo: blueLogo,
   homeLogo: homeLogo,
   cartIcon: cartIcon,
-  locationIcon: locationIcon
+  locationIcon: locationIcon,
+  pageNotFound: pageNotFound
 }
 
 export default images

@@ -9,8 +9,8 @@ import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
 import ProductType from '@/components/ProductType'
 import SlickSlider from '@/components/SlickSlider'
-import { AsideFilter } from './components'
 import { useQueryString } from '@/hooks'
+import { AsideFilter } from './components'
 
 const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
 const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
@@ -33,7 +33,6 @@ export default function ProductList() {
     keepPreviousData: true,
     retry: 0
   })
-  console.log('🚀 ~ ProductList ~ productsQuery:', productsQuery)
 
   const outstandingList = [
     { id: '1', imageURL: images.sale33, label: '3.3 Sale Freeship' },

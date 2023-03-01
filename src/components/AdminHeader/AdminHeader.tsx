@@ -1,5 +1,5 @@
-import { SearchOutlined, UserOutlined } from '@ant-design/icons'
-import { Input, Tooltip } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { Tooltip } from 'antd'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
@@ -12,28 +12,11 @@ import { AppContext } from '@/contexts'
 import { locales } from '@/i18n/i18n'
 import { clearLS } from '@/utils'
 
-const { Search } = Input
-
-export default function Header() {
+export default function AdminHeader() {
   const navigate = useNavigate()
-  const { profile, reset } = useContext(AppContext)
   const [t, i18n] = useTranslation('header')
+  const { profile, reset } = useContext(AppContext)
   const currentLanguage = i18n.language as 'en' | 'vi'
-
-  const quickLinks = [
-    { id: '1', to: '', content: t('quick links.fruit') },
-    { id: '2', to: '', content: t('quick links.meat, egg') },
-    { id: '3', to: '', content: t('quick links.vegetable') },
-    { id: '4', to: '', content: t('quick links.milk, butter, cheese') },
-    { id: '5', to: '', content: t('quick links.seafood') },
-    { id: '6', to: '', content: t('quick links.rice, noodles') },
-    { id: '7', to: '', content: t('quick links.drink, bear, wine') },
-    { id: '8', to: '', content: t('quick links.cake, candy') }
-  ]
-
-  const handleSearch = () => {
-    return null
-  }
 
   const changeLanguage = (lng: 'en' | 'vi') => {
     i18n.changeLanguage(lng)
@@ -48,39 +31,11 @@ export default function Header() {
     <div className='mb-1 py-2 shadow'>
       <div className='container w-full'>
         <div className='flex items-center justify-between'>
-          <div className='flex flex-1 items-center'>
-            <div className='mr-12'>
-              <Image src={images.blueLogo} alt='logo' className='w-[60px]' onClick={() => navigate(path.product)} />
-            </div>
-
-            <div className='flex-1'>
-              <Search
-                placeholder='Search product...'
-                onSearch={handleSearch}
-                size='large'
-                enterButton={
-                  <div className='flex items-center gap-4'>
-                    <SearchOutlined />
-                    <span>{t('search')}</span>
-                  </div>
-                }
-              />
-            </div>
+          <div className='mr-12'>
+            <Image src={images.blueLogo} alt='logo' className='w-[60px]' onClick={() => navigate(path.product)} />
           </div>
 
           <div className='ml-12 flex items-center'>
-            <div className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#0060ff1f]'>
-              <Image
-                className='mr-1 h-6 w-6 rounded-full'
-                src={images.homeLogo}
-                alt='logo'
-                onClick={() => navigate(path.product)}
-              />
-              <Link to='/' className='text-[14px] font-medium leading-normal text-[#0a68ff]'>
-                {t('home page')}
-              </Link>
-            </div>
-
             <Tooltip
               title={
                 <div className='w-[120px] cursor-pointer'>
@@ -154,41 +109,6 @@ export default function Header() {
                 </Link>
               </div>
             )}
-
-            <div className='ml-6 flex items-end gap-[8px] text-white'>
-              <div className='relative before:absolute before:-left-3 before:block before:h-5 before:border-[1px] before:border-solid before:border-[#ebebf0] before:content-[""]'>
-                <Image className='h-[24px] w-[24px]' alt='image' src={images.cartIcon} />
-                <span className='absolute -top-[10px] -right-1 inline-block h-[16px] rounded-lg bg-[#ff424f] py-[0.5px] px-1 text-center text-[10px] font-bold leading-normal text-white'>
-                  0
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className='flex justify-between'>
-          <div className='ml-[105px] mt-2 flex'>
-            {quickLinks.map((item) => (
-              <Link
-                className='mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]'
-                key={item.id}
-                to={item.to}
-              >
-                {item.content}
-              </Link>
-            ))}
-          </div>
-
-          <div className='mt-2 w-[348px]'>
-            <div className='flex items-center justify-end'>
-              <Image className='mr-1 h-[20px] w-[20px]' alt='image' src={images.locationIcon} />
-              <h4 className='whitespace-nowrap pr-1 text-[14px] font-normal leading-normal text-[#808089]'>
-                Giao đến:
-              </h4>
-              <div className='overflow-hidden whitespace-nowrap text-[14px] font-medium leading-normal text-[#27272a] underline'>
-                Q. Tân Bình, P. 04, Hồ Chí Minh
-              </div>
-            </div>
           </div>
         </div>
       </div>

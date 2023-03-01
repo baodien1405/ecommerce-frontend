@@ -5,5 +5,6 @@ export const path = {
   register: '/register',
   profile: '/profile',
   productDetail: ':nameId',
+  systemAdmin: '/system/admin',
   notFound: '*'
 } as const
