@@ -11,6 +11,9 @@ import Register from '@/pages/Register'
 import ProductDetail from '@/pages/ProductDetail'
 import ProductList from '@/pages/ProductList'
 import Profile from '@/pages/Profile'
+import NotFound from '@/pages/NotFound'
+import AdminLayout from '@/layouts/AdminLayout'
+import Admin from '@/pages/Admin'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -19,7 +22,12 @@ function ProtectedRoute() {
 
 function RejectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
-  return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
+  return !isAuthenticated ? <Outlet /> : <Navigate to='*' />
+}
+
+function AdminRoute() {
+  const { isAuthenticated, profile } = useContext(AppContext)
+  return isAuthenticated && profile?.isAdmin ? <Outlet /> : <NotFound />
 }
 
 export function useRouteElements() {
@@ -75,6 +83,28 @@ export function useRouteElements() {
       element: (
         <MainLayout>
           <ProductList />
+        </MainLayout>
+      )
+    },
+    {
+      path: '',
+      element: <AdminRoute />,
+      children: [
+        {
+          path: path.systemAdmin,
+          element: (
+            <AdminLayout>
+              <Admin />
+            </AdminLayout>
+          )
+        }
+      ]
+    },
+    {
+      path: '*',
+      element: (
+        <MainLayout>
+          <NotFound />
         </MainLayout>
       )
     }
