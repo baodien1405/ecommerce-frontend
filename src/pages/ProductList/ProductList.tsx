@@ -33,6 +33,7 @@ export default function ProductList() {
     keepPreviousData: true,
     retry: 0
   })
+  console.log('🚀 ~ ProductList ~ productsQuery:', productsQuery)
 
   const outstandingList = [
     { id: '1', imageURL: images.sale33, label: '3.3 Sale Freeship' },
@@ -94,13 +95,11 @@ export default function ProductList() {
                   ))}
 
               {!productsQuery.isLoading &&
-                Array(10)
-                  .fill(0)
-                  .map((item, index) => (
-                    <Col key={index}>
-                      <ProductCard />
-                    </Col>
-                  ))}
+                productsQuery.data?.data.data.map((product, index) => (
+                  <Col key={product._id}>
+                    <ProductCard product={product} />
+                  </Col>
+                ))}
             </Row>
 
             <Row>

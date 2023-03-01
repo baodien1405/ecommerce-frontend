@@ -7,6 +7,8 @@ export interface Product {
   countInStock: number
   rating: number
   description: string
+  discount: number
+  quantitySold: number
 }
 
 export interface Pagination {
