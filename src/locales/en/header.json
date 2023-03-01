@@ -1,4 +1,18 @@
 {
   "logout": "Log out",
-  "customer information": "Customer information"
+  "customer information": "Customer information",
+  "search product placeholder": "Search product...",
+  "home page": "Homepage",
+  "account": "Account",
+  "search": "Search",
+  "quick links": {
+    "fruit": "fruit",
+    "meat, egg": "meat, egg",
+    "vegetable": "vegetable",
+    "milk, butter, cheese": "milk, butter, cheese",
+    "seafood": "seafood",
+    "rice, noodles": "rice, noodles",
+    "drink, bear, wine": "drink, bear, wine",
+    "cake, candy": "cake, candy"
+  }
 }

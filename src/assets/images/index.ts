@@ -11,6 +11,10 @@ import subBanner from '@/assets/images/sub-banner.webp'
 import goodPrice from '@/assets/images/good-price.webp'
 import endowAffiliate from '@/assets/images/endow-affiliate.webp'
 import discountVoucher from '@/assets/images/discount-voucher.webp'
+import blueLogo from '@/assets/images/blue-logo.png'
+import homeLogo from '@/assets/images/home-logo.png'
+import cartIcon from '@/assets/images/cart-icon.png'
+import locationIcon from '@/assets/images/location-icon.png'
 
 const images = {
   logo: logoImage,
@@ -25,7 +29,11 @@ const images = {
   subBanner: subBanner,
   goodPrice: goodPrice,
   endowAffiliate: endowAffiliate,
-  discountVoucher: discountVoucher
+  discountVoucher: discountVoucher,
+  blueLogo: blueLogo,
+  homeLogo: homeLogo,
+  cartIcon: cartIcon,
+  locationIcon: locationIcon
 }
 
 export default images
