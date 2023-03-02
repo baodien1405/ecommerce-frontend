@@ -2,6 +2,6 @@ interface DefaultLayoutProps {
   children?: React.ReactNode
 }
 
-export default function DefaultLayout({ children }: DefaultLayoutProps) {
+export function DefaultLayout({ children }: DefaultLayoutProps) {
   return <div>{children}</div>
 }

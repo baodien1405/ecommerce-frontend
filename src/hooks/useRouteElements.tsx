@@ -3,17 +3,14 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 
 import { path } from '@/constants'
 import { AppContext } from '@/contexts'
-import MainLayout from '@/layouts/MainLayout'
-import DefaultLayout from '@/layouts/DefaultLayout'
-
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import ProductDetail from '@/pages/ProductDetail'
 import ProductList from '@/pages/ProductList'
 import Profile from '@/pages/Profile'
 import NotFound from '@/pages/NotFound'
-import AdminLayout from '@/layouts/AdminLayout'
 import Admin from '@/pages/Admin'
+import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
