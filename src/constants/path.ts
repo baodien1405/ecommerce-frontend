@@ -6,5 +6,7 @@ export const path = {
   profile: '/profile',
   productDetail: ':nameId',
   systemAdmin: '/system/admin',
+  adminUser: '/admin/user',
+  adminProduct: '/admin/product',
   notFound: '*'
 } as const

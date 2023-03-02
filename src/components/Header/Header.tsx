@@ -118,15 +118,25 @@ export default function Header() {
                   <>
                     <div
                       className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
-                      onClick={handleLogout}
-                    >
-                      {t('logout')}
-                    </div>
-                    <div
-                      className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
                       onClick={() => navigate(path.profile)}
                     >
                       {t('customer information')}
+                    </div>
+
+                    {profile?.isAdmin && (
+                      <div
+                        className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
+                        onClick={() => navigate(path.adminUser)}
+                      >
+                        {t('system management')}
+                      </div>
+                    )}
+
+                    <div
+                      className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
+                      onClick={handleLogout}
+                    >
+                      {t('logout')}
                     </div>
                   </>
                 }

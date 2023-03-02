@@ -9,8 +9,8 @@ import ProductDetail from '@/pages/ProductDetail'
 import ProductList from '@/pages/ProductList'
 import Profile from '@/pages/Profile'
 import NotFound from '@/pages/NotFound'
-import Admin from '@/pages/Admin'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
+import { AdminProduct, AdminUser } from '@/pages/Admin/pages'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -88,10 +88,18 @@ export function useRouteElements() {
       element: <AdminRoute />,
       children: [
         {
-          path: path.systemAdmin,
+          path: path.adminUser,
           element: (
             <AdminLayout>
-              <Admin />
+              <AdminUser />
+            </AdminLayout>
+          )
+        },
+        {
+          path: path.adminProduct,
+          element: (
+            <AdminLayout>
+              <AdminProduct />
             </AdminLayout>
           )
         }

@@ -28,7 +28,7 @@ export default function AdminHeader() {
   }
 
   return (
-    <div className='mb-1 py-2 shadow'>
+    <div className='mb-[1px] py-2 shadow'>
       <div className='container w-full'>
         <div className='flex items-center justify-between'>
           <div className='mr-12'>

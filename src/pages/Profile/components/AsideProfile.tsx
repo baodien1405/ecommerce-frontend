@@ -1,4 +1,6 @@
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   CartIcon,
   CustomerAddressIcon,
@@ -13,10 +15,11 @@ import {
   UserIcon
 } from '@/components/Icons'
 import Image from '@/components/Image'
-import { useTranslation } from 'react-i18next'
+import { AppContext } from '@/contexts'
 
 export function AsideProfile() {
   const [t] = useTranslation('profile')
+  const { profile } = useContext(AppContext)
 
   const infoList = [
     { icon: <UserIcon />, label: t('aside profile.account info'), url: '' },
@@ -35,11 +38,7 @@ export function AsideProfile() {
   return (
     <div className='w-[250px] overflow-hidden rounded-l-[4px]'>
       <div className='mb-3 flex items-center'>
-        <Image
-          className='mr-3 w-[50px] rounded-full object-contain'
-          alt='image'
-          src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80'
-        />
+        <Image className='mr-3 w-[50px] rounded-full object-cover' alt='image' src={profile?.avatar || ''} />
         <div className='flex flex-col'>
           <span className='text-[13px] font-light leading-[15px] text-[#333333]'>Tài khoản của</span>
           <strong className='text-[16px] font-normal leading-[19px]'>Bảo Điền</strong>
