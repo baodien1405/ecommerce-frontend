@@ -30,7 +30,7 @@ export function InputField({
 
   return (
     <Form.Item
-      label={label ? <div className='flex w-20 items-start'>{label}</div> : undefined}
+      label={label ? <div className='flex w-[90px] items-start'>{label}</div> : undefined}
       name={name}
       help={error?.message}
       validateStatus={invalid ? 'error' : 'success'}

@@ -23,3 +23,13 @@ export interface ProductResponse {
   data: Product[]
   pagination: Pagination
 }
+
+export interface FormDataProduct {
+  name: string
+  type: string
+  countInStock: string
+  price: string
+  description: string
+  rating: string
+  image: string
+}
