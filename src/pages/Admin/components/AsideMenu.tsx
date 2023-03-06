@@ -50,7 +50,7 @@ export function AsideMenu({ menuList, openKey, onChangeOpenKey, selectedKey, onC
       openKeys={openKey ? [openKey] : []}
       onOpenChange={onOpenChange}
       onSelect={(k) => onMenuClick(k.key)}
-      className='text-2 h-[calc(100vh-65px)] w-[300px] border-r-0'
+      className='text-2 h-[calc(100vh-58px)] w-[300px] border-r-0'
       items={menuList.map((menu) => {
         return menu.children
           ? {

@@ -21,6 +21,12 @@ body {
   background-color: #0d5cb6;
 }
 
+.ant-pagination-item-link {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

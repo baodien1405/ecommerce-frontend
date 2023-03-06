@@ -2,7 +2,7 @@ import { Product, ProductResponse, SuccessResponse } from '@/types'
 import axiosClient from './axiosClient'
 
 const productApi = {
-  getProductList(page: number | string, limit: number | string, signal?: AbortSignal) {
+  getProductList(page?: number | string, limit?: number | string, signal?: AbortSignal) {
     return axiosClient.get<ProductResponse>('/product', {
       params: {
         _page: page,

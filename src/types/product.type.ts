@@ -14,7 +14,7 @@ export interface Product {
 export interface Pagination {
   _limit: number
   _page: number
-  _totalRows: string
+  _totalRows: number
 }
 
 export interface ProductResponse {

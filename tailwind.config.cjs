@@ -25,6 +25,11 @@ module.exports = {
           paddingRight: theme('spacing.4')
         }
       })
+      addComponents({
+        '.header-height': {
+          height: '58px'
+        }
+      })
     }),
     require('@tailwindcss/line-clamp')
   ]
