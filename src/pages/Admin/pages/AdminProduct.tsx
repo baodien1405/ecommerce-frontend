@@ -3,7 +3,11 @@ import { PlusOutlined } from '@ant-design/icons'
 import { Button, Modal, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { ProductForm } from '../components'
-import { FormDataProduct } from '@/types'
+import { ErrorResponse, FormDataProduct } from '@/types'
+import { useMutation } from '@tanstack/react-query'
+import productApi from '@/api/product.api'
+import { toast } from 'react-toastify'
+import { isAxiosUnprocessableEntityError } from '@/utils'
 
 interface DataType {
   key: React.Key
@@ -58,8 +62,32 @@ const data: DataType[] = [
 export function AdminProduct() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const addProductMutation = useMutation({
+    mutationFn: (body: FormDataProduct) => productApi.addProduct(body)
+  })
+
   const handleSubmit = (values: FormDataProduct) => {
-    console.log('🚀 ~ handleSubmit ~ values:', values)
+    const product: FormDataProduct = {
+      name: values.name,
+      type: values.type,
+      countInStock: Number(values.countInStock),
+      price: Number(values.price),
+      description: values.description,
+      image: values.image,
+      rating: Number(values.rating)
+    }
+
+    addProductMutation.mutate(product, {
+      onSuccess: async (data) => {
+        toast.success(data.data?.message)
+        setIsModalOpen(false)
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+          toast.error(error.response?.data?.message)
+        }
+      }
+    })
   }
 
   return (
@@ -80,7 +108,11 @@ export function AdminProduct() {
         cancelButtonProps={{ className: 'hidden' }}
         onCancel={() => setIsModalOpen(false)}
       >
-        <ProductForm onSubmit={handleSubmit} />
+        <ProductForm
+          loading={addProductMutation.isLoading}
+          isSuccess={addProductMutation.isSuccess}
+          onSubmit={handleSubmit}
+        />
       </Modal>
 
       <Table

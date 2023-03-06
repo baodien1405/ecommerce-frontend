@@ -27,9 +27,9 @@ export interface ProductResponse {
 export interface FormDataProduct {
   name: string
   type: string
-  countInStock: string
-  price: string
+  countInStock: number
+  price: number
   description: string
-  rating: string
+  rating: number
   image: string
 }

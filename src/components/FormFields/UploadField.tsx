@@ -10,11 +10,21 @@ export interface UploadFieldProps {
   accept?: string
   maxCount?: number
   listType?: UploadListType
+  showUploadList?: boolean
   className?: string
   onChange: (imageURL: string) => void
 }
 
-export function UploadField({ name, label, accept, maxCount, listType, className, onChange }: UploadFieldProps) {
+export function UploadField({
+  name,
+  label,
+  accept,
+  maxCount,
+  listType,
+  showUploadList = true,
+  className,
+  onChange
+}: UploadFieldProps) {
   const handleChange: UploadProps['onChange'] = async ({ file }: UploadChangeParam<UploadFile>) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj as RcFile)
@@ -28,7 +38,7 @@ export function UploadField({ name, label, accept, maxCount, listType, className
       <Upload
         name={name}
         listType={listType}
-        showUploadList={true}
+        showUploadList={showUploadList}
         accept={accept}
         maxCount={maxCount}
         className={className}

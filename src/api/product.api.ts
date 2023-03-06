@@ -1,4 +1,4 @@
-import { ProductResponse } from '@/types'
+import { Product, ProductResponse, SuccessResponse } from '@/types'
 import axiosClient from './axiosClient'
 
 const productApi = {
@@ -10,12 +10,12 @@ const productApi = {
       },
       signal
     })
+  },
+  addProduct(product: Omit<Product, '_id' | 'discount' | 'quantitySold'>) {
+    return axiosClient.post<SuccessResponse<Product>>('/product', product)
   }
   // getStudent(id: number | string) {
   //   return axiosClient.get<Student>(`/students/${id}`)
-  // },
-  // addStudent(student: Omit<Student, 'id'>) {
-  //   return axiosClient.post<Student>('/students', student)
   // },
   // updateStudent(id: number | string, student: Student) {
   //   return axiosClient.put<Student>(`/students/${id}`, student)
