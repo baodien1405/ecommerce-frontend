@@ -7,13 +7,14 @@ import { useProductFormSchema } from '@/hooks'
 import { FormDataProduct } from '@/types'
 
 export interface ProductFormProps {
+  type?: 'add' | 'update'
   loading?: boolean
   isSuccess?: boolean
   initialValues?: FormDataProduct
   onSubmit?: (formValues: FormDataProduct) => void
 }
 
-export function ProductForm({ loading, isSuccess, initialValues, onSubmit }: ProductFormProps) {
+export function ProductForm({ type = 'add', loading, isSuccess, initialValues, onSubmit }: ProductFormProps) {
   const [form] = Form.useForm()
   const [productURL, setProductURL] = useState('')
   const [showUploadList, setShowUploadList] = useState(true)
@@ -23,12 +24,25 @@ export function ProductForm({ loading, isSuccess, initialValues, onSubmit }: Pro
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { isValid }
   } = useForm<FormDataProduct>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     defaultValues: initialValues,
     resolver: yupResolver(schema)
   })
+
+  useEffect(() => {
+    if (initialValues) {
+      setProductURL(initialValues.image)
+      Object.entries(initialValues).map(([key, val]) =>
+        setValue(key as keyof FormDataProduct, String(val), {
+          shouldValidate: true
+        })
+      )
+      form.setFieldsValue(initialValues)
+    }
+  }, [initialValues, form, setValue])
 
   useEffect(() => {
     if (isSuccess) {
@@ -85,7 +99,7 @@ export function ProductForm({ loading, isSuccess, initialValues, onSubmit }: Pro
         htmlType='submit'
         className='mx-auto block h-10 w-[176px] rounded bg-[#0b74e5]'
       >
-        Add product
+        {type === 'add' ? 'Add' : 'Update'}
       </Button>
     </Form>
   )

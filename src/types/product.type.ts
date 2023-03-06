@@ -17,7 +17,7 @@ export interface Pagination {
   _totalRows: number
 }
 
-export interface ProductResponse {
+export interface ProductListResponse {
   status: string
   message: string
   data: Product[]
