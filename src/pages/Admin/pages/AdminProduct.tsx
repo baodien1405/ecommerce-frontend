@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Modal, Spin, Table } from 'antd'
-import type { ColumnsType } from 'antd/es/table'
+import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button, Input, InputRef, Modal, Space, Spin, Table } from 'antd'
+import type { ColumnsType, ColumnType } from 'antd/es/table'
+import { FilterConfirmProps } from 'antd/es/table/interface'
 
 import { ProductForm } from '../components'
 import { ErrorResponse, FormDataProduct, Product } from '@/types'
@@ -27,8 +28,8 @@ export function AdminProduct() {
   const [currentPage, setCurrentPage] = useState(PRODUCT_PAGE)
   const [product, setProduct] = useState<Product | undefined>()
   const [loadingProduct, setLoadingProduct] = useState(false)
-
   const queryClient = useQueryClient()
+  const searchInput = useRef<InputRef>(null)
 
   const productsQuery = useQuery({
     queryKey: ['products', currentPage],
@@ -55,19 +56,66 @@ export function AdminProduct() {
     mutationFn: (id: string) => productApi.deleteProduct(id)
   })
 
+  const handleSearch = (confirm: (param?: FilterConfirmProps) => void) => {
+    confirm()
+  }
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters()
+  }
+
+  const getColumnSearchProps = (dataIndex: keyof DataType): ColumnType<DataType> => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+      <div className='p-2' onKeyDown={(e) => e.stopPropagation()}>
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(confirm)}
+          className='mb-2 block'
+        />
+        <Space>
+          <Button
+            type='primary'
+            onClick={() => handleSearch(confirm)}
+            icon={<SearchOutlined />}
+            size='small'
+            className='flex w-[90px] items-center bg-[#1890ff]'
+          >
+            Search
+          </Button>
+          <Button onClick={() => clearFilters && handleReset(clearFilters)} size='small' className='w-[90px]'>
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => <SearchOutlined className={filtered ? 'text-[#1890ff]' : ''} />,
+    onFilter: (value, record) =>
+      String(record?.[dataIndex]).toString().toLowerCase().includes(String(value).toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100)
+      }
+    }
+  })
+
   const columns: ColumnsType<DataType> = [
     {
       title: 'Name',
       dataIndex: 'name',
-      render: (text: string) => <a>{text}</a>
+      sorter: (a, b) => Number(a.name?.length) - Number(b.name?.length),
+      ...getColumnSearchProps('name')
     },
     {
       title: 'Price',
-      dataIndex: 'price'
+      dataIndex: 'price',
+      sorter: (a, b) => Number(a.price) - Number(b.price)
     },
     {
       title: 'Rating',
-      dataIndex: 'rating'
+      dataIndex: 'rating',
+      sorter: (a, b) => Number(a.rating) - Number(b.rating)
     },
     {
       title: 'Type',
@@ -189,7 +237,7 @@ export function AdminProduct() {
   }
 
   return (
-    <div className='none p-4'>
+    <div className='p-4'>
       <h3 className='mb-2 text-[16px] leading-normal'>Product management</h3>
 
       <Button className='mb-3 h-[150px] w-[150px] rounded-md border-dashed' onClick={() => setIsModalOpen(true)}>
