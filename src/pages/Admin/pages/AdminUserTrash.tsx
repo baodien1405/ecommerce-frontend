@@ -83,7 +83,7 @@ export function AdminUserTrash() {
     {
       title: 'ID',
       dataIndex: 'key',
-      render: (text) => <div className='w-[100px] overflow-hidden text-ellipsis whitespace-nowrap'>{text}</div>
+      width: 200
     },
     {
       title: 'Name',

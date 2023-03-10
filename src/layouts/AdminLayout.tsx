@@ -33,7 +33,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <div>
       <AdminHeader />
-      <div className='container flex'>
+      <div className='flex'>
         <AsideMenu
           menuList={menuList}
           openKey={openKey}
