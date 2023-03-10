@@ -10,7 +10,7 @@ import ProductList from '@/pages/ProductList'
 import Profile from '@/pages/Profile'
 import NotFound from '@/pages/NotFound'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
-import { AdminProduct, AdminUser } from '@/pages/Admin/pages'
+import { AdminProduct, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -100,6 +100,14 @@ export function useRouteElements() {
           element: (
             <AdminLayout>
               <AdminProduct />
+            </AdminLayout>
+          )
+        },
+        {
+          path: path.adminUserTrash,
+          element: (
+            <AdminLayout>
+              <AdminUserTrash />
             </AdminLayout>
           )
         }

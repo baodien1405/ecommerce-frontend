@@ -9,6 +9,8 @@ import userApi from '@/api/user.api'
 import { ErrorResponse, User } from '@/types'
 import { isAxiosUnprocessableEntityError } from '@/utils'
 import { UserForm } from '../components'
+import { useNavigate } from 'react-router-dom'
+import { path } from '@/constants'
 
 type FormDataUser = Pick<User, 'name' | 'email' | 'phone'>
 interface DataType {
@@ -24,6 +26,7 @@ export function AdminUser() {
   const [user, setUser] = useState<User | undefined>()
   const [loadingUser, setLoadingUser] = useState(false)
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const usersQuery = useQuery({
     queryKey: ['users'],
@@ -63,9 +66,10 @@ export function AdminUser() {
 
   const handleDeleteUser = async (record: DataType) => {
     Modal.confirm({
-      title: 'Warning',
+      title: 'Remove user',
       content: 'Are you sure?',
-      okButtonProps: { className: 'bg-[#1776ff]' },
+      okButtonProps: { danger: true },
+      okText: 'Remove',
       onOk: () => {
         deleteUserMutation.mutate(String(record.key), {
           onSuccess: (data) => {
@@ -83,6 +87,11 @@ export function AdminUser() {
   }
 
   const columns: ColumnsType<DataType> = [
+    {
+      title: 'ID',
+      dataIndex: 'key',
+      render: (text) => <div className='w-[100px] overflow-hidden text-ellipsis whitespace-nowrap'>{text}</div>
+    },
     {
       title: 'Name',
       dataIndex: 'name',
@@ -144,12 +153,16 @@ export function AdminUser() {
 
   return (
     <div className='p-4'>
-      <h3 className='mb-2 text-[16px] leading-normal'>User management</h3>
+      <h3 className='mb-2 text-[20px] font-medium leading-normal'>User management</h3>
+
+      <div className='mb-3 cursor-pointer text-[#1776ff]' onClick={() => navigate(path.adminUserTrash)}>
+        {`Trash(${usersQuery.data?.data.deletedCount || 0})`}
+      </div>
 
       <Table
         columns={columns}
         dataSource={data}
-        loading={usersQuery.isLoading}
+        loading={usersQuery.isLoading || usersQuery.isFetching || deleteUserMutation.isLoading}
         rowSelection={{
           type: 'checkbox'
         }}

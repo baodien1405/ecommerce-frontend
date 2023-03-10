@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
-import { Button, Input, InputRef, Modal, Space, Spin, Table } from 'antd'
+import { Button, Empty, Input, InputRef, Modal, Space, Spin, Table } from 'antd'
 import type { ColumnsType, ColumnType } from 'antd/es/table'
 import { FilterConfirmProps } from 'antd/es/table/interface'
 
@@ -101,6 +101,11 @@ export function AdminProduct() {
   })
 
   const columns: ColumnsType<DataType> = [
+    {
+      title: 'ID',
+      dataIndex: 'key',
+      render: (text) => <div className='w-[100px] overflow-hidden text-ellipsis whitespace-nowrap'>{text}</div>
+    },
     {
       title: 'Name',
       dataIndex: 'name',
@@ -261,6 +266,9 @@ export function AdminProduct() {
       </Modal>
 
       <Table
+        locale={{
+          emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='Empty product' />
+        }}
         columns={columns}
         dataSource={data}
         loading={productsQuery.isLoading || deleteProductMutation.isLoading || updateProductMutation.isLoading}
