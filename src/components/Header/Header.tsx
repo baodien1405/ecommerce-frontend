@@ -11,12 +11,14 @@ import { path } from '@/constants'
 import { AppContext } from '@/contexts'
 import { locales } from '@/i18n/i18n'
 import { clearLS } from '@/utils'
+import { useSearchProducts } from '@/hooks'
 
 const { Search } = Input
 
 export default function Header() {
   const navigate = useNavigate()
   const { profile, reset } = useContext(AppContext)
+  const { onSubmitSearch } = useSearchProducts()
   const [t, i18n] = useTranslation('header')
   const currentLanguage = i18n.language as 'en' | 'vi'
 
@@ -31,8 +33,10 @@ export default function Header() {
     { id: '8', to: '', content: t('quick links.cake, candy') }
   ]
 
-  const handleSearch = () => {
-    return null
+  const handleSearch = (value: string) => {
+    onSubmitSearch({
+      name: value
+    })
   }
 
   const changeLanguage = (lng: 'en' | 'vi') => {
@@ -50,7 +54,12 @@ export default function Header() {
         <div className='flex items-center justify-between'>
           <div className='flex flex-1 items-center'>
             <div className='mr-12'>
-              <Image src={images.blueLogo} alt='logo' className='w-[60px]' onClick={() => navigate(path.product)} />
+              <Image
+                src={images.blueLogo}
+                alt='logo'
+                className='w-[60px] cursor-pointer'
+                onClick={() => navigate(path.product)}
+              />
             </div>
 
             <div className='flex-1'>

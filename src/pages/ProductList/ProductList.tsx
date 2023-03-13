@@ -9,26 +9,25 @@ import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
 import ProductType from '@/components/ProductType'
 import SlickSlider from '@/components/SlickSlider'
-import { useQueryString } from '@/hooks'
+import { useQueryConfig } from '@/hooks'
 import { AsideFilter } from './components'
+import { ProductListConfig } from '@/types'
 
 const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
 const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
 
 export default function ProductList() {
   const [t] = useTranslation('productList')
-  const queryString: { _page?: string; _limit?: string } = useQueryString()
-  const page = Number(queryString._page) || 1
-  const limit = Number(queryString._limit) || 8
+  const queryConfig = useQueryConfig()
 
   const productsQuery = useQuery({
-    queryKey: ['products', page, limit],
+    queryKey: ['products', queryConfig],
     queryFn: () => {
       const controller = new AbortController()
       setTimeout(() => {
         controller.abort()
       }, 10000)
-      return productApi.getProductList(page, limit, controller.signal)
+      return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
     },
     keepPreviousData: true,
     retry: 0

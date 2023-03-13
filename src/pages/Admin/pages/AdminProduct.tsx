@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Excel } from 'antd-table-saveas-excel'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
@@ -6,11 +6,15 @@ import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant
 import { Button, Empty, Input, InputRef, Modal, Space, Spin, Table } from 'antd'
 import type { ColumnsType, ColumnType } from 'antd/es/table'
 import { FilterConfirmProps } from 'antd/es/table/interface'
+import { IExcelColumn } from 'antd-table-saveas-excel/app'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 import { ActionForm, ProductForm } from '../components'
-import { ErrorResponse, FormDataAction, FormDataProduct, Product } from '@/types'
+import { ErrorResponse, FormDataAction, FormDataProduct, Product, ProductListConfig } from '@/types'
 import productApi from '@/api/product.api'
 import { isAxiosUnprocessableEntityError } from '@/utils'
+import { useQueryConfig } from '@/hooks'
+import { path } from '@/constants'
 
 interface DataType {
   key?: React.Key
@@ -26,21 +30,22 @@ const PRODUCT_PAGE = 1
 export function AdminProduct() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
-  const [currentPage, setCurrentPage] = useState(PRODUCT_PAGE)
   const [product, setProduct] = useState<Product | undefined>()
   const [productIdList, setProductIdList] = useState<string[]>([])
   const [loadingProduct, setLoadingProduct] = useState(false)
   const queryClient = useQueryClient()
   const searchInput = useRef<InputRef>(null)
+  const queryConfig = useQueryConfig()
+  const navigate = useNavigate()
 
   const productsQuery = useQuery({
-    queryKey: ['products', currentPage],
+    queryKey: ['products', queryConfig],
     queryFn: () => {
       const controller = new AbortController()
       setTimeout(() => {
         controller.abort()
       }, 10000)
-      return productApi.getProductList(currentPage, PRODUCT_LIMIT, controller.signal)
+      return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
     },
     keepPreviousData: true,
     retry: 0
@@ -185,7 +190,7 @@ export function AdminProduct() {
         deleteProductMutation.mutate(String(record.key), {
           onSuccess: (data) => {
             toast.success(data.data?.message)
-            queryClient.invalidateQueries({ queryKey: ['products', currentPage], exact: true })
+            queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
           },
           onError: (error) => {
             if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
@@ -212,7 +217,7 @@ export function AdminProduct() {
       onSuccess: async (data) => {
         toast.success(data.data?.message)
         setIsModalOpen(false)
-        queryClient.invalidateQueries({ queryKey: ['products', currentPage], exact: true })
+        queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
@@ -237,7 +242,7 @@ export function AdminProduct() {
       onSuccess: async (data) => {
         toast.success(data.data?.message)
         setIsModalUpdateOpen(false)
-        queryClient.invalidateQueries({ queryKey: ['products', currentPage], exact: true })
+        queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
@@ -252,7 +257,7 @@ export function AdminProduct() {
       deleteManyProductsMutation.mutate(productIdList, {
         onSuccess: (data) => {
           toast.success(data.data?.message)
-          queryClient.invalidateQueries({ queryKey: ['products', currentPage], exact: true })
+          queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
         },
         onError: (error) => {
           if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
@@ -269,7 +274,7 @@ export function AdminProduct() {
     const excel = new Excel()
     excel
       .addSheet('Product')
-      .addColumns(newColumnExport as any)
+      .addColumns(newColumnExport as IExcelColumn[])
       .addDataSource(data as DataType[], {
         str2Percent: true
       })
@@ -340,9 +345,17 @@ export function AdminProduct() {
           }
         }}
         pagination={{
-          current: currentPage,
+          current: Number(queryConfig._page) || PRODUCT_PAGE,
+          pageSize: PRODUCT_LIMIT,
           total: productsQuery.data?.data.pagination._totalRows,
-          onChange: (page) => setCurrentPage(page)
+          onChange: (page) =>
+            navigate({
+              pathname: path.adminProduct,
+              search: createSearchParams({
+                _page: String(page),
+                _limit: String(PRODUCT_LIMIT)
+              }).toString()
+            })
         }}
       />
 

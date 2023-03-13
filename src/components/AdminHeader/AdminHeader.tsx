@@ -25,7 +25,12 @@ export default function AdminHeader() {
       <div className='container w-full'>
         <div className='flex items-center justify-between'>
           <div className='mr-12'>
-            <Image src={images.blueLogo} alt='logo' className='w-[60px]' onClick={() => navigate(path.product)} />
+            <Image
+              src={images.blueLogo}
+              alt='logo'
+              className='w-[60px] cursor-pointer'
+              onClick={() => navigate(path.product)}
+            />
           </div>
 
           {profile?.email ? (

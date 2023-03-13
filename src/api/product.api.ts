@@ -1,15 +1,12 @@
-import { Product, ProductListResponse, SuccessResponse } from '@/types'
+import { Product, ProductListConfig, ProductListResponse, SuccessResponse } from '@/types'
 import axiosClient from './axiosClient'
 
 export const URL_PRODUCT = '/product'
 
 const productApi = {
-  getProductList(page?: number | string, limit?: number | string, signal?: AbortSignal) {
+  getProductList(params: ProductListConfig, signal?: AbortSignal) {
     return axiosClient.get<ProductListResponse>(URL_PRODUCT, {
-      params: {
-        _page: page,
-        _limit: limit
-      },
+      params,
       signal
     })
   },
