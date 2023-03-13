@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
+import { Excel } from 'antd-table-saveas-excel'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
@@ -262,6 +263,19 @@ export function AdminProduct() {
     }
   }
 
+  const newColumnExport = columns.filter((col) => col.title !== 'Action')
+
+  const handleExportExcelFile = () => {
+    const excel = new Excel()
+    excel
+      .addSheet('Product')
+      .addColumns(newColumnExport as any)
+      .addDataSource(data as DataType[], {
+        str2Percent: true
+      })
+      .saveAs('products.xlsx')
+  }
+
   return (
     <div className='p-4'>
       <h3 className='mb-2 text-[16px] leading-normal'>Product management</h3>
@@ -270,12 +284,25 @@ export function AdminProduct() {
         <PlusOutlined className='text-[60px]' />
       </Button>
 
-      <div className='mb-3 w-[500px]'>
-        <ActionForm
-          loading={deleteManyProductsMutation.isLoading}
-          disabled={productIdList.length === 0}
-          onSubmit={handleActionFormSubmit}
-        />
+      <div className='flex justify-between'>
+        <div className='mb-3 w-[500px]'>
+          <ActionForm
+            loading={deleteManyProductsMutation.isLoading}
+            disabled={productIdList.length === 0}
+            onSubmit={handleActionFormSubmit}
+          />
+        </div>
+
+        <Button
+          loading={false}
+          disabled={Number(productsQuery.data?.data?.data?.length) === 0}
+          type='primary'
+          htmlType='button'
+          className='rounded bg-[#0b74e5]'
+          onClick={handleExportExcelFile}
+        >
+          Export
+        </Button>
       </div>
 
       <Modal
