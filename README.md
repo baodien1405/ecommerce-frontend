@@ -48,10 +48,11 @@
 
 ## Technical Stack
 
-- UI / CSS Library: Tailwindcss + HeadlessUI
+- UI / CSS Library: Tailwindcss + Ant Design
 - State Management: React Query (server state) and React Context (local state)
 - Form Management: React Hook Form
-- Router: React Router
+- Validation: yup
+- Router: React Router Dom
 - Build tool: Vite
 - API: Rest API of repo tiki-clone-backend
 - Support muti languages with react.i18next
