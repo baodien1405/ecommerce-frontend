@@ -163,9 +163,6 @@ export function AdminUserTrash() {
           restoreUserMutation.isLoading ||
           forceDeleteUserMutation.isLoading
         }
-        rowSelection={{
-          type: 'checkbox'
-        }}
       />
     </div>
   )

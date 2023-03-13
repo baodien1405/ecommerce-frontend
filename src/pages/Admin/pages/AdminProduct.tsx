@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
@@ -6,8 +6,8 @@ import { Button, Empty, Input, InputRef, Modal, Space, Spin, Table } from 'antd'
 import type { ColumnsType, ColumnType } from 'antd/es/table'
 import { FilterConfirmProps } from 'antd/es/table/interface'
 
-import { ProductForm } from '../components'
-import { ErrorResponse, FormDataProduct, Product } from '@/types'
+import { ActionForm, ProductForm } from '../components'
+import { ErrorResponse, FormDataAction, FormDataProduct, Product } from '@/types'
 import productApi from '@/api/product.api'
 import { isAxiosUnprocessableEntityError } from '@/utils'
 
@@ -27,6 +27,7 @@ export function AdminProduct() {
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(PRODUCT_PAGE)
   const [product, setProduct] = useState<Product | undefined>()
+  const [productIdList, setProductIdList] = useState<string[]>([])
   const [loadingProduct, setLoadingProduct] = useState(false)
   const queryClient = useQueryClient()
   const searchInput = useRef<InputRef>(null)
@@ -54,6 +55,10 @@ export function AdminProduct() {
 
   const deleteProductMutation = useMutation({
     mutationFn: (id: string) => productApi.deleteProduct(id)
+  })
+
+  const deleteManyProductsMutation = useMutation({
+    mutationFn: (ids: string[]) => productApi.deleteManyProducts(ids)
   })
 
   const handleSearch = (confirm: (param?: FilterConfirmProps) => void) => {
@@ -241,13 +246,37 @@ export function AdminProduct() {
     })
   }
 
+  const handleActionFormSubmit = async (values: FormDataAction) => {
+    if (values.action === 'delete') {
+      deleteManyProductsMutation.mutate(productIdList, {
+        onSuccess: (data) => {
+          toast.success(data.data?.message)
+          queryClient.invalidateQueries({ queryKey: ['products', currentPage], exact: true })
+        },
+        onError: (error) => {
+          if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+            toast.error(error.response?.data?.message)
+          }
+        }
+      })
+    }
+  }
+
   return (
     <div className='p-4'>
       <h3 className='mb-2 text-[16px] leading-normal'>Product management</h3>
 
-      <Button className='mb-3 h-[150px] w-[150px] rounded-md border-dashed' onClick={() => setIsModalOpen(true)}>
+      <Button className='mb-3 h-[135px] w-[135px] rounded-md border-dashed' onClick={() => setIsModalOpen(true)}>
         <PlusOutlined className='text-[60px]' />
       </Button>
+
+      <div className='mb-3 w-[500px]'>
+        <ActionForm
+          loading={deleteManyProductsMutation.isLoading}
+          disabled={productIdList.length === 0}
+          onSubmit={handleActionFormSubmit}
+        />
+      </div>
 
       <Modal
         title={<div className='text-center text-[25px]'>Add product</div>}
@@ -271,9 +300,17 @@ export function AdminProduct() {
         }}
         columns={columns}
         dataSource={data}
-        loading={productsQuery.isLoading || deleteProductMutation.isLoading || updateProductMutation.isLoading}
+        loading={
+          productsQuery.isFetching ||
+          deleteProductMutation.isLoading ||
+          updateProductMutation.isLoading ||
+          deleteManyProductsMutation.isLoading
+        }
         rowSelection={{
-          type: 'checkbox'
+          type: 'checkbox',
+          onChange: (selectedRowKeys) => {
+            setProductIdList(selectedRowKeys as string[])
+          }
         }}
         pagination={{
           current: currentPage,
