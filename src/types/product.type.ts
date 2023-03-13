@@ -33,3 +33,7 @@ export interface FormDataProduct {
   rating: number
   image: string
 }
+
+export interface FormDataAction {
+  action: string
+}

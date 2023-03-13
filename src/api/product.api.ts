@@ -24,6 +24,11 @@ const productApi = {
   },
   deleteProduct(id: number | string) {
     return axiosClient.delete<Omit<SuccessResponse<any>, 'data'>>(`${URL_PRODUCT}/${id}`)
+  },
+  deleteManyProducts(productIds: string[]) {
+    return axiosClient.delete<Omit<SuccessResponse<any>, 'data'>>(`${URL_PRODUCT}/many`, {
+      data: productIds
+    })
   }
 }
 
