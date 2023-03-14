@@ -25,3 +25,17 @@ export const formatAmount = (amount: number, locales = 'en-US', currency = 'USD'
     maximumFractionDigits: maximumFractionDigits
   }).format(amount)
 }
+
+export const convertTitleCase = (title: string) => {
+  const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1)
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with', 'for', 'at']
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map((word) => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ')
+
+  return capitalize(titleCase)
+}

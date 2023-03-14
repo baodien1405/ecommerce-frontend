@@ -7,15 +7,14 @@ import productApi from '@/api/product.api'
 import images from '@/assets/images'
 import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
-import ProductType from '@/components/ProductType'
 import SlickSlider from '@/components/SlickSlider'
 import { useQueryConfig } from '@/hooks'
 import { AsideFilter } from './components'
 import { ProductListConfig } from '@/types'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { path } from '@/constants'
+import { convertTitleCase } from '@/utils'
 
-const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
 const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
 
 const LOAD_MORE_PRODUCT_COUNT = 5
@@ -35,6 +34,12 @@ export default function ProductList() {
       return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
     },
     keepPreviousData: true,
+    retry: 0
+  })
+
+  const productTypesQuery = useQuery({
+    queryKey: ['types'],
+    queryFn: () => productApi.getProductTypeList(),
     retry: 0
   })
 
@@ -62,8 +67,10 @@ export default function ProductList() {
       <div className='bg-white'>
         <div className='container'>
           <div className='flex gap-8 overflow-hidden text-ellipsis whitespace-nowrap py-[10px]'>
-            {productTypeList.map((item) => (
-              <ProductType key={item} productType={item} />
+            {productTypesQuery.data?.data.data.map((item) => (
+              <div key={item} className='cursor-pointer'>
+                {convertTitleCase(item)}
+              </div>
             ))}
           </div>
         </div>

@@ -26,6 +26,9 @@ const productApi = {
     return axiosClient.delete<Omit<SuccessResponse<any>, 'data'>>(`${URL_PRODUCT}/many`, {
       data: productIds
     })
+  },
+  getProductTypeList() {
+    return axiosClient.get<SuccessResponse<string[]>>(`${URL_PRODUCT}/types`)
   }
 }
 
