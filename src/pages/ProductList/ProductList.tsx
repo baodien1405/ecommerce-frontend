@@ -110,7 +110,7 @@ export default function ProductList() {
                   ))}
 
               {!productsQuery.isLoading &&
-                productsQuery.data?.data.data.map((product, index) => (
+                productsQuery.data?.data.data.map((product) => (
                   <Col key={product._id}>
                     <ProductCard product={product} />
                   </Col>

@@ -4,12 +4,15 @@ import Image from '@/components/Image'
 import images from '@/assets/images'
 import { Product } from '@/types'
 import { formatAmount } from '@/utils'
+import { useNavigate } from 'react-router-dom'
+import { path } from '@/constants'
 
 interface ProductCardProps {
   product: Product
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const navigate = useNavigate()
   if (!product) return null
 
   return (
@@ -19,6 +22,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       bodyStyle={{ padding: 10 }}
       className='relative overflow-hidden rounded'
       cover={<Image className='h-[200px] w-[200px] object-contain' alt='example' src={product.image} />}
+      onClick={() => navigate(`${path.product}${product._id}`)}
     >
       <Image
         className='absolute -top-[6px] -left-[1px] h-[24px] w-[68px] max-w-full object-contain'
