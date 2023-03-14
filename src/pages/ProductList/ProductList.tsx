@@ -12,13 +12,18 @@ import SlickSlider from '@/components/SlickSlider'
 import { useQueryConfig } from '@/hooks'
 import { AsideFilter } from './components'
 import { ProductListConfig } from '@/types'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import { path } from '@/constants'
 
 const productTypeList = ['Meat', 'Vegetable', 'Cake', 'Candy', 'Fruit', 'Drink', 'Wine']
 const imageList = [images.slider1, images.slider2, images.slider3, images.slider4, images.slider5]
 
+const LOAD_MORE_PRODUCT_COUNT = 5
+
 export default function ProductList() {
   const [t] = useTranslation('productList')
   const queryConfig = useQueryConfig()
+  const navigate = useNavigate()
 
   const productsQuery = useQuery({
     queryKey: ['products', queryConfig],
@@ -33,12 +38,24 @@ export default function ProductList() {
     retry: 0
   })
 
+  const hideLoadMoreButton = productsQuery.data?.data.data.length === productsQuery.data?.data.pagination._totalRows
+
   const outstandingList = [
     { id: '1', imageURL: images.sale33, label: '3.3 Sale Freeship' },
     { id: '2', imageURL: images.goodPrice, label: 'Giá Tốt Mỗi Ngày' },
     { id: '3', imageURL: images.discountVoucher, label: 'Mã giảm giá' },
     { id: '4', imageURL: images.endowAffiliate, label: 'Ưu đãi Affiliate' }
   ]
+
+  const handleLoadMoreProduct = () => {
+    navigate({
+      pathname: path.product,
+      search: createSearchParams({
+        _page: String(queryConfig._page),
+        _limit: String(Number(queryConfig._limit) + LOAD_MORE_PRODUCT_COUNT)
+      }).toString()
+    })
+  }
 
   return (
     <div className='bg-[#efefef]'>
@@ -100,15 +117,19 @@ export default function ProductList() {
                 ))}
             </Row>
 
-            <Row>
-              <Button
-                type='primary'
-                ghost
-                className='mx-auto mt-3 h-[42px] w-60 border-[1px] border-[#0a68ff] px-3 py-2 text-[16px] leading-normal text-[#0a68ff]'
-              >
-                {t('view more')}
-              </Button>
-            </Row>
+            {!hideLoadMoreButton && (
+              <Row>
+                <Button
+                  type='primary'
+                  ghost
+                  className='mx-auto mt-3 h-[42px] w-60 border-[1px] border-[#0a68ff] px-3 py-2 text-[16px] leading-normal text-[#0a68ff]'
+                  disabled={productsQuery.isFetching}
+                  onClick={handleLoadMoreProduct}
+                >
+                  {productsQuery.isFetching ? t('loading') : t('view more')}
+                </Button>
+              </Row>
+            )}
           </div>
         </div>
       </div>

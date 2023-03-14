@@ -18,13 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       style={{ width: 200 }}
       bodyStyle={{ padding: 10 }}
       className='relative overflow-hidden rounded'
-      cover={
-        <Image
-          className='h-[200px] w-[200px] object-contain'
-          alt='example'
-          src='https://salt.tikicdn.com/cache/280x280/ts/product/0f/08/21/8995e74fd95c47c4ab9ef244a5559176.png.webp'
-        />
-      }
+      cover={<Image className='h-[200px] w-[200px] object-contain' alt='example' src={product.image} />}
     >
       <Image
         className='absolute -top-[6px] -left-[1px] h-[24px] w-[68px] max-w-full object-contain'
