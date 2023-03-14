@@ -4,7 +4,7 @@ export const path = {
   login: '/login',
   register: '/register',
   profile: '/profile',
-  productDetail: ':nameId',
+  productDetail: ':productId',
   systemAdmin: '/system/admin',
   adminUser: '/admin/user',
   adminUserTrash: '/admin/user/trash',
