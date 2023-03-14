@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Button, Form } from 'antd'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { InputField, UploadField } from '@/components/FormFields'
+
+import { InputField, SelectedField, UploadField } from '@/components/FormFields'
 import { useProductFormSchema } from '@/hooks'
 import { FormDataProduct } from '@/types'
+import productApi from '@/api/product.api'
+import { convertTitleCase } from '@/utils'
 
 export interface ProductFormProps {
   type?: 'add' | 'update'
@@ -19,6 +23,17 @@ export function ProductForm({ type = 'add', loading, isSuccess, initialValues, o
   const [productURL, setProductURL] = useState('')
   const [showUploadList, setShowUploadList] = useState(true)
   const schema = useProductFormSchema()
+
+  const productTypesQuery = useQuery({
+    queryKey: ['types'],
+    queryFn: () => productApi.getProductTypeList(),
+    retry: 0
+  })
+
+  const productTypeOptions = productTypesQuery.data?.data.data.map((type) => ({
+    label: convertTitleCase(type),
+    value: type
+  }))
 
   const {
     control,
@@ -65,7 +80,15 @@ export function ProductForm({ type = 'add', loading, isSuccess, initialValues, o
     <Form form={form} colon={false} initialValues={initialValues} onFinish={handleSubmit(handleProductSubmit)}>
       <InputField label='Name' name='name' control={control} placeholder='Thêm tên' classNameInput='py-2' />
 
-      <InputField name='type' label='Type' control={control} placeholder='Thêm loại...' classNameInput='py-2' />
+      {Array.isArray(productTypeOptions) && productTypeOptions.length > 0 && (
+        <SelectedField
+          label='Type'
+          name='type'
+          control={control}
+          placeholder='-- Choose types --'
+          options={productTypeOptions}
+        />
+      )}
 
       <InputField
         control={control}

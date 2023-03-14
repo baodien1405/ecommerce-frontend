@@ -32,7 +32,12 @@ export const SelectedField = ({
   })
 
   return (
-    <Form.Item name={name} label={label} help={error?.message} validateStatus={invalid ? 'error' : 'success'}>
+    <Form.Item
+      name={name}
+      label={label ? <div className='flex w-[90px] items-start'>{label}</div> : undefined}
+      help={error?.message}
+      validateStatus={invalid ? 'error' : 'success'}
+    >
       <Select
         defaultValue={defaultValue}
         value={value}
