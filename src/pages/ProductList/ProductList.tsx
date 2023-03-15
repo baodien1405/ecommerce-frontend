@@ -68,7 +68,18 @@ export default function ProductList() {
         <div className='container'>
           <div className='flex gap-8 overflow-hidden text-ellipsis whitespace-nowrap py-[10px]'>
             {productTypesQuery.data?.data.data.map((item) => (
-              <div key={item} className='cursor-pointer'>
+              <div
+                key={item}
+                className='cursor-pointer'
+                onClick={() =>
+                  navigate({
+                    pathname: path.productType,
+                    search: createSearchParams({
+                      type: item.toLowerCase()
+                    }).toString()
+                  })
+                }
+              >
                 {convertTitleCase(item)}
               </div>
             ))}

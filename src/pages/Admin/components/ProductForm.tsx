@@ -32,7 +32,7 @@ export function ProductForm({ type = 'add', loading, isSuccess, initialValues, o
 
   const productTypeOptions = productTypesQuery.data?.data.data.map((type) => ({
     label: convertTitleCase(type),
-    value: type
+    value: type.toLowerCase()
   }))
 
   const {

@@ -9,6 +9,7 @@ import ProductDetail from '@/pages/ProductDetail'
 import ProductList from '@/pages/ProductList'
 import Profile from '@/pages/Profile'
 import NotFound from '@/pages/NotFound'
+import ProductType from '@/pages/ProductType'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
 import { AdminProduct, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
 
@@ -71,6 +72,15 @@ export function useRouteElements() {
       element: (
         <MainLayout>
           <ProductDetail />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.productType,
+      index: true,
+      element: (
+        <MainLayout>
+          <ProductType />
         </MainLayout>
       )
     },
