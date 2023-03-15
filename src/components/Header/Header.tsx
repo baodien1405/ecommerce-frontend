@@ -35,7 +35,7 @@ export default function Header() {
 
   const handleSearch = (value: string) => {
     onSubmitSearch({
-      name: value
+      name: value.toLowerCase()
     })
   }
 
