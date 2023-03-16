@@ -1,18 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
-import { Col, Row } from 'antd'
+import { Col, Empty, Pagination, Row } from 'antd'
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import classNames from 'classnames'
 
 import productApi from '@/api/product.api'
 import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
-import { useQueryConfig } from '@/hooks'
+import { useQueryConfig, useQueryParams } from '@/hooks'
 import { ProductListConfig } from '@/types'
 import { convertTitleCase } from '@/utils'
 import { path } from '@/constants'
 
+const PRODUCT_LIMIT = 10
+const PRODUCT_PAGE = 1
+
 export default function ProductType() {
   const queryConfig = useQueryConfig()
   const navigate = useNavigate()
+  const { type } = useQueryParams()
 
   const productsQuery = useQuery({
     queryKey: ['products', queryConfig],
@@ -26,6 +31,8 @@ export default function ProductType() {
     keepPreviousData: true,
     retry: 0
   })
+
+  const pagination = productsQuery.data?.data.pagination
 
   const productTypesQuery = useQuery({
     queryKey: ['types'],
@@ -66,7 +73,13 @@ export default function ProductType() {
                   })
                 }
               >
-                <div className='text-[14px] font-normal leading-normal text-[#27272a]'>{convertTitleCase(item)}</div>
+                <div
+                  className={classNames('text-[14px] font-normal leading-normal text-[#27272a]', {
+                    'text-[#1677ff]': type.toLowerCase() === item.toLowerCase()
+                  })}
+                >
+                  {convertTitleCase(item)}
+                </div>
               </div>
             ))}
           </div>
@@ -89,6 +102,29 @@ export default function ProductType() {
                   </Col>
                 ))}
             </Row>
+
+            {Number(productsQuery.data?.data.data.length) > 0 ? (
+              <Pagination
+                className='py-3 text-center'
+                current={Number(queryConfig._page) || PRODUCT_PAGE}
+                pageSize={PRODUCT_LIMIT}
+                total={pagination?._totalRows}
+                onChange={(page) =>
+                  navigate({
+                    pathname: path.productType,
+                    search: createSearchParams({
+                      _page: String(page),
+                      _limit: String(PRODUCT_LIMIT),
+                      type: String(queryConfig.type?.toLowerCase())
+                    }).toString()
+                  })
+                }
+              />
+            ) : (
+              <div className='flex h-full items-center justify-center'>
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='Empty product' />
+              </div>
+            )}
           </div>
         </div>
       </div>

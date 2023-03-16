@@ -28,7 +28,7 @@ export function UploadAvatar({ avatar, onChange }: UploadAvatarProps) {
     <Upload
       name='avatar'
       listType='picture-circle'
-      className='block h-[100px] w-[100px]'
+      className='block h-[100px] max-w-[100px]'
       showUploadList={false}
       accept='image/*'
       onChange={handleChange}
