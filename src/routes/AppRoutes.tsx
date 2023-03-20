@@ -1,34 +1,18 @@
-import { useContext } from 'react'
-import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-
+import { useRoutes } from 'react-router-dom'
 import { path } from '@/constants'
-import { AppContext } from '@/contexts'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
-import ProductDetail from '@/pages/ProductDetail'
-import ProductList from '@/pages/ProductList'
-import Profile from '@/pages/Profile'
-import NotFound from '@/pages/NotFound'
-import ProductType from '@/pages/ProductType'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
 import { AdminProduct, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
+import { AdminRoute, ProtectedRoute, RejectedRoute } from './permissions'
 
-function ProtectedRoute() {
-  const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
-}
+import Login from '@/pages/Login'
+import Register from '@/pages/Register'
+import ProductList from '@/pages/ProductList'
+import ProductDetail from '@/pages/ProductDetail'
+import ProductType from '@/pages/ProductType'
+import Profile from '@/pages/Profile'
+import NotFound from '@/pages/NotFound'
 
-function RejectedRoute() {
-  const { isAuthenticated } = useContext(AppContext)
-  return !isAuthenticated ? <Outlet /> : <Navigate to='*' />
-}
-
-function AdminRoute() {
-  const { isAuthenticated, profile } = useContext(AppContext)
-  return isAuthenticated && profile?.isAdmin ? <Outlet /> : <NotFound />
-}
-
-export function useRouteElements() {
+export default function AppRoutes() {
   const routeElements = useRoutes([
     {
       path: '',
@@ -132,5 +116,6 @@ export function useRouteElements() {
       )
     }
   ])
+
   return routeElements
 }

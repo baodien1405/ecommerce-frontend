@@ -1,12 +1,11 @@
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useRouteElements } from '@/hooks'
 import { useContext, useEffect } from 'react'
 import { LocalStorageEventTarget } from '@/utils'
 import { AppContext } from '@/contexts'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
-  const routeElements = useRouteElements()
   const { reset } = useContext(AppContext)
 
   useEffect(() => {
@@ -18,7 +17,7 @@ function App() {
 
   return (
     <div>
-      {routeElements}
+      <AppRoutes />
       <ToastContainer />
     </div>
   )

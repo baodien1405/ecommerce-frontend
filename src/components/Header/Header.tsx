@@ -188,13 +188,12 @@ export default function Header() {
         <div className='flex justify-between'>
           <div className='ml-[105px] mt-2 flex'>
             {quickLinks.map((item) => (
-              <Link
+              <span
                 className='mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]'
                 key={item.id}
-                to={item.to}
               >
                 {item.content}
-              </Link>
+              </span>
             ))}
           </div>
 

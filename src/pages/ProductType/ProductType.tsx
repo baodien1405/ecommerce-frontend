@@ -75,7 +75,7 @@ export default function ProductType() {
               >
                 <div
                   className={classNames('text-[14px] font-normal leading-normal text-[#27272a]', {
-                    'text-[#1677ff]': type.toLowerCase() === item.toLowerCase()
+                    'text-[#1677ff]': type?.toLowerCase() === item?.toLowerCase()
                   })}
                 >
                   {convertTitleCase(item)}
