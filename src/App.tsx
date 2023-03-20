@@ -1,9 +1,11 @@
+import { useContext, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useContext, useEffect } from 'react'
+
 import { LocalStorageEventTarget } from '@/utils'
 import { AppContext } from '@/contexts'
-import AppRoutes from './routes/AppRoutes'
+import AppRoutes from '@/routes/AppRoutes'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 function App() {
   const { reset } = useContext(AppContext)
@@ -16,10 +18,10 @@ function App() {
   }, [reset])
 
   return (
-    <div>
+    <ErrorBoundary>
       <AppRoutes />
       <ToastContainer />
-    </div>
+    </ErrorBoundary>
   )
 }
 

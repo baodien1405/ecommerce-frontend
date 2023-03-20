@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Col, Row } from 'antd'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 import Image from '@/components/Image'
 import productApi from '@/api/product.api'
@@ -11,7 +12,6 @@ import SlickSlider from '@/components/SlickSlider'
 import { useQueryConfig } from '@/hooks'
 import { AsideFilter } from './components'
 import { ProductListConfig } from '@/types'
-import { createSearchParams, useNavigate } from 'react-router-dom'
 import { path } from '@/constants'
 import { convertTitleCase } from '@/utils'
 
