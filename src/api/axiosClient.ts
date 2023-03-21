@@ -1,8 +1,5 @@
-import jwtDecode from 'jwt-decode'
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosHeaders } from 'axios'
 import { getAccessTokenFromLS } from '@/utils'
-import { TokenDecode } from '@/types'
-import authApi from './auth.api'
+import axios, { AxiosHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -14,7 +11,7 @@ const axiosClient = axios.create({
 
 // Add a request interceptor
 axiosClient.interceptors.request.use(
-  async function (config: AxiosRequestConfig) {
+  async function (config: InternalAxiosRequestConfig) {
     // Do something before request is sent
     const accessToken = getAccessTokenFromLS()
     if (accessToken && config.headers) {

@@ -1,16 +1,18 @@
+import { lazy, Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
 import { path } from '@/constants'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
 import { AdminProduct, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
 import { AdminRoute, ProtectedRoute, RejectedRoute } from './permissions'
+import Spinner from '@/components/Spinner'
 
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
-import ProductList from '@/pages/ProductList'
-import ProductDetail from '@/pages/ProductDetail'
-import ProductType from '@/pages/ProductType'
-import Profile from '@/pages/Profile'
-import NotFound from '@/pages/NotFound'
+const Login = lazy(() => import('@/pages/Login'))
+const Register = lazy(() => import('@/pages/Register'))
+const ProductList = lazy(() => import('@/pages/ProductList'))
+const ProductDetail = lazy(() => import('@/pages/ProductDetail'))
+const ProductType = lazy(() => import('@/pages/ProductType'))
+const Profile = lazy(() => import('@/pages/Profile'))
+const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export default function AppRoutes() {
   const routeElements = useRoutes([
@@ -22,7 +24,9 @@ export default function AppRoutes() {
           path: path.login,
           element: (
             <DefaultLayout>
-              <Login />
+              <Suspense fallback={<Spinner />}>
+                <Login />
+              </Suspense>
             </DefaultLayout>
           )
         },
@@ -30,7 +34,9 @@ export default function AppRoutes() {
           path: path.register,
           element: (
             <DefaultLayout>
-              <Register />
+              <Suspense fallback={<Spinner />}>
+                <Register />
+              </Suspense>
             </DefaultLayout>
           )
         }
@@ -44,7 +50,9 @@ export default function AppRoutes() {
           path: path.profile,
           element: (
             <MainLayout>
-              <Profile />
+              <Suspense fallback={<Spinner />}>
+                <Profile />
+              </Suspense>
             </MainLayout>
           )
         }
@@ -55,7 +63,9 @@ export default function AppRoutes() {
       index: true,
       element: (
         <MainLayout>
-          <ProductDetail />
+          <Suspense fallback={<Spinner />}>
+            <ProductDetail />
+          </Suspense>
         </MainLayout>
       )
     },
@@ -64,7 +74,9 @@ export default function AppRoutes() {
       index: true,
       element: (
         <MainLayout>
-          <ProductType />
+          <Suspense fallback={<Spinner />}>
+            <ProductType />
+          </Suspense>
         </MainLayout>
       )
     },
@@ -73,7 +85,9 @@ export default function AppRoutes() {
       index: true,
       element: (
         <MainLayout>
-          <ProductList />
+          <Suspense fallback={<Spinner />}>
+            <ProductList />
+          </Suspense>
         </MainLayout>
       )
     },
@@ -111,7 +125,9 @@ export default function AppRoutes() {
       path: '*',
       element: (
         <MainLayout>
-          <NotFound />
+          <Suspense fallback={<Spinner />}>
+            <NotFound />
+          </Suspense>
         </MainLayout>
       )
     }
