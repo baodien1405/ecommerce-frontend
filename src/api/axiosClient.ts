@@ -1,5 +1,7 @@
-import { getAccessTokenFromLS } from '@/utils'
+import { AuthResponse } from '@/types'
+import { getAccessTokenFromLS, setAccessTokenToLS } from '@/utils'
 import axios, { AxiosHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { URL_LOGIN, URL_REGISTER } from './auth.api'
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -31,6 +33,11 @@ axiosClient.interceptors.response.use(
   function (response: AxiosResponse) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+    const { url } = response.config
+    if (url === URL_LOGIN || url === URL_REGISTER) {
+      const data = response.data as AuthResponse
+      setAccessTokenToLS(data.access_token)
+    }
     return response
   },
   function (error) {
