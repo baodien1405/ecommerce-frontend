@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 
 import Image from '@/components/Image'
 import { path } from '@/constants'
@@ -54,6 +55,10 @@ export default function Login() {
 
   return (
     <div className='flex h-screen items-center justify-center bg-[#efefef]'>
+      <Helmet>
+        <title>Login | Tiki Clone</title>
+        <meta name='description' content='Login into Tiki Clone project' />
+      </Helmet>
       <div className='flex w-[800px] rounded-[20px] bg-white'>
         <div className='w-[500px] px-[45px] pt-10 pb-6'>
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('hello')}</h4>

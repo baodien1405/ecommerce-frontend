@@ -1,6 +1,7 @@
 import { RightOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Rate, Spin } from 'antd'
+import { Helmet } from 'react-helmet-async'
 import { Link, useParams } from 'react-router-dom'
 
 import productApi from '@/api/product.api'
@@ -52,6 +53,10 @@ export default function ProductDetail() {
 
   return (
     <div className='h-[calc(100vh-61px)] bg-[#efefef]'>
+      <Helmet>
+        <title>{product?.name} | Tiki Clone</title>
+        <meta name='description' content={product?.description} />
+      </Helmet>
       <div className='container'>
         <h4 className='flex items-center gap-2 py-[10px] text-sm font-light text-[#808089]'>
           <Link to={path.product}>Trang chủ</Link>

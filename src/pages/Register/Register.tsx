@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { Helmet } from 'react-helmet-async'
 
 import { RegisterForm } from './components'
 import Image from '@/components/Image'
@@ -40,6 +41,10 @@ export default function Register() {
 
   return (
     <div className='flex h-screen items-center justify-center bg-[#efefef]'>
+      <Helmet>
+        <title>Register | Tiki Clone</title>
+        <meta name='description' content='Register account into Tiki Clone project' />
+      </Helmet>
       <div className='flex w-[800px] rounded-[20px] bg-white'>
         <div className='w-[500px] px-[45px] pt-10 pb-6'>
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('create account')}</h4>

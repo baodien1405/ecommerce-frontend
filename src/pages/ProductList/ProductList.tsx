@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Col, Row } from 'antd'
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 
 import Image from '@/components/Image'
 import productApi from '@/api/product.api'
@@ -64,6 +65,10 @@ export default function ProductList() {
 
   return (
     <div className='bg-[#efefef]'>
+      <Helmet>
+        <title>Homepage | Tiki Clone</title>
+        <meta name='description' content='Homepage Tiki Clone project' />
+      </Helmet>
       <div className='bg-white'>
         <div className='container'>
           <div className='flex gap-8 overflow-hidden text-ellipsis whitespace-nowrap py-[10px]'>
