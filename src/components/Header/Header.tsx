@@ -165,10 +165,10 @@ export default function Header() {
             ) : (
               <div
                 className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]'
-                onClick={() => navigate(path.login)}
+                // onClick={() => navigate(path.login)}
               >
                 <UserOutlined className='text-[20px]' />
-                <Link to='' className='text-[14px] font-normal leading-normal text-[#808089]'>
+                <Link to={path.login} className='text-[14px] font-normal leading-normal text-[#808089]'>
                   {t('account')}
                 </Link>
               </div>
