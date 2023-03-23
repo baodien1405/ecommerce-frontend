@@ -25,8 +25,8 @@ export default function Login() {
   })
 
   const initialLoginFormValue = {
-    email: 'capbaodien@gmail.com',
-    password: '123456'
+    email: '',
+    password: ''
   }
 
   const handleLogin = (formValues: FormDataLogin) => {

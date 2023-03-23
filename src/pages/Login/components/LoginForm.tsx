@@ -15,12 +15,7 @@ export interface LoginFormProps {
 export function LoginForm({ initialValues, loading, onSubmit }: LoginFormProps) {
   const [t] = useTranslation('login')
   const schema = useLoginFormSchema()
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid }
-  } = useForm<FormDataLogin>({
-    mode: 'onChange',
+  const { control, handleSubmit } = useForm<FormDataLogin>({
     defaultValues: initialValues,
     resolver: yupResolver(schema)
   })
@@ -31,12 +26,12 @@ export function LoginForm({ initialValues, loading, onSubmit }: LoginFormProps) 
 
   return (
     <Form colon={false} initialValues={initialValues} onFinish={handleSubmit(handleLogin)}>
-      <InputField name='email' control={control} placeholder='abc@email.com' classNameInput='py-2' />
+      <InputField name='email' control={control} placeholder='abc@gmail.com' classNameInput='py-2' />
       <InputPasswordField name='password' control={control} placeholder='Mật khẩu' classNameInput='py-2' />
 
       <Button
         loading={loading}
-        disabled={!isValid || loading}
+        disabled={loading}
         type='primary'
         htmlType='submit'
         danger
