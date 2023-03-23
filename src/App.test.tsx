@@ -3,7 +3,6 @@ import { screen, waitFor } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { path } from './constants'
 import { renderWithRouter } from './utils'
-// import { logScreen } from './utils'
 
 expect.extend(matchers)
 window.matchMedia =
