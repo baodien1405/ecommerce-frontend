@@ -8,6 +8,7 @@ import { AppContext } from '@/contexts'
 import { AsideProfile, ProfileForm } from './components'
 import userApi from '@/api/user.api'
 import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
+import { Helmet } from 'react-helmet-async'
 
 export default function Profile() {
   const [t] = useTranslation('profile')
@@ -26,7 +27,7 @@ export default function Profile() {
   }
 
   const handleProfileFormSubmit = (formValues: FormDataProfile) => {
-    const { email, ...restFormValues } = formValues
+    const { email: _, ...restFormValues } = formValues
 
     updateProfileMutation.mutate(restFormValues, {
       onSuccess: async (data) => {
@@ -44,6 +45,10 @@ export default function Profile() {
 
   return (
     <div className='h-[calc(100vh-61px)] bg-[#efefef]'>
+      <Helmet>
+        <title>Profile | Tiki Clone</title>
+        <meta name='description' content='Profile of Tiki Clone' />
+      </Helmet>
       <div className='container'>
         <h4 className='py-[10px] text-sm font-light text-[#808089]'>{t('homepage > account info')}</h4>
 

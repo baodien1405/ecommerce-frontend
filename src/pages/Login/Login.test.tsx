@@ -1,20 +1,8 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
-import matchers from '@testing-library/jest-dom/matchers'
 
 import { path } from '@/constants'
 import { renderWithRouter } from '@/utils'
-
-expect.extend(matchers)
-window.matchMedia =
-  window.matchMedia ||
-  function () {
-    return {
-      matches: false,
-      addListener: function () {},
-      removeListener: function () {}
-    }
-  }
 
 describe('Login', () => {
   let emailInput: HTMLInputElement
@@ -61,7 +49,7 @@ describe('Login', () => {
   it('should not display an error when re-entering the correct value', async () => {
     fireEvent.change(emailInput, {
       target: {
-        value: 'test@gmail.com'
+        value: 'capbaodien999@gmail.com'
       }
     })
     fireEvent.change(passwordInput, {
@@ -69,11 +57,11 @@ describe('Login', () => {
         value: '123456'
       }
     })
-    fireEvent.submit(submitButton)
     await waitFor(() => {
       expect(screen.queryByText('Please enter a valid email')).toBeFalsy()
       expect(screen.queryByText('Length from 6 - 160 characters')).toBeFalsy()
     })
+    fireEvent.submit(submitButton)
     // screen.debug(document.body.parentElement as HTMLElement, 999999999)
   })
 })

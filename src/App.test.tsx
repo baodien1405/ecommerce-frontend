@@ -1,19 +1,7 @@
-import matchers from '@testing-library/jest-dom/matchers'
 import { screen, waitFor } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { path } from './constants'
 import { renderWithRouter } from './utils'
-
-expect.extend(matchers)
-window.matchMedia =
-  window.matchMedia ||
-  function () {
-    return {
-      matches: false,
-      addListener: function () {},
-      removeListener: function () {}
-    }
-  }
 
 describe('App', () => {
   test('App render and redirect', async () => {
