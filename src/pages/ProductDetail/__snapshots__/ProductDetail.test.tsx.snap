@@ -1,0 +1,799 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Product Detail > should render UI ProductDetail 1`] = `
+<body>
+  <div>
+    <div>
+      <div
+        class="mb-1 py-2 shadow"
+      >
+        <div
+          class="container w-full"
+        >
+          <div
+            class="flex items-center justify-between"
+          >
+            <div
+              class="flex flex-1 items-center"
+            >
+              <div
+                class="mr-12"
+              >
+                <img
+                  alt="logo"
+                  class="overflow-hidden w-[60px] cursor-pointer"
+                  src="/src/assets/images/blue-logo.png"
+                />
+              </div>
+              <div
+                class="flex-1"
+              >
+                <span
+                  class="ant-input-group-wrapper ant-input-search ant-input-search-large ant-input-search-with-button ant-input-group-wrapper-lg css-dev-only-do-not-override-1me4733"
+                >
+                  <span
+                    class="ant-input-wrapper ant-input-group css-dev-only-do-not-override-1me4733"
+                  >
+                    <input
+                      class="ant-input ant-input-lg css-dev-only-do-not-override-1me4733"
+                      placeholder="Search product..."
+                      type="text"
+                      value=""
+                    />
+                    <span
+                      class="ant-input-group-addon"
+                    >
+                      <button
+                        class="ant-btn css-dev-only-do-not-override-1me4733 ant-btn-primary ant-btn-lg ant-input-search-button"
+                        type="button"
+                      >
+                        <div
+                          class="flex items-center gap-4"
+                        >
+                          <span
+                            aria-label="search"
+                            class="anticon anticon-search"
+                            role="img"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              data-icon="search"
+                              fill="currentColor"
+                              focusable="false"
+                              height="1em"
+                              viewBox="64 64 896 896"
+                              width="1em"
+                            >
+                              <path
+                                d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0011.6 0l43.6-43.5a8.2 8.2 0 000-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+                              />
+                            </svg>
+                          </span>
+                          <span>
+                            Tìm kiếm
+                          </span>
+                        </div>
+                      </button>
+                    </span>
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div
+              class="ml-12 flex items-center"
+            >
+              <div
+                class="flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#0060ff1f]"
+              >
+                <img
+                  alt="logo"
+                  class="overflow-hidden mr-1 h-6 w-6 rounded-full"
+                  src="/src/assets/images/home-logo.png"
+                />
+                <a
+                  class="text-[14px] font-medium leading-normal text-[#0a68ff]"
+                  href="/"
+                >
+                  Trang chủ
+                </a>
+              </div>
+              <div
+                class="flex w-[124px] cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="mr-1 h-6 w-6 cursor-pointer text-[#808089]  svg-inline--fa fa-earth-asia"
+                  data-icon="earth-asia"
+                  data-prefix="fas"
+                  focusable="false"
+                  height="24px"
+                  role="img"
+                  viewBox="0 0 512 512"
+                  width="24px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM51.68 295.1L83.41 301.5C91.27 303.1 99.41 300.6 105.1 294.9L120.5 279.5C132 267.1 151.6 271.1 158.9 285.8L168.2 304.3C172.1 313.9 182.8 319.1 193.5 319.1C208.7 319.1 219.6 305.4 215.2 290.8L209.3 270.9C204.6 255.5 216.2 240 232.3 240H234.6C247.1 240 260.5 233.3 267.9 222.2L278.6 206.1C284.2 197.7 283.9 186.6 277.8 178.4L261.7 156.9C251.4 143.2 258.4 123.4 275.1 119.2L292.1 114.1C299.6 113.1 305.7 107.8 308.6 100.6L324.9 59.69C303.4 52.12 280.2 48 255.1 48C141.1 48 47.1 141.1 47.1 256C47.1 269.4 49.26 282.5 51.68 295.1L51.68 295.1zM450.4 300.4L434.6 304.9C427.9 306.7 420.8 304 417.1 298.2L415.1 295.1C409.1 285.7 398.7 279.1 387.5 279.1C376.4 279.1 365.1 285.7 359.9 295.1L353.8 304.6C352.4 306.8 350.5 308.7 348.2 309.1L311.1 330.1C293.9 340.2 286.5 362.5 294.1 381.4L300.5 393.8C309.1 413 331.2 422.3 350.1 414.9L353.5 413.1C363.6 410.2 374.8 411.8 383.5 418.1L385 419.2C422.2 389.7 449.1 347.8 459.4 299.7C456.4 299.4 453.4 299.6 450.4 300.4H450.4zM156.1 367.5L188.1 375.5C196.7 377.7 205.4 372.5 207.5 363.9C209.7 355.3 204.5 346.6 195.9 344.5L163.9 336.5C155.3 334.3 146.6 339.5 144.5 348.1C142.3 356.7 147.5 365.4 156.1 367.5V367.5zM236.5 328.1C234.3 336.7 239.5 345.4 248.1 347.5C256.7 349.7 265.4 344.5 267.5 335.9L275.5 303.9C277.7 295.3 272.5 286.6 263.9 284.5C255.3 282.3 246.6 287.5 244.5 296.1L236.5 328.1zM321.7 120.8L305.7 152.8C301.7 160.7 304.9 170.4 312.8 174.3C320.7 178.3 330.4 175.1 334.3 167.2L350.3 135.2C354.3 127.3 351.1 117.6 343.2 113.7C335.3 109.7 325.6 112.9 321.7 120.8V120.8z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <a
+                  class="text-[14px] font-normal leading-normal text-[#808089]"
+                  href="/64180824c057cc62c5f8decf"
+                >
+                  Tiếng Việt
+                </a>
+              </div>
+              <div
+                class="flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]"
+              >
+                <span
+                  aria-label="user"
+                  class="anticon anticon-user text-[20px]"
+                  role="img"
+                >
+                  <svg
+                    aria-hidden="true"
+                    data-icon="user"
+                    fill="currentColor"
+                    focusable="false"
+                    height="1em"
+                    viewBox="64 64 896 896"
+                    width="1em"
+                  >
+                    <path
+                      d="M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"
+                    />
+                  </svg>
+                </span>
+                <a
+                  class="text-[14px] font-normal leading-normal text-[#808089]"
+                  href="/login"
+                >
+                  Tài khoản
+                </a>
+              </div>
+              <div
+                class="ml-6 flex items-end gap-[8px] text-white"
+              >
+                <div
+                  class="relative before:absolute before:-left-3 before:block before:h-5 before:border-[1px] before:border-solid before:border-[#ebebf0] before:content-[\\"\\"]"
+                >
+                  <img
+                    alt="image"
+                    class="overflow-hidden h-[24px] w-[24px]"
+                    src="/src/assets/images/cart-icon.png"
+                  />
+                  <span
+                    class="absolute -top-[10px] -right-1 inline-block h-[16px] rounded-lg bg-[#ff424f] py-[0.5px] px-1 text-center text-[10px] font-bold leading-normal text-white"
+                  >
+                    0
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex justify-between"
+          >
+            <div
+              class="ml-[105px] mt-2 flex"
+            >
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                trái cây
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                thịt, trứng
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                rau củ quả
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                sữa, bơ, phô mai
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                hải sản
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                gạo, mì ăn liền
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                đồ uống, rượu bia
+              </span>
+              <span
+                class="mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]"
+              >
+                bánh kẹo
+              </span>
+            </div>
+            <div
+              class="mt-2 w-[348px]"
+            >
+              <div
+                class="flex items-center justify-end"
+              >
+                <img
+                  alt="image"
+                  class="overflow-hidden mr-1 h-[20px] w-[20px]"
+                  src="/src/assets/images/location-icon.png"
+                />
+                <h4
+                  class="whitespace-nowrap pr-1 text-[14px] font-normal leading-normal text-[#808089]"
+                >
+                  Giao đến:
+                </h4>
+                <div
+                  class="overflow-hidden whitespace-nowrap text-[14px] font-medium leading-normal text-[#27272a] underline"
+                >
+                  Q. Tân Bình, P. 04, Hồ Chí Minh
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="h-[calc(100vh-61px)] bg-[#efefef]"
+      >
+        <div
+          class="container"
+        >
+          <h4
+            class="flex items-center gap-2 py-[10px] text-sm font-light text-[#808089]"
+          >
+            <a
+              href="/"
+            >
+              Trang chủ
+            </a>
+            <span
+              aria-label="right"
+              class="anticon anticon-right"
+              role="img"
+            >
+              <svg
+                aria-hidden="true"
+                data-icon="right"
+                fill="currentColor"
+                focusable="false"
+                height="1em"
+                viewBox="64 64 896 896"
+                width="1em"
+              >
+                <path
+                  d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"
+                />
+              </svg>
+            </span>
+            <span>
+              Iphone 13
+            </span>
+          </h4>
+          <div
+            class="flex gap-1"
+          >
+            <div
+              class="rounded bg-white p-4"
+            >
+              <img
+                alt="image"
+                class="overflow-hidden h-[444px] w-[444px] object-contain"
+                src="http://res.cloudinary.com/dktajq8sb/image/upload/v1679297374/products/um6rssm7gkrum0by64jl.png"
+              />
+              <div
+                class="mt-4 flex gap-3"
+              >
+                <img
+                  alt="image"
+                  class="overflow-hidden h-[64px] w-[64px] rounded border-[1px] border-[#0d5cb6] object-contain"
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+                />
+                <img
+                  alt="image"
+                  class="overflow-hidden h-[64px] w-[64px] rounded border-[1px] border-[#0d5cb6] object-contain"
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+                />
+                <img
+                  alt="image"
+                  class="overflow-hidden h-[64px] w-[64px] rounded border-[1px] border-[#0d5cb6] object-contain"
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+                />
+                <img
+                  alt="image"
+                  class="overflow-hidden h-[64px] w-[64px] rounded border-[1px] border-[#0d5cb6] object-contain"
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+                />
+                <img
+                  alt="image"
+                  class="overflow-hidden h-[64px] w-[64px] rounded border-[1px] border-[#0d5cb6] object-contain"
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+                />
+                <img
+                  alt="image"
+                  class="overflow-hidden h-[64px] w-[64px] rounded border-[1px] border-[#0d5cb6] object-contain"
+                  src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80"
+                />
+              </div>
+            </div>
+            <div
+              class="flex-1 rounded bg-white p-4"
+            >
+              <div
+                class="ant-spin-nested-loading css-dev-only-do-not-override-1me4733"
+              >
+                <div
+                  class="ant-spin-container"
+                >
+                  <h1
+                    class="mb-1 break-words text-2xl font-light text-[#242424]"
+                  >
+                    Iphone 13
+                  </h1>
+                  <div
+                    class="mb-4 flex items-center"
+                  >
+                    <ul
+                      class="ant-rate ant-rate-disabled text-[12px] [&>li]:-ml-[5px] css-dev-only-do-not-override-1me4733"
+                      role="radiogroup"
+                      tabindex="-1"
+                    >
+                      <li
+                        class="ant-rate-star ant-rate-star-full"
+                      >
+                        <div
+                          aria-checked="true"
+                          aria-posinset="1"
+                          aria-setsize="5"
+                          role="radio"
+                          tabindex="-1"
+                        >
+                          <div
+                            class="ant-rate-star-first"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-rate-star-second"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="ant-rate-star ant-rate-star-full"
+                      >
+                        <div
+                          aria-checked="true"
+                          aria-posinset="2"
+                          aria-setsize="5"
+                          role="radio"
+                          tabindex="-1"
+                        >
+                          <div
+                            class="ant-rate-star-first"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-rate-star-second"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="ant-rate-star ant-rate-star-full"
+                      >
+                        <div
+                          aria-checked="true"
+                          aria-posinset="3"
+                          aria-setsize="5"
+                          role="radio"
+                          tabindex="-1"
+                        >
+                          <div
+                            class="ant-rate-star-first"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-rate-star-second"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="ant-rate-star ant-rate-star-full"
+                      >
+                        <div
+                          aria-checked="true"
+                          aria-posinset="4"
+                          aria-setsize="5"
+                          role="radio"
+                          tabindex="-1"
+                        >
+                          <div
+                            class="ant-rate-star-first"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-rate-star-second"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li
+                        class="ant-rate-star ant-rate-star-full"
+                      >
+                        <div
+                          aria-checked="true"
+                          aria-posinset="5"
+                          aria-setsize="5"
+                          role="radio"
+                          tabindex="-1"
+                        >
+                          <div
+                            class="ant-rate-star-first"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="ant-rate-star-second"
+                          >
+                            <span
+                              aria-label="star"
+                              class="anticon anticon-star"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="star"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M908.1 353.1l-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 00.6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0046.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <span
+                      class="ml-2 text-base text-[#787878]"
+                    >
+                      (Xem 201 đáng giá)
+                    </span>
+                    <div
+                      class="mx-2 h-3 w-[1px] bg-[#c7c7c7]"
+                    />
+                    <span
+                      class="text-base text-[#787878]"
+                    >
+                      Đã bán 743
+                    </span>
+                  </div>
+                  <div
+                    class="mb-4 flex w-[480px] items-baseline rounded bg-[#fafafa] px-4 py-3"
+                  >
+                    <div
+                      class="mr-2 text-[32px] font-medium leading-10 text-[#ff424e]"
+                    >
+                      1.500.444 ₫
+                    </div>
+                    <div
+                      class="text-sm text-[#808089] line-through"
+                    >
+                      30.990.000 ₫
+                    </div>
+                    <div
+                      class="ml-1 px-1 text-[14px] font-medium leading-[18px] text-[#ff424e]"
+                    >
+                      -
+                      13
+                      %
+                    </div>
+                  </div>
+                  <div
+                    class="border-t-[1px] border-[#f2f2f2] py-3"
+                  >
+                    <span>
+                      Giao đến 
+                    </span>
+                    <span
+                      class="overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-medium leading-6 underline"
+                    >
+                      Q. 1, P. Bến Nghé, Hồ Chí Minh
+                    </span>
+                    <span>
+                       - 
+                    </span>
+                    <span
+                      class="text-base font-medium text-[#0b74e5]"
+                    >
+                      Đổi địa chỉ
+                    </span>
+                  </div>
+                  <div
+                    class="border-t-[1px] border-[#f2f2f2] py-4"
+                  >
+                    <div
+                      class="mb-[10px] text-[15px] capitalize leading-relaxed"
+                    >
+                      Số lượng
+                    </div>
+                    <div
+                      class="flex items-center undefined"
+                    >
+                      <button
+                        class="flex h-8 w-8 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600"
+                      >
+                        <svg
+                          class="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M19.5 12h-15"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      <div
+                        class=""
+                      >
+                        <input
+                          class="h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none"
+                          value="12"
+                        />
+                        <div
+                          class="hidden"
+                        />
+                      </div>
+                      <button
+                        class="flex h-8 w-8 items-center justify-center rounded-r-sm border border-gray-300 text-gray-600"
+                      >
+                        <svg
+                          class="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 4.5v15m7.5-7.5h-15"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="mt-4 flex w-[490px] gap-3"
+                  >
+                    <button
+                      class="ant-btn css-dev-only-do-not-override-1me4733 ant-btn-primary ant-btn-dangerous mx-auto h-[48px] w-60 border-[1px] px-3 py-2 text-[15px] font-medium leading-6"
+                      type="button"
+                    >
+                      <span>
+                        Chọn mua
+                      </span>
+                    </button>
+                    <button
+                      class="ant-btn css-dev-only-do-not-override-1me4733 ant-btn-primary ant-btn-background-ghost mx-auto flex h-[48px] w-60 flex-col items-center justify-center border-[1px] border-[#0d5cb6] px-3 py-2 text-[#0d5cb6]"
+                      type="button"
+                    >
+                      <span
+                        class="text-[15px] font-medium leading-[1.6]"
+                      >
+                        Trả góp
+                      </span>
+                      <span
+                        class="text-[11px] leading-[1.45]"
+                      >
+                        2.207.500 ₫/tháng
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Toastify"
+    />
+  </div>
+</body>
+`;

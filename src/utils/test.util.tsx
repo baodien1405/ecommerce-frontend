@@ -1,12 +1,11 @@
-import App from '@/App'
-import { AppProvider, getInitialAppContext } from '@/contexts'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { render, screen, waitFor, type waitForOptions } from '@testing-library/react'
-// import { expect } from 'vitest'
+import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ReactNode } from 'react'
 import { BrowserRouter } from 'react-router-dom'
+
+import { AppProvider, getInitialAppContext } from '@/contexts'
+import App from '@/App'
 
 export const delay = (time: number) =>
   new Promise((resolve) => {
@@ -14,23 +13,6 @@ export const delay = (time: number) =>
       resolve(true)
     }, time)
   })
-
-// export const logScreen = async (
-//   body: HTMLElement = document.body.parentElement as HTMLElement,
-//   options?: waitForOptions
-// ) => {
-//   const { timeout = 1000 } = options || {}
-//   await waitFor(
-//     async () => {
-//       expect(await delay(timeout - 100)).toBe(true)
-//     },
-//     {
-//       ...options,
-//       timeout
-//     }
-//   )
-//   screen.debug(body, 99999999)
-// }
 
 export const createWrapper = () => {
   const queryClient = new QueryClient({

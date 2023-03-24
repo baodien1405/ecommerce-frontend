@@ -54,7 +54,7 @@ export default function ProductDetail() {
   return (
     <div className='h-[calc(100vh-61px)] bg-[#efefef]'>
       <Helmet>
-        <title>{product?.name} | Tiki Clone</title>
+        <title>{`${product?.name} | Tiki Clone`}</title>
         <meta name='description' content={product?.description} />
       </Helmet>
       <div className='container'>

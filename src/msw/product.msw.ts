@@ -93,8 +93,30 @@ const productsRes = {
   }
 }
 
+const productDetailRes = {
+  status: 'OK',
+  message: 'Success',
+  data: {
+    _id: '64180824c057cc62c5f8decf',
+    name: 'Iphone 13',
+    image: 'http://res.cloudinary.com/dktajq8sb/image/upload/v1679297374/products/um6rssm7gkrum0by64jl.png',
+    type: 'phone',
+    price: 1500444,
+    countInStock: 123,
+    rating: 4.4,
+    description: 'Điện thoại nè'
+  }
+}
+
 const productsRequest = rest.get(`${import.meta.env.VITE_BASE_URL}/product`, (req, res, ctx) => {
   return res(ctx.status(HttpStatusCode.Ok), ctx.json(productsRes))
 })
 
-export const productRequests = [productsRequest]
+const productDetailRequest = rest.get(
+  `${import.meta.env.VITE_BASE_URL}/product/64180824c057cc62c5f8decf`,
+  (req, res, ctx) => {
+    return res(ctx.status(HttpStatusCode.Ok), ctx.json(productDetailRes))
+  }
+)
+
+export const productRequests = [productsRequest, productDetailRequest]

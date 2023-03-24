@@ -1,4 +1,4 @@
-import { waitFor, screen } from '@testing-library/react'
+import { waitFor } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 
 import { path } from '@/constants'
@@ -10,12 +10,11 @@ describe('Profile', () => {
     setAccessTokenToLS(access_token)
     const { container } = renderWithRouter({ route: path.profile })
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(document.querySelector('title')?.textContent).toBe('Profile | Tiki Clone')
       expect((container.querySelector('form input[placeholder="Thêm tên"]') as HTMLInputElement).value).toBe(
         'Cap Bao Dien'
       )
     })
-    screen.debug(document.body.parentElement as HTMLElement, 999999999)
   })
 })
