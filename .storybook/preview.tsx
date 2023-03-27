@@ -3,6 +3,7 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { HelmetProvider } from 'react-helmet-async'
+import { withRouter } from 'storybook-addon-react-router-v6'
 import { AppProvider } from '../src/contexts'
 import ErrorBoundary from '../src/components/ErrorBoundary'
 
@@ -35,17 +36,16 @@ const queryClient = new QueryClient({
 })
 
 export const decorators = [
+  withRouter,
   (Story) => (
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <AppProvider>
-          <HelmetProvider>
-            <ErrorBoundary>
-              <Story />
-            </ErrorBoundary>
-          </HelmetProvider>
-        </AppProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <AppProvider>
+        <HelmetProvider>
+          <ErrorBoundary>
+            <Story />
+          </ErrorBoundary>
+        </HelmetProvider>
+      </AppProvider>
+    </QueryClientProvider>
   )
 ]
