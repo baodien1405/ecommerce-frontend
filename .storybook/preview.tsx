@@ -12,7 +12,8 @@ export const parameters = {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/
-    }
+    },
+    expanded: true
   }
 }
 
