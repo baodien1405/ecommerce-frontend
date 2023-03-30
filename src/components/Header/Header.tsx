@@ -174,14 +174,17 @@ export default function Header() {
               </div>
             )}
 
-            <div className='ml-6 flex items-end gap-[8px] text-white'>
+            <Link
+              to={path.order}
+              className='ml-6 flex cursor-pointer items-end gap-[8px] rounded p-2 text-white hover:bg-[#0060ff1f]'
+            >
               <div className='relative before:absolute before:-left-3 before:block before:h-5 before:border-[1px] before:border-solid before:border-[#ebebf0] before:content-[""]'>
                 <Image className='h-[24px] w-[24px]' alt='image' src={images.cartIcon} />
                 <span className='absolute -top-[10px] -right-1 inline-block h-[16px] rounded-lg bg-[#ff424f] py-[0.5px] px-1 text-center text-[10px] font-bold leading-normal text-white'>
                   0
                 </span>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
 

@@ -2,13 +2,15 @@ import { RightOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Rate, Spin } from 'antd'
 import { Helmet } from 'react-helmet-async'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useContext } from 'react'
 
 import productApi from '@/api/product.api'
 import Image from '@/components/Image'
 import QuantityController from '@/components/QuantityController'
 import { path } from '@/constants'
 import { formatAmount } from '@/utils'
+import { AppContext } from '@/contexts'
 
 const reviewImageList = [
   {
@@ -40,6 +42,9 @@ const reviewImageList = [
 
 export default function ProductDetail() {
   const { productId } = useParams()
+  const { profile } = useContext(AppContext)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const { data: productDetailData, isLoading } = useQuery({
     queryKey: ['product', productId],
@@ -49,6 +54,14 @@ export default function ProductDetail() {
 
   const handleBuyCount = () => {
     return null
+  }
+
+  const handleAddProduct = () => {
+    if (!profile?._id) {
+      navigate(path.login, {
+        state: location.pathname
+      })
+    }
   }
 
   return (
@@ -146,6 +159,7 @@ export default function ProductDetail() {
                   type='primary'
                   danger
                   className='mx-auto h-[48px] w-60 border-[1px] px-3 py-2 text-[15px] font-medium leading-6'
+                  onClick={handleAddProduct}
                 >
                   Chọn mua
                 </Button>

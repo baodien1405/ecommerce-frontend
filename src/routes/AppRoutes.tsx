@@ -12,6 +12,7 @@ const ProductList = lazy(() => import('@/pages/ProductList'))
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'))
 const ProductType = lazy(() => import('@/pages/ProductType'))
 const Profile = lazy(() => import('@/pages/Profile'))
+const Order = lazy(() => import('@/pages/Order'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export default function AppRoutes() {
@@ -52,6 +53,16 @@ export default function AppRoutes() {
             <MainLayout>
               <Suspense fallback={<Spinner />}>
                 <Profile />
+              </Suspense>
+            </MainLayout>
+          )
+        },
+        {
+          path: path.order,
+          element: (
+            <MainLayout>
+              <Suspense fallback={<Spinner />}>
+                <Order />
               </Suspense>
             </MainLayout>
           )

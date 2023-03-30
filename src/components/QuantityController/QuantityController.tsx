@@ -8,6 +8,7 @@ interface Props extends InputNumberProps {
   onType?: (value: number) => void
   onFocusOut?: (value: number) => void
   classNameWrapper?: string
+  classNameInput?: string
 }
 
 export default function QuantityController({
@@ -17,6 +18,7 @@ export default function QuantityController({
   onType,
   onFocusOut,
   classNameWrapper,
+  classNameInput,
   value,
   ...rest
 }: Props) {
@@ -74,7 +76,7 @@ export default function QuantityController({
       <InputNumber
         className=''
         classNameError='hidden'
-        classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
+        classNameInput={`h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none ${classNameInput}`}
         onChange={handleChange}
         onBlur={handleBlur}
         value={value || localValue}

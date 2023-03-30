@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 
 import Image from '@/components/Image'
@@ -19,6 +19,7 @@ export default function Login() {
   const [t] = useTranslation('login')
   const [loading, setLoading] = useState(false)
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const location = useLocation()
 
   const loginMutation = useMutation({
     mutationFn: (body: FormDataLogin) => authApi.login(body)
@@ -42,7 +43,11 @@ export default function Login() {
           setProfile(profile.data.data)
           setProfileToLS(profile.data.data)
           toast.success(data.data?.message)
-          navigate(path.product)
+          if (location?.state) {
+            navigate(location.state)
+          } else {
+            navigate(path.product)
+          }
         }
       },
       onError: (error) => {

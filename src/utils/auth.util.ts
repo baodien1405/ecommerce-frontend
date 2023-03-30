@@ -30,3 +30,8 @@ export const getProfileFromLS = () => {
 export const setProfileToLS = (profile: User) => {
   localStorage.setItem('profile', JSON.stringify(profile))
 }
+
+export const getOrderProductFromLS = () => {
+  const result = localStorage.getItem('order_product')
+  return result ? JSON.parse(result) : null
+}
