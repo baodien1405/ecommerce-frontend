@@ -1,7 +1,23 @@
-import { AuthResponse } from '@/types'
-import { getAccessTokenFromLS, setAccessTokenToLS } from '@/utils'
-import axios, { AxiosHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
-import { URL_LOGIN, URL_REGISTER } from './auth.api'
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { toast } from 'react-toastify'
+import jwtDecode from 'jwt-decode'
+
+import { HttpStatusCode } from '@/constants'
+import { AuthResponse, ErrorResponse, RefreshTokenResponse } from '@/types'
+import {
+  clearLS,
+  getAccessTokenFromLS,
+  getRefreshTokenFromLS,
+  isAxiosUnauthorizedError,
+  setAccessTokenToLS,
+  setProfileToLS,
+  setRefreshTokenToLS
+} from '@/utils'
+import { URL_LOGIN, URL_REFRESH_TOKEN } from './auth.api'
+
+let accessToken = getAccessTokenFromLS()
+let refreshToken = getRefreshTokenFromLS()
+let refreshTokenRequest: Promise<string> | null = null
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -13,17 +29,14 @@ const axiosClient = axios.create({
 
 // Add a request interceptor
 axiosClient.interceptors.request.use(
-  async function (config: InternalAxiosRequestConfig) {
-    // Do something before request is sent
-    const accessToken = getAccessTokenFromLS()
+  async function (config) {
     if (accessToken && config.headers) {
-      ;(config.headers as AxiosHeaders).set('Authorization', `Bearer ${accessToken}`)
+      config.headers.Authorization = `Bearer ${accessToken}`
       return config
     }
     return config
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error)
   }
 )
@@ -34,17 +47,89 @@ axiosClient.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     const { url } = response.config
-    if (url === URL_LOGIN || url === URL_REGISTER) {
+    if (url === URL_LOGIN) {
       const data = response.data as AuthResponse
-      setAccessTokenToLS(data.access_token)
+      accessToken = data.data.access_token
+      refreshToken = data.data.refresh_token
+      setAccessTokenToLS(accessToken)
+      setRefreshTokenToLS(refreshToken)
+      setProfileToLS(data.data.user)
+    } else if (url === '/logout') {
+      accessToken = ''
+      refreshToken = ''
+      clearLS()
     }
     return response
   },
-  function (error) {
+  function (error: AxiosError) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+
+    // Only toast message if error not 422 and 401
+    if (![HttpStatusCode.UnprocessableEntity, HttpStatusCode.Unauthorized].includes(error.response?.status as number)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data: any | undefined = error.response?.data
+      const message = data?.message || error.message
+      toast.error(message)
+    }
+
+    // Lỗi Unauthorized (401) có rất nhiều trường hợp
+    // - Token không đúng
+    // - Không truyền token
+    // - Token hết hạn*
+
+    // Nếu là lỗi 401
+    if (isAxiosUnauthorizedError<ErrorResponse<{ name: string; message: string }>>(error)) {
+      const config = error.response?.config || ({ headers: {} } as InternalAxiosRequestConfig)
+      const { url } = config
+      const decoded = jwtDecode(accessToken) as { exp: number }
+      const isExpiredToken = decoded?.exp < new Date().getTime() / 1000
+      // Trường hợp Token hết hạn và request đó không phải là của request refresh token
+      // thì chúng ta mới tiến hành gọi refresh token
+      if (isExpiredToken && url !== URL_REFRESH_TOKEN) {
+        // Hạn chế gọi 2 lần handleRefreshToken
+        refreshTokenRequest = refreshTokenRequest
+          ? refreshTokenRequest
+          : handleRefreshToken().finally(() => {
+              // Giữ refreshTokenRequest trong 10s cho những request tiếp theo nếu có 401 thì dùng
+              setTimeout(() => {
+                refreshTokenRequest = null
+              }, 10000)
+            })
+        return refreshTokenRequest.then((access_token) => {
+          return axiosClient({ ...config, headers: { ...config.headers, authorization: access_token } })
+        })
+      }
+
+      // Còn những trường hợp như token không đúng
+      // không truyền token,
+      // token hết hạn nhưng gọi refresh token bị fail
+      // thì tiến hành xóa local storage và toast message
+
+      clearLS()
+      accessToken = ''
+      refreshToken = ''
+      toast.error(error.response?.data.data?.message || error.response?.data.message)
+    }
+
     return Promise.reject(error)
   }
 )
+
+async function handleRefreshToken() {
+  try {
+    const res = await axiosClient.post<RefreshTokenResponse>(URL_REFRESH_TOKEN, {
+      refresh_token: refreshToken
+    })
+    const { access_token } = res.data.data
+    setAccessTokenToLS(access_token)
+    accessToken = access_token
+    return access_token
+  } catch (error) {
+    clearLS()
+    accessToken = ''
+    throw error
+  }
+}
 
 export default axiosClient

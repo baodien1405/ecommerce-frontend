@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
@@ -10,14 +10,12 @@ import { path } from '@/constants'
 import { ErrorResponse, FormDataLogin } from '@/types'
 import { LoginForm } from './components'
 import authApi from '@/api/auth.api'
-import { isAxiosUnprocessableEntityError, setAccessTokenToLS, setProfileToLS } from '@/utils'
-import userApi from '@/api/user.api'
+import { isAxiosUnprocessableEntityError } from '@/utils'
 import { AppContext } from '@/contexts'
 
 export default function Login() {
   const navigate = useNavigate()
   const [t] = useTranslation('login')
-  const [loading, setLoading] = useState(false)
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const location = useLocation()
 
@@ -33,25 +31,17 @@ export default function Login() {
   const handleLogin = (formValues: FormDataLogin) => {
     loginMutation.mutate(formValues, {
       onSuccess: async (data) => {
-        const accessToken = data.data?.access_token
-        if (accessToken) {
-          setAccessTokenToLS(accessToken)
-          setLoading(true)
-          const profile = await userApi.getProfile()
-          setLoading(false)
-          setIsAuthenticated(true)
-          setProfile(profile.data.data)
-          setProfileToLS(profile.data.data)
-          toast.success(data.data?.message)
-          if (location?.state) {
-            navigate(location.state)
-          } else {
-            navigate(path.product)
-          }
+        setIsAuthenticated(true)
+        setProfile(data.data.data.user)
+
+        if (location?.state) {
+          navigate(location.state)
+        } else {
+          navigate(path.product)
         }
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
           toast.error(error.response?.data?.message)
         }
       }
@@ -69,11 +59,7 @@ export default function Login() {
           <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('hello')}</h4>
           <div className='mb-[20px] text-[15px] leading-[20px]'>{t('sign in or create account')}</div>
 
-          <LoginForm
-            loading={loginMutation.isLoading || loading}
-            initialValues={initialLoginFormValue}
-            onSubmit={handleLogin}
-          />
+          <LoginForm loading={loginMutation.isLoading} initialValues={initialLoginFormValue} onSubmit={handleLogin} />
 
           <div className='mt-[20px] inline-block cursor-pointer text-[13px] leading-[1.15] text-[#0d5cb6]'>
             {t('forgot password')}

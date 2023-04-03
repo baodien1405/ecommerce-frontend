@@ -20,9 +20,9 @@ export default function Register() {
   })
 
   const initialValuesFormRegister = {
-    email: 'capbaodien@gmail.com',
-    password: '123456',
-    confirmPassword: '123456'
+    email: '',
+    password: '',
+    confirmPassword: ''
   }
 
   const handleRegister = (values: FormDataRegister) => {
@@ -32,7 +32,7 @@ export default function Register() {
         navigate(path.login)
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
           toast.error(error.response?.data?.message)
         }
       }

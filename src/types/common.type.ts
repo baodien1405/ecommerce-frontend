@@ -10,9 +10,10 @@ export interface SuccessResponse<Data> {
   message: string
   data: Data
 }
-export interface ErrorResponse {
+export interface ErrorResponse<Data> {
   status: string
   message: string
+  data?: Data
 }
 
 export interface TokenDecode {

@@ -193,7 +193,7 @@ export function AdminProduct() {
             queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
           },
           onError: (error) => {
-            if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+            if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
               toast.error(error.response?.data?.message)
             }
           }
@@ -220,7 +220,7 @@ export function AdminProduct() {
         queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
           toast.error(error.response?.data?.message)
         }
       }
@@ -245,7 +245,7 @@ export function AdminProduct() {
         queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
           toast.error(error.response?.data?.message)
         }
       }
@@ -260,7 +260,7 @@ export function AdminProduct() {
           queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
         },
         onError: (error) => {
-          if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+          if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
             toast.error(error.response?.data?.message)
           }
         }
