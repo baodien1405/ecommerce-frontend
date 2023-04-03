@@ -122,7 +122,7 @@ export default function ProductList() {
           <AsideFilter />
 
           <div className='flex-1'>
-            <Row gutter={[8, 8]}>
+            <Row gutter={[10, 10]}>
               {productsQuery.isLoading &&
                 Array(10)
                   .fill(0)

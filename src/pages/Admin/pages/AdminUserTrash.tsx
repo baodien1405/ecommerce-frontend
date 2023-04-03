@@ -50,7 +50,7 @@ export function AdminUserTrash() {
         queryClient.invalidateQueries({ queryKey: ['users'], exact: true })
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
           toast.error(error.response?.data?.message)
         }
       }
@@ -70,7 +70,7 @@ export function AdminUserTrash() {
             queryClient.invalidateQueries({ queryKey: ['users'], exact: true })
           },
           onError: (error) => {
-            if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+            if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
               toast.error(error.response?.data?.message)
             }
           }

@@ -36,7 +36,7 @@ export default function Profile() {
         setProfileToLS(data.data.data)
       },
       onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse>(error)) {
+        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
           toast.error(error.response?.data?.message)
         }
       }
