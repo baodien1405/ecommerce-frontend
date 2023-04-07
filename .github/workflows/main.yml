@@ -2,12 +2,8 @@ name: tiki-clone-frontend-deploy
 on:
   push:
     branches: main
-  pull_request:
-    branches: main
-    types: [ closed ]
 jobs:
   build-and-deploy:
-    if: github.event.pull_request.merged == true || github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Pull code from git to build machine
@@ -18,7 +14,7 @@ jobs:
           touch .env
           echo VITE_BASE_URL=${{ secrets.VITE_BASE_URL }} >> .env
           cat .env
-          
+
       - name: Login Docker Hub
         uses: docker/login-action@v2
         with:
