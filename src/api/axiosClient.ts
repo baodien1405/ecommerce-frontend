@@ -3,21 +3,29 @@ import { toast } from 'react-toastify'
 import jwtDecode from 'jwt-decode'
 
 import { HttpStatusCode } from '@/constants'
-import { AuthResponse, ErrorResponse, RefreshTokenResponse } from '@/types'
+import { AuthResponse, ErrorResponse, User } from '@/types'
 import {
   clearLS,
   getAccessTokenFromLS,
+  getProfileFromLS,
   getRefreshTokenFromLS,
   isAxiosUnauthorizedError,
   setAccessTokenToLS,
   setProfileToLS,
   setRefreshTokenToLS
 } from '@/utils'
-import { URL_LOGIN, URL_REFRESH_TOKEN } from './auth.api'
+import authApi, { URL_LOGIN, URL_LOGOUT, URL_REFRESH_TOKEN, URL_REGISTER } from './auth.api'
+
+export const HEADER = {
+  API_KEY: 'x-api-key',
+  CLIENT_ID: 'x-client-id',
+  REFRESH_TOKEN: 'x-rtoken-id'
+}
 
 let accessToken = getAccessTokenFromLS()
 let refreshToken = getRefreshTokenFromLS()
 let refreshTokenRequest: Promise<string> | null = null
+let profile = getProfileFromLS() as User | null
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -30,6 +38,10 @@ const axiosClient = axios.create({
 // Add a request interceptor
 axiosClient.interceptors.request.use(
   async function (config) {
+    if (config.headers) {
+      config.headers[HEADER.API_KEY] = import.meta.env.VITE_API_KEY
+      config.headers[HEADER.CLIENT_ID] = profile?._id
+    }
     if (accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`
       return config
@@ -47,14 +59,15 @@ axiosClient.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     const { url } = response.config
-    if (url === URL_LOGIN) {
+    if ([URL_LOGIN, URL_REGISTER].includes(url as string)) {
       const data = response.data as AuthResponse
-      accessToken = data.data.access_token
-      refreshToken = data.data.refresh_token
+      profile = data.metadata.user
+      accessToken = data.metadata.accessToken
+      refreshToken = data.metadata.refreshToken
       setAccessTokenToLS(accessToken)
       setRefreshTokenToLS(refreshToken)
-      setProfileToLS(data.data.user)
-    } else if (url === '/logout') {
+      setProfileToLS(profile)
+    } else if (url === URL_LOGOUT) {
       accessToken = ''
       refreshToken = ''
       clearLS()
@@ -70,6 +83,7 @@ axiosClient.interceptors.response.use(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data: any | undefined = error.response?.data
       const message = data?.message || error.message
+      console.log('🚀 ~ message:', message)
       toast.error(message)
     }
 
@@ -96,8 +110,11 @@ axiosClient.interceptors.response.use(
                 refreshTokenRequest = null
               }, 10000)
             })
-        return refreshTokenRequest.then((access_token) => {
-          return axiosClient({ ...config, headers: { ...config.headers, authorization: access_token } })
+        return refreshTokenRequest.then((accessToken) => {
+          return axiosClient({
+            ...config,
+            headers: { ...config.headers, Authorization: accessToken }
+          })
         })
       }
 
@@ -118,16 +135,21 @@ axiosClient.interceptors.response.use(
 
 async function handleRefreshToken() {
   try {
-    const res = await axiosClient.post<RefreshTokenResponse>(URL_REFRESH_TOKEN, {
-      refresh_token: refreshToken
-    })
-    const { access_token } = res.data.data
-    setAccessTokenToLS(access_token)
-    accessToken = access_token
-    return access_token
+    const res = await authApi.refreshToken(refreshToken)
+    const newAccessToken = res.data.metadata.accessToken
+    const newRefetchToken = res.data.metadata.refreshToken
+
+    setAccessTokenToLS(newAccessToken)
+    setRefreshTokenToLS(newRefetchToken)
+
+    accessToken = newAccessToken
+    refreshToken = newRefetchToken
+
+    return newAccessToken
   } catch (error) {
     clearLS()
     accessToken = ''
+    refreshToken = ''
     throw error
   }
 }
