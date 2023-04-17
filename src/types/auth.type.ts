@@ -5,21 +5,13 @@ export interface FormDataLogin {
 }
 
 export interface FormDataRegister {
+  name: string
   email: string
   password: string
-  confirmPassword: string
 }
 
 export type AuthResponse = SuccessResponse<{
-  access_token: string
-  refresh_token: string
   user: User
-}>
-
-export type RegisterResponse = SuccessResponse<{
-  user: User
-}>
-
-export type RefreshTokenResponse = SuccessResponse<{
-  access_token: string
+  accessToken: string
+  refreshToken: string
 }>

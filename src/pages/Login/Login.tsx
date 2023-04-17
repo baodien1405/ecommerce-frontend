@@ -32,7 +32,7 @@ export default function Login() {
     loginMutation.mutate(formValues, {
       onSuccess: async (data) => {
         setIsAuthenticated(true)
-        setProfile(data.data.data.user)
+        setProfile(data.data.metadata.user)
 
         if (location?.state) {
           navigate(location.state)

@@ -2,6 +2,11 @@ import * as yup from 'yup'
 
 export const useRegisterFormSchema = () => {
   const schema = yup.object().shape({
+    name: yup
+      .string()
+      .strict()
+      .trim('Please enter a suffix with no leading or trailing spaces')
+      .required('Please enter a name'),
     email: yup
       .string()
       .strict()
@@ -9,11 +14,6 @@ export const useRegisterFormSchema = () => {
       .trim('Please enter a suffix with no leading or trailing spaces')
       .required('Please enter an email'),
     password: yup
-      .string()
-      .strict()
-      .trim('Please enter a suffix with no leading or trailing spaces')
-      .required('Please enter an password'),
-    confirmPassword: yup
       .string()
       .strict()
       .trim('Please enter a suffix with no leading or trailing spaces')

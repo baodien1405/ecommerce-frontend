@@ -3,15 +3,17 @@ import { Input, Tooltip } from 'antd'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 
 import images from '@/assets/images'
 import { GlobalIcon } from '@/components/Icons'
 import Image from '@/components/Image'
-import { path } from '@/constants'
+import { path, Roles } from '@/constants'
 import { AppContext } from '@/contexts'
 import { locales } from '@/i18n/i18n'
 import { clearLS } from '@/utils'
 import { useSearchProducts } from '@/hooks'
+import authApi from '@/api/auth.api'
 
 const { Search } = Input
 
@@ -33,6 +35,14 @@ export default function Header() {
     { id: '8', to: '', content: t('quick links.cake, candy') }
   ]
 
+  const logoutMutation = useMutation({
+    mutationFn: authApi.logout,
+    onSuccess: () => {
+      reset()
+      clearLS()
+    }
+  })
+
   const handleSearch = (value: string) => {
     onSubmitSearch({
       name: value.toLowerCase()
@@ -44,8 +54,7 @@ export default function Header() {
   }
 
   const handleLogout = () => {
-    reset()
-    clearLS()
+    logoutMutation.mutate()
   }
 
   return (
@@ -132,7 +141,7 @@ export default function Header() {
                       {t('customer information')}
                     </div>
 
-                    {profile?.isAdmin && (
+                    {profile?.roles?.includes(Roles.ADMIN) && (
                       <div
                         className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
                         onClick={() => navigate(path.adminUser)}

@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { Link, useNavigate } from 'react-router-dom'
@@ -10,26 +11,30 @@ import { path } from '@/constants'
 import authApi from '@/api/auth.api'
 import { ErrorResponse, FormDataRegister } from '@/types'
 import { isAxiosUnprocessableEntityError } from '@/utils'
+import { AppContext } from '@/contexts'
 
 export default function Register() {
   const [t] = useTranslation('register')
   const navigate = useNavigate()
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
 
   const registerAccountMutation = useMutation({
     mutationFn: (body: FormDataRegister) => authApi.registerAccount(body)
   })
 
   const initialValuesFormRegister = {
+    name: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   }
 
   const handleRegister = (values: FormDataRegister) => {
     registerAccountMutation.mutate(values, {
       onSuccess: (data) => {
         toast.success(data.data.message)
-        navigate(path.login)
+        setIsAuthenticated(true)
+        setProfile(data.data.metadata.user)
+        navigate('/')
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
