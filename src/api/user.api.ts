@@ -1,14 +1,11 @@
-import { SuccessResponse, User } from '@/types'
+import { SuccessResponse, User, UserResponse } from '@/types'
 import axiosClient from './axiosClient'
 
 export const URL_USER = '/user'
 
 const userApi = {
-  getProfile() {
-    return axiosClient.get<SuccessResponse<User>>(`${URL_USER}/profile`)
-  },
-  updateProfile(id: string, body: Omit<User, '_id' | 'isAdmin' | 'createdAt' | 'updatedAt' | 'email'>) {
-    return axiosClient.put<SuccessResponse<User>>(`${URL_USER}/${id}`, body)
+  updateProfile(id: string, body: Partial<User>) {
+    return axiosClient.put<UserResponse>(`${URL_USER}/${id}`, body)
   },
   getUserList(signal?: AbortSignal) {
     return axiosClient.get<SuccessResponse<User[]> & { deletedCount: number }>(URL_USER, {

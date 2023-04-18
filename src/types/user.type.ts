@@ -1,3 +1,5 @@
+import { SuccessResponse } from '@/types'
+
 type Role = 'USER' | 'ADMIN' | '0001' | '0002'
 
 export interface User {
@@ -10,3 +12,7 @@ export interface User {
   address?: string
   avatar?: string
 }
+
+export type UserResponse = SuccessResponse<{
+  user: User
+}>

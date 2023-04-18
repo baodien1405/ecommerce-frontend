@@ -19,7 +19,7 @@ const { Search } = Input
 
 export default function Header() {
   const navigate = useNavigate()
-  const { profile, reset } = useContext(AppContext)
+  const { profile, reset, isAuthenticated } = useContext(AppContext)
   const { onSubmitSearch } = useSearchProducts()
   const [t, i18n] = useTranslation('header')
   const currentLanguage = i18n.language as 'en' | 'vi'
@@ -130,7 +130,7 @@ export default function Header() {
               </div>
             </Tooltip>
 
-            {profile?.email ? (
+            {isAuthenticated ? (
               <Tooltip
                 title={
                   <>
