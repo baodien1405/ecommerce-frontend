@@ -2,13 +2,14 @@ import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useMutation } from '@tanstack/react-query'
+import omit from 'lodash/omit'
+import { Helmet } from 'react-helmet-async'
 
 import { ErrorResponse, FormDataProfile } from '@/types'
 import { AppContext } from '@/contexts'
-import { AsideProfile, ProfileForm } from './components'
 import userApi from '@/api/user.api'
+import { AsideProfile, ProfileForm } from './components'
 import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
-import { Helmet } from 'react-helmet-async'
 
 export default function Profile() {
   const [t] = useTranslation('profile')
@@ -27,13 +28,14 @@ export default function Profile() {
   }
 
   const handleProfileFormSubmit = (formValues: FormDataProfile) => {
-    const { email: _, ...restFormValues } = formValues
+    const newFormValues = omit(formValues, ['email'])
 
-    updateProfileMutation.mutate(restFormValues, {
+    updateProfileMutation.mutate(newFormValues, {
       onSuccess: async (data) => {
-        toast.success(data.data?.message)
-        setProfile(data.data.data)
-        setProfileToLS(data.data.data)
+        const profile = data.data.metadata.user
+        toast.success(data.data.message)
+        setProfile(profile)
+        setProfileToLS(profile)
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
