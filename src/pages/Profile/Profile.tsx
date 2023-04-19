@@ -32,7 +32,7 @@ export default function Profile() {
 
     updateProfileMutation.mutate(newFormValues, {
       onSuccess: async (data) => {
-        const profile = data.data.metadata.user
+        const profile = data.data.metadata
         toast.success(data.data.message)
         setProfile(profile)
         setProfileToLS(profile)

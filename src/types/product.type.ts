@@ -1,3 +1,5 @@
+import { Pagination } from './api.type'
+
 export interface Product {
   _id: string
   name: string
@@ -9,12 +11,6 @@ export interface Product {
   description: string
   discount: number
   quantitySold: number
-}
-
-export interface Pagination {
-  _limit: number
-  _page: number
-  _totalRows: number
 }
 
 export interface ProductListResponse {
