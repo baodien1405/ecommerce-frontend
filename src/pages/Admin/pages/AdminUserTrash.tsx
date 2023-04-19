@@ -122,7 +122,7 @@ export function AdminUserTrash() {
     }
   ]
 
-  const data: DataType[] | undefined = usersQuery.data?.data?.data.map((user) => {
+  const data: DataType[] | undefined = usersQuery.data?.data.metadata.items.map((user) => {
     return {
       key: user._id,
       name: user.name,

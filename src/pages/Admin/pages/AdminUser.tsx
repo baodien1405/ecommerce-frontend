@@ -4,6 +4,7 @@ import { Modal, Spin, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import pick from 'lodash/pick'
 
 import userApi from '@/api/user.api'
 import { ErrorResponse, User } from '@/types'
@@ -27,6 +28,7 @@ export function AdminUser() {
   const [loadingUser, setLoadingUser] = useState(false)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const initialUserForm = pick(user, ['name', 'email', 'phone']) as FormDataUser
 
   const usersQuery = useQuery({
     queryKey: ['users'],
@@ -57,7 +59,7 @@ export function AdminUser() {
       setLoadingUser(false)
 
       if (response.data.status === 'OK') {
-        setUser(response.data.data)
+        setUser(response.data.metadata)
       }
     } catch (error) {
       setLoadingUser(false)
@@ -126,7 +128,7 @@ export function AdminUser() {
     }
   ]
 
-  const data: DataType[] | undefined = usersQuery.data?.data?.data.map((user) => {
+  const data: DataType[] | undefined = usersQuery.data?.data?.metadata.items.map((user) => {
     return {
       key: user._id,
       name: user.name,
@@ -155,8 +157,8 @@ export function AdminUser() {
     <div className='p-4'>
       <h3 className='mb-2 text-[20px] font-medium leading-normal'>User management</h3>
 
-      <div className='mb-3 cursor-pointer text-[#1776ff]' onClick={() => navigate(path.adminUserTrash)}>
-        {`Trash(${usersQuery.data?.data.deletedCount || 0})`}
+      <div className='mb-3 inline-block cursor-pointer text-[#1776ff]' onClick={() => navigate(path.adminUserTrash)}>
+        {`Trash(${usersQuery.data?.data.metadata.deletedCount || 0})`}
       </div>
 
       <Table
@@ -181,7 +183,7 @@ export function AdminUser() {
           <UserForm
             loading={updateUserMutation.isLoading}
             isSuccess={updateUserMutation.isSuccess}
-            initialValues={user}
+            initialValues={initialUserForm}
             onSubmit={handleUpdateUserSubmit}
           />
         </Spin>

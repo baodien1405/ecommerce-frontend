@@ -21,7 +21,6 @@ export function RegisterForm({ initialValues, loading, onSubmit }: RegisterFormP
   })
 
   const handleRegister = async (values: FormDataRegister) => {
-    console.log('🚀 ~ handleRegister ~ values:', values)
     await onSubmit?.(values)
   }
 
