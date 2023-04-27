@@ -2,28 +2,30 @@ import { Pagination } from './api.type'
 
 export interface Product {
   _id: string
-  name: string
-  image: string
-  type: string
-  price: number
-  countInStock: number
-  rating: number
-  description: string
-  discount: number
-  quantitySold: number
+  product_name: string
+  product_thumb: string
+  product_description: string
+  product_slug: string
+  product_variations: Array<any>
+  product_price: number
+  product_quantity: number
+  product_type: string
+  product_ratingsAverage: number
 }
 
 export interface ProductListResponse {
   status: string
   message: string
-  data: Product[]
-  pagination: Pagination
+  metadata: {
+    items: Product[]
+    pagination: Pagination
+  }
 }
 
 export interface FormDataProduct {
   name: string
   type: string
-  countInStock: number
+  quantity: number
   price: number
   description: string
   rating: number
@@ -35,8 +37,8 @@ export interface FormDataAction {
 }
 
 export interface ProductListConfig {
-  _page?: number | string
-  _limit?: number | string
+  page?: number | string
+  limit?: number | string
   sort_by?: 'createdAt' | 'view' | 'sold' | 'price'
   order?: 'asc' | 'desc'
   exclude?: string

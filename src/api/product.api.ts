@@ -10,13 +10,13 @@ const productApi = {
       signal
     })
   },
-  addProduct(product: Omit<Product, '_id' | 'discount' | 'quantitySold'>) {
+  addProduct(product: Partial<Product>) {
     return axiosClient.post<SuccessResponse<Product>>(URL_PRODUCT, product)
   },
   getProduct(id: number | string) {
     return axiosClient.get<SuccessResponse<Product>>(`${URL_PRODUCT}/${id}`)
   },
-  updateProduct(id: number | string, product: Omit<Product, '_id' | 'discount' | 'quantitySold'>) {
+  updateProduct(id: number | string, product: Partial<Product>) {
     return axiosClient.put<SuccessResponse<Product>>(`${URL_PRODUCT}/${id}`, product)
   },
   deleteProduct(id: number | string) {

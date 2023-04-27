@@ -1,27 +1,26 @@
-import React, { useRef, useState } from 'react'
-import { Excel } from 'antd-table-saveas-excel'
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
-import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
-import { Button, Empty, Input, InputRef, Modal, Space, Spin, Table } from 'antd'
-import type { ColumnsType, ColumnType } from 'antd/es/table'
-import { FilterConfirmProps } from 'antd/es/table/interface'
+import { Button, Empty, Modal, Spin, Table } from 'antd'
+import { Excel } from 'antd-table-saveas-excel'
 import { IExcelColumn } from 'antd-table-saveas-excel/app'
+import type { ColumnsType } from 'antd/es/table'
+import React, { useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-import { ActionForm, ProductForm } from '../components'
-import { ErrorResponse, FormDataAction, FormDataProduct, Product, ProductListConfig } from '@/types'
 import productApi from '@/api/product.api'
-import { isAxiosUnprocessableEntityError } from '@/utils'
-import { useQueryConfig } from '@/hooks'
 import { path } from '@/constants'
+import { useQueryConfig } from '@/hooks'
+import { ErrorResponse, FormDataAction, FormDataProduct, Product, ProductListConfig } from '@/types'
+import { isAxiosUnprocessableEntityError } from '@/utils'
+import { ActionForm, ProductForm } from '../components'
 
 interface DataType {
   key?: React.Key
   name?: string
+  type?: string
   price?: number
   rating?: number
-  type?: string
 }
 
 const PRODUCT_LIMIT = 5
@@ -34,9 +33,18 @@ export function AdminProduct() {
   const [productIdList, setProductIdList] = useState<string[]>([])
   const [loadingProduct, setLoadingProduct] = useState(false)
   const queryClient = useQueryClient()
-  const searchInput = useRef<InputRef>(null)
   const queryConfig = useQueryConfig()
   const navigate = useNavigate()
+
+  const initialValueEditForm: FormDataProduct = {
+    name: product?.product_name || '',
+    description: product?.product_description || '',
+    image: product?.product_thumb || '',
+    price: product?.product_price || 0,
+    quantity: product?.product_quantity || 0,
+    rating: product?.product_ratingsAverage || 0,
+    type: product?.product_type || ''
+  }
 
   const productsQuery = useQuery({
     queryKey: ['products', queryConfig],
@@ -51,12 +59,14 @@ export function AdminProduct() {
     retry: 0
   })
 
+  const productList = productsQuery.data?.data.metadata.items || []
+
   const addProductMutation = useMutation({
-    mutationFn: (body: FormDataProduct) => productApi.addProduct(body)
+    mutationFn: (body: Partial<Product>) => productApi.addProduct(body)
   })
 
   const updateProductMutation = useMutation({
-    mutationFn: (body: FormDataProduct) => productApi.updateProduct(String(product?._id), body)
+    mutationFn: (body: Partial<Product>) => productApi.updateProduct(String(product?._id), body)
   })
 
   const deleteProductMutation = useMutation({
@@ -65,50 +75,6 @@ export function AdminProduct() {
 
   const deleteManyProductsMutation = useMutation({
     mutationFn: (ids: string[]) => productApi.deleteManyProducts(ids)
-  })
-
-  const handleSearch = (confirm: (param?: FilterConfirmProps) => void) => {
-    confirm()
-  }
-  const handleReset = (clearFilters: () => void) => {
-    clearFilters()
-  }
-
-  const getColumnSearchProps = (dataIndex: keyof DataType): ColumnType<DataType> => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-      <div className='p-2' onKeyDown={(e) => e.stopPropagation()}>
-        <Input
-          ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => handleSearch(confirm)}
-          className='mb-2 block'
-        />
-        <Space>
-          <Button
-            type='primary'
-            onClick={() => handleSearch(confirm)}
-            icon={<SearchOutlined />}
-            size='small'
-            className='flex w-[90px] items-center bg-[#1890ff]'
-          >
-            Search
-          </Button>
-          <Button onClick={() => clearFilters && handleReset(clearFilters)} size='small' className='w-[90px]'>
-            Reset
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => <SearchOutlined className={filtered ? 'text-[#1890ff]' : ''} />,
-    onFilter: (value, record) =>
-      String(record?.[dataIndex]).toString().toLowerCase().includes(String(value).toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100)
-      }
-    }
   })
 
   const columns: ColumnsType<DataType> = [
@@ -120,8 +86,7 @@ export function AdminProduct() {
     {
       title: 'Name',
       dataIndex: 'name',
-      sorter: (a, b) => Number(a.name?.length) - Number(b.name?.length),
-      ...getColumnSearchProps('name')
+      sorter: (a, b) => Number(a.name?.length) - Number(b.name?.length)
     },
     {
       title: 'Price',
@@ -156,13 +121,13 @@ export function AdminProduct() {
     }
   ]
 
-  const data: DataType[] | undefined = productsQuery.data?.data?.data.map((product) => {
+  const data: DataType[] = productList.map((product) => {
     return {
       key: product._id,
-      name: product.name,
-      price: product.price,
-      rating: product.rating,
-      type: product.type
+      name: product.product_name,
+      price: product.product_price,
+      rating: product.product_ratingsAverage,
+      type: product.product_type
     }
   })
 
@@ -174,7 +139,7 @@ export function AdminProduct() {
       setLoadingProduct(false)
 
       if (response.data.status === 'OK') {
-        setProduct(response.data.data)
+        setProduct(response.data.metadata)
       }
     } catch (error) {
       setLoadingProduct(false)
@@ -203,14 +168,14 @@ export function AdminProduct() {
   }
 
   const handleAddProductSubmit = (values: FormDataProduct) => {
-    const product: FormDataProduct = {
-      name: values.name,
-      type: values.type,
-      countInStock: Number(values.countInStock),
-      price: Number(values.price),
-      description: values.description,
-      image: values.image,
-      rating: Number(values.rating)
+    const product = {
+      product_name: values.name,
+      product_type: values.type,
+      product_quantity: Number(values.quantity),
+      product_price: Number(values.price),
+      product_description: values.description,
+      product_thumb: values.image,
+      product_ratingsAverage: Number(values.rating)
     }
 
     addProductMutation.mutate(product, {
@@ -228,14 +193,14 @@ export function AdminProduct() {
   }
 
   const handleUpdateProductSubmit = (values: FormDataProduct) => {
-    const product: FormDataProduct = {
-      name: values.name,
-      type: values.type,
-      countInStock: Number(values.countInStock),
-      price: Number(values.price),
-      description: values.description,
-      image: values.image,
-      rating: Number(values.rating)
+    const product = {
+      product_name: values.name,
+      product_type: values.type,
+      product_quantity: Number(values.quantity),
+      product_price: Number(values.price),
+      product_description: values.description,
+      product_thumb: values.image,
+      product_ratingsAverage: Number(values.rating)
     }
 
     updateProductMutation.mutate(product, {
@@ -300,7 +265,7 @@ export function AdminProduct() {
 
         <Button
           loading={false}
-          disabled={Number(productsQuery.data?.data?.data?.length) === 0}
+          disabled={productList.length === 0}
           type='primary'
           htmlType='button'
           className='rounded bg-[#0b74e5]'
@@ -345,15 +310,15 @@ export function AdminProduct() {
           }
         }}
         pagination={{
-          current: Number(queryConfig._page) || PRODUCT_PAGE,
+          current: Number(queryConfig.page) || PRODUCT_PAGE,
           pageSize: PRODUCT_LIMIT,
-          total: productsQuery.data?.data.pagination._totalRows,
+          total: productsQuery.data?.data.metadata.pagination.totalRows,
           onChange: (page) =>
             navigate({
               pathname: path.adminProduct,
               search: createSearchParams({
-                _page: String(page),
-                _limit: String(PRODUCT_LIMIT)
+                page: String(page),
+                limit: String(PRODUCT_LIMIT)
               }).toString()
             })
         }}
@@ -373,7 +338,7 @@ export function AdminProduct() {
             type='update'
             loading={updateProductMutation.isLoading}
             isSuccess={updateProductMutation.isSuccess}
-            initialValues={product}
+            initialValues={initialValueEditForm}
             onSubmit={handleUpdateProductSubmit}
           />
         </Spin>

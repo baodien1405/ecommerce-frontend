@@ -38,13 +38,16 @@ export default function ProductList() {
     retry: 0
   })
 
-  const productTypesQuery = useQuery({
-    queryKey: ['types'],
-    queryFn: () => productApi.getProductTypeList(),
-    retry: 0
-  })
+  const productTypeList = [
+    ...new Set(
+      productsQuery.data?.data.metadata.items.map((product) => {
+        return product.product_type
+      })
+    )
+  ]
 
-  const hideLoadMoreButton = productsQuery.data?.data.data.length === productsQuery.data?.data.pagination._totalRows
+  const hideLoadMoreButton =
+    productsQuery.data?.data.metadata.items.length === productsQuery.data?.data.metadata.pagination.totalRows
 
   const outstandingList = [
     { id: '1', imageURL: images.sale33, label: '3.3 Sale Freeship' },
@@ -57,8 +60,8 @@ export default function ProductList() {
     navigate({
       pathname: path.product,
       search: createSearchParams({
-        _page: String(queryConfig._page),
-        _limit: String(Number(queryConfig._limit) + LOAD_MORE_PRODUCT_COUNT)
+        _page: String(queryConfig.page),
+        _limit: String(Number(queryConfig.limit) + LOAD_MORE_PRODUCT_COUNT)
       }).toString()
     })
   }
@@ -72,20 +75,20 @@ export default function ProductList() {
       <div className='bg-white'>
         <div className='container'>
           <div className='flex gap-8 overflow-hidden text-ellipsis whitespace-nowrap py-[10px]'>
-            {productTypesQuery.data?.data.data.map((item) => (
+            {productTypeList.map((type) => (
               <div
-                key={item}
+                key={type}
                 className='cursor-pointer'
                 onClick={() =>
                   navigate({
                     pathname: path.productType,
                     search: createSearchParams({
-                      type: item.toLowerCase()
+                      type: type.toLowerCase()
                     }).toString()
                   })
                 }
               >
-                {convertTitleCase(item)}
+                {convertTitleCase(type)}
               </div>
             ))}
           </div>
@@ -133,7 +136,7 @@ export default function ProductList() {
                   ))}
 
               {!productsQuery.isLoading &&
-                productsQuery.data?.data.data.map((product) => (
+                productsQuery.data?.data.metadata.items.map((product) => (
                   <Col key={product._id}>
                     <ProductCard product={product} />
                   </Col>
