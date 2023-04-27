@@ -32,13 +32,15 @@ export default function ProductType() {
     retry: 0
   })
 
-  const pagination = productsQuery.data?.data.pagination
-
-  const productTypesQuery = useQuery({
-    queryKey: ['types'],
-    queryFn: () => productApi.getProductTypeList(),
-    retry: 0
-  })
+  const pagination = productsQuery.data?.data.metadata.pagination
+  const productList = productsQuery.data?.data.metadata.items || []
+  const productTypeList = [
+    ...new Set(
+      productsQuery.data?.data.metadata.items.map((product) => {
+        return product.product_type
+      })
+    )
+  ]
 
   return (
     <div className='bg-[#efefef]'>
@@ -47,7 +49,7 @@ export default function ProductType() {
           <div className='mr-2 h-full w-[200px] rounded bg-white py-3 px-[8px]'>
             <div className='pl-4 text-[14px] font-bold leading-normal text-[#272727]'>Nổi bật</div>
 
-            {productTypesQuery.isLoading && (
+            {productsQuery.isLoading && (
               <div
                 role='status'
                 className='min-h-[300px] max-w-sm animate-pulse rounded p-2 shadow dark:border-gray-700'
@@ -60,7 +62,7 @@ export default function ProductType() {
               </div>
             )}
 
-            {productTypesQuery.data?.data.data.map((item) => (
+            {productTypeList.map((item) => (
               <div
                 key={item}
                 className='flex cursor-pointer items-center px-4 py-[7px]'
@@ -96,19 +98,19 @@ export default function ProductType() {
                   ))}
 
               {!productsQuery.isLoading &&
-                productsQuery.data?.data.data.map((product) => (
+                productList.map((product) => (
                   <Col key={product._id}>
                     <ProductCard product={product} />
                   </Col>
                 ))}
             </Row>
 
-            {Number(productsQuery.data?.data.data.length) > 0 ? (
+            {Number(productList.length) > 0 ? (
               <Pagination
                 className='py-3 text-center'
-                current={Number(queryConfig._page) || PRODUCT_PAGE}
+                current={Number(queryConfig.page) || PRODUCT_PAGE}
                 pageSize={PRODUCT_LIMIT}
-                total={pagination?._totalRows}
+                total={pagination?.totalRows}
                 onChange={(page) =>
                   navigate({
                     pathname: path.productType,

@@ -50,7 +50,7 @@ export default function ProductDetail() {
     queryKey: ['product', productId],
     queryFn: () => productApi.getProduct(productId as string)
   })
-  const product = productDetailData?.data.data
+  const product = productDetailData?.data.metadata
 
   const handleBuyCount = () => {
     return null
@@ -67,20 +67,24 @@ export default function ProductDetail() {
   return (
     <div className='h-[calc(100vh-61px)] bg-[#efefef]'>
       <Helmet>
-        <title>{`${product?.name} | Tiki Clone`}</title>
-        <meta name='description' content={product?.description} />
+        <title>{`${product?.product_name} | Tiki Clone`}</title>
+        <meta name='description' content={product?.product_description} />
       </Helmet>
       <div className='container'>
         <h4 className='flex items-center gap-2 py-[10px] text-sm font-light text-[#808089]'>
           <Link to={path.product}>Trang chủ</Link>
           <RightOutlined />
-          <span>{product?.name}</span>
+          <span>{product?.product_name}</span>
         </h4>
 
         <div className='flex gap-1'>
           <div className='rounded bg-white p-4'>
-            {product?.image ? (
-              <Image className='h-[444px] w-[444px] object-contain' alt='image' src={product?.image as string} />
+            {product?.product_thumb ? (
+              <Image
+                className='h-[444px] w-[444px] object-contain'
+                alt='image'
+                src={product?.product_thumb as string}
+              />
             ) : (
               <div
                 role='status'
@@ -116,7 +120,7 @@ export default function ProductDetail() {
 
           <div className='flex-1 rounded bg-white p-4'>
             <Spin spinning={isLoading} className='flex items-center justify-center'>
-              <h1 className='mb-1 break-words text-2xl font-light text-[#242424]'>{product?.name}</h1>
+              <h1 className='mb-1 break-words text-2xl font-light text-[#242424]'>{product?.product_name}</h1>
               <div className='mb-4 flex items-center'>
                 <Rate className='text-[12px] [&>li]:-ml-[5px]' disabled defaultValue={5} />
                 <span className='ml-2 text-base text-[#787878]'>(Xem 201 đáng giá)</span>
@@ -126,12 +130,10 @@ export default function ProductDetail() {
 
               <div className='mb-4 flex w-[480px] items-baseline rounded bg-[#fafafa] px-4 py-3'>
                 <div className='mr-2 text-[32px] font-medium leading-10 text-[#ff424e]'>
-                  {formatAmount(Number(product?.price || 0), 'vi-VN', 'VND')}
+                  {formatAmount(Number(product?.product_price || 0), 'vi-VN', 'VND')}
                 </div>
                 <div className='text-sm text-[#808089] line-through'>30.990.000 ₫</div>
-                <div className='ml-1 px-1 text-[14px] font-medium leading-[18px] text-[#ff424e]'>
-                  -{product?.discount || 13}%
-                </div>
+                <div className='ml-1 px-1 text-[14px] font-medium leading-[18px] text-[#ff424e]'>-13%</div>
               </div>
 
               <div className='border-t-[1px] border-[#f2f2f2] py-3'>
