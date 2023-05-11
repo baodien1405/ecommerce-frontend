@@ -1,3 +1,5 @@
 export * from './AdminProduct'
 export * from './AdminUser'
 export * from './AdminUserTrash'
+export * from './AdminProductDraft'
+export * from './AdminProductPublished'

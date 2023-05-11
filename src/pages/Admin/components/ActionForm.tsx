@@ -1,21 +1,20 @@
 import { useEffect } from 'react'
-import { Button, Form } from 'antd'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SelectedField } from '@/components/FormFields'
+
 import { useActionFormSchema } from '@/hooks'
 import { FormDataAction } from '@/types'
+import { SelectField } from '@/components/FormFields'
+import Button from '@/components/Button'
 
 export interface ActionFormProps {
   disabled?: boolean
   loading?: boolean
   isSuccess?: boolean
-  initialValues?: FormDataAction
   onSubmit?: (formValues: FormDataAction) => void
 }
 
-export function ActionForm({ loading, disabled, isSuccess, initialValues, onSubmit }: ActionFormProps) {
-  const [form] = Form.useForm()
+export function ActionForm({ loading, disabled, isSuccess, onSubmit }: ActionFormProps) {
   const schema = useActionFormSchema()
 
   const {
@@ -25,39 +24,33 @@ export function ActionForm({ loading, disabled, isSuccess, initialValues, onSubm
     formState: { isValid }
   } = useForm<FormDataAction>({
     mode: 'onChange',
-    defaultValues: initialValues,
     resolver: yupResolver(schema)
   })
 
   useEffect(() => {
     if (isSuccess) {
       reset()
-      form.resetFields()
     }
-  }, [isSuccess, form, reset])
+  }, [isSuccess, reset])
 
   const handleActionFormSubmit = async (values: FormDataAction) => {
     await onSubmit?.(values)
   }
 
   return (
-    <Form form={form} layout='inline' initialValues={initialValues} onFinish={handleSubmit(handleActionFormSubmit)}>
-      <SelectedField
+    <form className='flex' onSubmit={handleSubmit(handleActionFormSubmit)}>
+      <SelectField
+        className='mr-2'
         name='action'
+        size='small'
         control={control}
         placeholder='-- Action --'
         options={[{ label: 'Delete', value: 'delete' }]}
       />
 
-      <Button
-        loading={loading}
-        disabled={loading || !isValid || disabled}
-        type='primary'
-        htmlType='submit'
-        className='rounded bg-[#0b74e5]'
-      >
+      <Button loading={loading} size='small' disabled={loading || !isValid || disabled} htmlType='submit'>
         Perform
       </Button>
-    </Form>
+    </form>
   )
 }

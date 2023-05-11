@@ -10,5 +10,7 @@ export const path = {
   adminUser: '/admin/user',
   adminUserTrash: '/admin/user/trash',
   adminProduct: '/admin/product',
+  adminProductDraft: '/admin/product/draft',
+  adminProductPublished: '/admin/product/published',
   notFound: '*'
 } as const

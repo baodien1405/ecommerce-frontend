@@ -1,21 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Empty, Modal, Spin, Table } from 'antd'
-import { Excel } from 'antd-table-saveas-excel'
-import { IExcelColumn } from 'antd-table-saveas-excel/app'
 import type { ColumnsType } from 'antd/es/table'
-import React, { useState } from 'react'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import productApi from '@/api/product.api'
-import { path } from '@/constants'
 import { useQueryConfig } from '@/hooks'
-import { ErrorResponse, FormDataAction, FormDataProduct, Product, ProductListConfig } from '@/types'
+import { ErrorResponse, FormDataProduct, Product } from '@/types'
 import { isAxiosUnprocessableEntityError } from '@/utils'
-import { ActionForm, ProductForm } from '../components'
+import { ProductForm } from '../components'
 import { Card, Search } from '@/components/Common'
-import LinkButton from '@/components/LinkButton'
-import Button from '@/components/Button'
 import { EditIcon, TrashIcon } from '@/components/Icons'
 
 interface DataType {
@@ -27,18 +21,13 @@ interface DataType {
   quantity?: number
 }
 
-const PRODUCT_LIMIT = 5
-const PRODUCT_PAGE = 1
-
-export function AdminProduct() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+export function AdminProductPublished() {
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
   const [product, setProduct] = useState<Product | undefined>()
-  const [productIdList, setProductIdList] = useState<string[]>([])
+  // const [productList, setProductList] = useState<Product[]>([])
   const [loadingProduct, setLoadingProduct] = useState(false)
   const queryClient = useQueryClient()
   const queryConfig = useQueryConfig()
-  const navigate = useNavigate()
 
   const initialValueEditForm: FormDataProduct = {
     name: product?.product_name || '',
@@ -46,26 +35,32 @@ export function AdminProduct() {
     image: product?.product_thumb || '',
     price: product?.product_price || 0,
     quantity: product?.product_quantity || 0,
-    type: product?.product_type || ''
+    type: product?.product_type || '',
+    brand: product?.product_attributes.brand,
+    size: product?.product_attributes.size,
+    material: product?.product_attributes.material,
+    manufacturer: product?.product_attributes.manufacturer,
+    model: product?.product_attributes.model,
+    color: product?.product_attributes.color
   }
 
   const productsQuery = useQuery({
-    queryKey: ['products', queryConfig],
+    queryKey: ['published', queryConfig],
     queryFn: () => {
       const controller = new AbortController()
       setTimeout(() => {
         controller.abort()
       }, 10000)
-      return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
+      return productApi.getPublishedProducts(controller.signal)
     },
     keepPreviousData: true,
     retry: 0
   })
 
-  const productList = productsQuery.data?.data.metadata.items || []
+  const productList = productsQuery.data?.data.metadata || []
 
-  const addProductMutation = useMutation({
-    mutationFn: (body: Partial<Product>) => productApi.addProduct(body)
+  const unPublishProductMutation = useMutation({
+    mutationFn: (id: string) => productApi.unPublishProduct(id)
   })
 
   const updateProductMutation = useMutation({
@@ -111,6 +106,19 @@ export function AdminProduct() {
       dataIndex: 'type'
     },
     {
+      title: 'Status',
+      render: (record) => {
+        return (
+          <span
+            className='cursor-pointer whitespace-normal rounded-full bg-accent px-3 py-1 text-xs text-white'
+            onClick={() => handleUnPublishProduct(record)}
+          >
+            publish
+          </span>
+        )
+      }
+    },
+    {
       title: 'Action',
       render: (record) => {
         return (
@@ -138,6 +146,15 @@ export function AdminProduct() {
     }
   })
 
+  const handleUnPublishProduct = async (record: DataType) => {
+    unPublishProductMutation.mutate(String(record.key), {
+      onSuccess: (data) => {
+        toast.success(data.data?.message)
+        queryClient.invalidateQueries({ queryKey: ['published', queryConfig], exact: true })
+      }
+    })
+  }
+
   const handleEditProduct = async (record: DataType) => {
     setIsModalUpdateOpen(true)
     try {
@@ -162,58 +179,9 @@ export function AdminProduct() {
         deleteProductMutation.mutate(String(record.key), {
           onSuccess: (data) => {
             toast.success(data.data?.message)
-            queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
-          },
-          onError: (error) => {
-            if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
-              toast.error(error.response?.data?.message)
-            }
+            queryClient.invalidateQueries({ queryKey: ['published', queryConfig], exact: true })
           }
         })
-      }
-    })
-  }
-
-  const handleAddProductSubmit = (values: FormDataProduct) => {
-    const product = {
-      product_name: values.name,
-      product_type: values.type,
-      product_quantity: Number(values.quantity),
-      product_price: Number(values.price),
-      product_description: values.description,
-      product_thumb: values.image
-    }
-
-    if (['Clothing', 'Furniture'].includes(values.type)) {
-      Object.assign(product, {
-        product_attributes: {
-          brand: values.brand,
-          size: values.size,
-          material: values.material
-        }
-      })
-    }
-
-    if (values.type === 'Electronics') {
-      Object.assign(product, {
-        product_attributes: {
-          manufacturer: values.manufacturer,
-          model: values.model,
-          color: values.color
-        }
-      })
-    }
-
-    addProductMutation.mutate(product, {
-      onSuccess: async (data) => {
-        toast.success(data.data?.message)
-        setIsModalOpen(false)
-        queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
-      },
-      onError: (error) => {
-        if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
-          toast.error(error.response?.data?.message)
-        }
       }
     })
   }
@@ -252,7 +220,7 @@ export function AdminProduct() {
       onSuccess: async (data) => {
         toast.success(data.data?.message)
         setIsModalUpdateOpen(false)
-        queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
+        queryClient.invalidateQueries({ queryKey: ['published', queryConfig], exact: true })
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
@@ -262,90 +230,31 @@ export function AdminProduct() {
     })
   }
 
-  const handleActionFormSubmit = async (values: FormDataAction) => {
-    if (values.action === 'delete') {
-      deleteManyProductsMutation.mutate(productIdList, {
-        onSuccess: (data) => {
-          toast.success(data.data?.message)
-          queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
-        },
-        onError: (error) => {
-          if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
-            toast.error(error.response?.data?.message)
-          }
-        }
-      })
-    }
+  const handleSearch = async ({ searchText }: { searchText: string }) => {
+    // if (!searchText) return
+    // try {
+    //   const response = await productApi.searchProduct(searchText)
+    //   const products = response.data.metadata
+    //   setProductList(products)
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
-
-  const newColumnExport = columns.filter((col) => col.title !== 'Action')
-
-  const handleExportExcelFile = () => {
-    const excel = new Excel()
-    excel
-      .addSheet('Product')
-      .addColumns(newColumnExport as IExcelColumn[])
-      .addDataSource(data as DataType[], {
-        str2Percent: true
-      })
-      .saveAs('products.xlsx')
-  }
-
-  const handleSearch = () => {}
 
   return (
     <div className='h-full bg-[#f3f4f6] p-4'>
       <Card className='mb-8 flex flex-col items-center md:flex-row'>
         <div className='mb-4 md:mb-0 md:w-1/4'>
-          <h1 className='text-lg font-semibold text-heading'>Products</h1>
+          <h1 className='text-lg font-semibold text-heading'>Published Products</h1>
         </div>
 
         <div className='ms-auto flex w-full items-center md:w-3/4'>
           <Search onSearch={handleSearch} />
-          <LinkButton href={''} className='ml-4 h-12 md:ml-6' onClick={() => setIsModalOpen(true)}>
-            <span className='hidden md:block'>+ Add Product</span>
-            <span className='md:hidden'>+ Add</span>
-          </LinkButton>
         </div>
       </Card>
 
-      <div className='flex justify-between'>
-        <div className='mb-3 w-[500px]'>
-          <ActionForm
-            loading={deleteManyProductsMutation.isLoading}
-            disabled={productIdList.length === 0}
-            onSubmit={handleActionFormSubmit}
-          />
-        </div>
-
-        <Button
-          loading={false}
-          disabled={productList.length === 0}
-          size='small'
-          htmlType='button'
-          onClick={handleExportExcelFile}
-        >
-          Export
-        </Button>
-      </div>
-
-      <Modal
-        title={<div className='text-center text-[25px]'>Add product</div>}
-        width={700}
-        centered
-        keyboard
-        open={isModalOpen}
-        footer={null}
-        onCancel={() => setIsModalOpen(false)}
-      >
-        <ProductForm
-          loading={addProductMutation.isLoading}
-          isSuccess={addProductMutation.isSuccess}
-          onSubmit={handleAddProductSubmit}
-        />
-      </Modal>
-
       <Table
+        className='shadow'
         locale={{
           emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='Empty product' />
         }}
@@ -357,25 +266,6 @@ export function AdminProduct() {
           updateProductMutation.isLoading ||
           deleteManyProductsMutation.isLoading
         }
-        rowSelection={{
-          type: 'checkbox',
-          onChange: (selectedRowKeys) => {
-            setProductIdList(selectedRowKeys as string[])
-          }
-        }}
-        pagination={{
-          current: Number(queryConfig.page) || PRODUCT_PAGE,
-          pageSize: PRODUCT_LIMIT,
-          total: productsQuery.data?.data.metadata.pagination.totalRows,
-          onChange: (page) =>
-            navigate({
-              pathname: path.adminProduct,
-              search: createSearchParams({
-                page: String(page),
-                limit: String(PRODUCT_LIMIT)
-              }).toString()
-            })
-        }}
       />
 
       <Modal

@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
 import { path } from '@/constants'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
-import { AdminProduct, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
+import { AdminProduct, AdminProductDraft, AdminProductPublished, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
 import { AdminRoute, ProtectedRoute, RejectedRoute } from './permissions'
 import Spinner from '@/components/Spinner'
 
@@ -114,11 +114,27 @@ export default function AppRoutes() {
             </AdminLayout>
           )
         },
+        // {
+        //   path: path.adminProduct,
+        //   element: (
+        //     <AdminLayout>
+        //       <AdminProduct />
+        //     </AdminLayout>
+        //   )
+        // },
         {
-          path: path.adminProduct,
+          path: path.adminProductDraft,
           element: (
             <AdminLayout>
-              <AdminProduct />
+              <AdminProductDraft />
+            </AdminLayout>
+          )
+        },
+        {
+          path: path.adminProductPublished,
+          element: (
+            <AdminLayout>
+              <AdminProductPublished />
             </AdminLayout>
           )
         },

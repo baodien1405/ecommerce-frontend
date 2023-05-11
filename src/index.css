@@ -12,11 +12,6 @@ html {
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-}
-
 .ant-input-group-addon > button {
   background-color: #0d5cb6;
 }
@@ -30,3 +25,27 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-accent: 0, 159, 127;
+    --color-accent-hover: 1, 147, 118;
+    --color-accent-300: 153, 217, 204;
+    --color-accent-400: 77, 188, 165;
+    --color-accent-500: 0, 159, 127;
+    --color-accent-600: 0, 143, 114;
+    --color-accent-700: 0, 119, 95;
+
+    --color-light: 255, 255, 255;
+    --color-dark: 0, 0, 0;
+
+    --text-base: 107, 114, 128;
+    --text-heading: 31, 41, 55;
+    --text-muted-light: 209, 213, 219;
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}

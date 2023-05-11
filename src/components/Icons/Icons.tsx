@@ -176,3 +176,102 @@ export const GlobalIcon = ({ width = '24px', height = '24px', className }: IconP
     ></path>
   </svg>
 )
+
+export const CloseIcon = ({ width = '24px', height = '24px', className }: IconProps) => (
+  <svg
+    height={height}
+    width={width}
+    className={className}
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 20 20'
+    fill='currentColor'
+  >
+    <path
+      fillRule='evenodd'
+      d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+      clipRule='evenodd'
+    />
+  </svg>
+)
+
+export const SearchIcon = ({ width = '24px', height = '24px', className }: IconProps) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+    height={height}
+    width={width}
+    className={className}
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+    />
+  </svg>
+)
+
+export const UploadIcon = ({ width = '24px', height = '24px', className }: IconProps) => {
+  return (
+    <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} className={className} viewBox='0 0 40.909 30'>
+      <g transform='translate(0 -73.091)'>
+        <path
+          data-name='Path 2125'
+          d='M39.129,89.827A8.064,8.064,0,0,0,34.58,86.94,5.446,5.446,0,0,0,30,78.546a5.207,5.207,0,0,0-3.537,1.321,10.921,10.921,0,0,0-10.1-6.776,10.511,10.511,0,0,0-7.713,3.2A10.508,10.508,0,0,0,5.454,84q0,.277.043.916A9.528,9.528,0,0,0,0,93.546a9.193,9.193,0,0,0,2.8,6.743,9.191,9.191,0,0,0,6.744,2.8H32.728a8.172,8.172,0,0,0,6.4-13.264Zm-12.06-.575a.656.656,0,0,1-.479.2H21.818v7.5a.691.691,0,0,1-.681.681H17.045a.691.691,0,0,1-.682-.681v-7.5H11.59a.655.655,0,0,1-.681-.681.8.8,0,0,1,.213-.512L18.6,80.783a.722.722,0,0,1,.98,0l7.5,7.5a.663.663,0,0,1,.191.49A.656.656,0,0,1,27.07,89.252Z'
+          transform='translate(0)'
+          fill='currentColor'
+        />
+      </g>
+    </svg>
+  )
+}
+
+export const TrashIcon = ({ width = '24px', height = '24px', className }: IconProps) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 19.4 22.169'
+      fill='currentColor'
+      width={width}
+      height={height}
+      className={className}
+    >
+      <g fill='none' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.4'>
+        <path data-name='Rectangle 2' d='M8.238.7h2.923a2 2 0 012 2v.769h0-6.923 0V2.7a2 2 0 012-2z' />
+        <path data-name='Line 1' d='M.7 3.469h18' />
+        <path
+          data-name='Path 77'
+          d='M14.649 21.469h-9.9a1.385 1.385 0 01-1.38-1.279L2.085 3.469h15.231L16.029 20.19a1.385 1.385 0 01-1.38 1.279z'
+        />
+        <path data-name='Line 2' d='M7.623 6.238V18.7' />
+        <path data-name='Line 3' d='M11.777 6.238V18.7' />
+      </g>
+    </svg>
+  )
+}
+
+export const EditIcon = ({ width = '24px', height = '24px', className }: IconProps) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 20.547 20.299'
+      fill='currentColor'
+      width={width}
+      height={height}
+      className={className}
+    >
+      <g stroke='currentColor' strokeWidth='.4'>
+        <path
+          data-name='Path 78'
+          d='M18.659 12.688a.5.5 0 00-.5.5v4.423a1.5 1.5 0 01-1.494 1.494H2.691A1.5 1.5 0 011.2 17.609V4.629a1.5 1.5 0 011.494-1.494h4.419a.5.5 0 100-1H2.691A2.493 2.493 0 00.2 4.629v12.98A2.493 2.493 0 002.691 20.1h13.976a2.493 2.493 0 002.491-2.491v-4.423a.5.5 0 00-.5-.5zm0 0'
+        />
+        <path
+          data-name='Path 79'
+          d='M18.96.856a2.241 2.241 0 00-3.17 0L6.899 9.739a.5.5 0 00-.128.219l-1.169 4.219a.5.5 0 00.613.613l4.219-1.169a.5.5 0 00.219-.128l8.886-8.887a2.244 2.244 0 000-3.17zm-10.971 9.21l7.273-7.273 2.346 2.346-7.273 7.273zm-.469.94l1.879 1.875-2.592.718zm11.32-7.1l-.528.528-2.346-2.345.528-.528a1.245 1.245 0 011.761 0l.585.584a1.247 1.247 0 010 1.761zm0 0'
+        />
+      </g>
+    </svg>
+  )
+}
