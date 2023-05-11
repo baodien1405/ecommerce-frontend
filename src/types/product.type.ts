@@ -1,5 +1,23 @@
 import { Pagination } from './api.type'
 
+type Clothing = {
+  brand: string
+  size: string
+  material: string
+}
+
+type Furniture = {
+  brand: string
+  size: string
+  material: string
+}
+
+type Electronics = {
+  manufacturer: string
+  model: string
+  color: string
+}
+
 export interface Product {
   _id: string
   product_name: string
@@ -11,6 +29,7 @@ export interface Product {
   product_quantity: number
   product_type: string
   product_ratingsAverage: number
+  product_attributes: Clothing & Furniture & Electronics
 }
 
 export interface ProductListResponse {
@@ -28,8 +47,13 @@ export interface FormDataProduct {
   quantity: number
   price: number
   description: string
-  rating: number
-  image: string
+  image: any
+  brand?: string
+  size?: string
+  material?: string
+  manufacturer?: string
+  model?: string
+  color?: string
 }
 
 export interface FormDataAction {

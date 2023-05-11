@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
-import { Button, Form } from 'antd'
-import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { InputField, UploadField } from '@/components/FormFields'
+import { FileInputField, InputFieldVer2, SelectField, TextAreaField } from '@/components/FormFields'
 import { useProductFormSchema } from '@/hooks'
 import { FormDataProduct } from '@/types'
+import Button from '@/components/Button'
+import { getBase64 } from '@/utils'
+import { ACCEPT_FILE_TYPES, MAX_SIZE_UPLOAD } from '@/constants'
 
 export interface ProductFormProps {
   type?: 'add' | 'update'
@@ -15,87 +17,156 @@ export interface ProductFormProps {
   onSubmit?: (formValues: FormDataProduct) => void
 }
 
-export function ProductForm({ type = 'add', loading, isSuccess, initialValues, onSubmit }: ProductFormProps) {
-  const [form] = Form.useForm()
-  const [productURL, setProductURL] = useState('')
-  const [showUploadList, setShowUploadList] = useState(true)
+export function ProductForm({ type = 'add', loading, initialValues, onSubmit }: ProductFormProps) {
   const schema = useProductFormSchema()
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    setValue,
-    formState: { isValid }
-  } = useForm<FormDataProduct>({
-    mode: 'onChange',
+  const { control, handleSubmit, register, watch, setValue } = useForm<FormDataProduct>({
     defaultValues: initialValues,
     resolver: yupResolver(schema)
   })
 
+  const watchProductType = useWatch({ control, name: 'type' })
+
   useEffect(() => {
     if (initialValues) {
-      setProductURL(initialValues.image)
-      Object.entries(initialValues).map(([key, val]) =>
-        setValue(key as keyof FormDataProduct, String(val), {
-          shouldValidate: true
-        })
-      )
-      form.setFieldsValue(initialValues)
+      Object.entries(initialValues).map(([key, val]) => setValue(key as keyof FormDataProduct, String(val)))
     }
-  }, [initialValues, form, setValue])
+  }, [initialValues, setValue])
 
-  useEffect(() => {
-    if (isSuccess) {
-      setProductURL('')
-      setShowUploadList(false)
-      reset()
-      form.resetFields()
-    }
-  }, [isSuccess, form, reset])
-
-  const handleProductUpload = (imageURL: string) => {
-    setProductURL(imageURL)
-  }
-
-  const handleProductSubmit = async (values: FormDataProduct) => {
-    await onSubmit?.({ ...values, image: productURL })
+  const handleProductSubmit = async (formValues: FormDataProduct) => {
+    formValues.image = await getBase64(formValues.image[0])
+    await onSubmit?.(formValues)
   }
 
   return (
-    <Form form={form} colon={false} initialValues={initialValues} onFinish={handleSubmit(handleProductSubmit)}>
-      <InputField label='Name' name='name' control={control} placeholder='Thêm tên' classNameInput='py-2' />
-
-      <InputField label='Product Type' name='type' control={control} placeholder='' classNameInput='py-2 w-[100px]' />
-
-      <InputField label='Quantity' name='quantity' control={control} placeholder='' classNameInput='py-2 w-[100px]' />
-
-      <InputField label='Price' name='price' control={control} placeholder='' classNameInput='py-2 w-[100px]' />
-
-      <InputField label='Description' name='description' control={control} placeholder='' classNameInput='py-2' />
-
-      <InputField label='Rating' name='rating' control={control} placeholder='' classNameInput='py-2 w-[50px]' />
-
-      <UploadField
+    <form onSubmit={handleSubmit(handleProductSubmit)}>
+      <FileInputField
         label='Image'
         name='image'
-        className='inline-block w-[200px]'
-        accept='image/*'
-        listType='picture'
-        maxCount={1}
-        showUploadList={showUploadList}
-        onChange={handleProductUpload}
+        control={control}
+        accept='.png,.jpeg,.pdf,.webp'
+        acceptFileTypes={ACCEPT_FILE_TYPES}
+        maxSize={MAX_SIZE_UPLOAD}
+        register={register}
+        watch={watch}
+        className='mb-5'
       />
 
-      <Button
-        loading={loading}
-        disabled={loading || !isValid}
-        type='primary'
-        htmlType='submit'
-        className='mx-auto block h-10 w-[176px] rounded bg-[#0b74e5]'
-      >
-        {type === 'add' ? 'Add' : 'Update'}
-      </Button>
-    </Form>
+      <InputFieldVer2
+        label='Name'
+        name='name'
+        control={control}
+        placeholder='Name...'
+        variant='outline'
+        className='mb-5'
+      />
+
+      <SelectField
+        label='Product Type'
+        name='type'
+        control={control}
+        placeholder=''
+        className='mb-5'
+        options={[
+          { label: 'Clothing', value: 'Clothing' },
+          { label: 'Electronics', value: 'Electronics' },
+          { label: 'Furniture', value: 'Furniture' }
+        ]}
+      />
+
+      {['Clothing', 'Furniture'].includes(watchProductType) && (
+        <>
+          <InputFieldVer2
+            label='Brand'
+            name='brand'
+            control={control}
+            placeholder=''
+            variant='outline'
+            className='mb-5'
+          />
+          <InputFieldVer2
+            label='Size'
+            name='size'
+            control={control}
+            placeholder=''
+            variant='outline'
+            className='mb-5'
+          />
+          <InputFieldVer2
+            label='Material'
+            name='material'
+            control={control}
+            placeholder=''
+            variant='outline'
+            className='mb-5'
+          />
+        </>
+      )}
+
+      {watchProductType === 'Electronics' && (
+        <>
+          <InputFieldVer2
+            label='Manufacturer'
+            name='manufacturer'
+            control={control}
+            placeholder=''
+            variant='outline'
+            className='mb-5'
+          />
+          <InputFieldVer2
+            label='Model'
+            name='model'
+            control={control}
+            placeholder=''
+            variant='outline'
+            className='mb-5'
+          />
+          <InputFieldVer2
+            label='Color'
+            name='color'
+            control={control}
+            placeholder=''
+            variant='outline'
+            className='mb-5'
+          />
+        </>
+      )}
+
+      <InputFieldVer2
+        label='Quantity'
+        name='quantity'
+        control={control}
+        type='number'
+        placeholder=''
+        variant='outline'
+        className='mb-5'
+      />
+
+      <InputFieldVer2
+        label='Price'
+        name='price'
+        control={control}
+        placeholder=''
+        variant='outline'
+        type='number'
+        className='mb-5'
+      />
+
+      <TextAreaField
+        label='Description'
+        name='description'
+        control={control}
+        variant='outline'
+        placeholder=''
+        className='mb-5'
+        inputClassName='resize-none'
+      />
+
+      <div className='mb-4 text-center'>
+        <Button loading={loading} disabled={loading} htmlType='submit' className='gap-2'>
+          {type === 'add' ? 'Add' : 'Update'} Product
+        </Button>
+      </div>
+    </form>
   )
 }

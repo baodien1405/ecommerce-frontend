@@ -72,7 +72,7 @@ export default function ProductList() {
         <title>Homepage | Tiki Clone</title>
         <meta name='description' content='Homepage Tiki Clone project' />
       </Helmet>
-      <div className='bg-white'>
+      <div className='mt-1 bg-white'>
         <div className='container'>
           <div className='flex gap-8 overflow-hidden text-ellipsis whitespace-nowrap py-[10px]'>
             {productTypeList.map((type) => (

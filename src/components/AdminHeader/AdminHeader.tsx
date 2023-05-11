@@ -21,7 +21,7 @@ export default function AdminHeader() {
   }
 
   return (
-    <div className='h-[58px] py-2' style={{ boxShadow: '0 4px 10px #dddddd' }}>
+    <div className='h-[58px] py-2 shadow'>
       <div className='container w-full'>
         <div className='flex items-center justify-between'>
           <div className='mr-12'>

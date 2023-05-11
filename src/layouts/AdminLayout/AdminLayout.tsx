@@ -26,7 +26,19 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       code: '2',
       label: 'Product',
       icon: <AppstoreOutlined />,
-      path: path.adminProduct
+      path: path.adminProduct,
+      children: [
+        {
+          code: '2.1',
+          label: 'Product Draft',
+          path: path.adminProductDraft
+        },
+        {
+          code: '2.2',
+          label: 'Product Published',
+          path: path.adminProductPublished
+        }
+      ]
     }
   ]
 
