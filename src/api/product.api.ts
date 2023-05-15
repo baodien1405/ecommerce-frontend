@@ -45,6 +45,9 @@ const productApi = {
   },
   unPublishProduct(productId: string) {
     return axiosClient.post<SuccessResponse<Product>>(`${URL_PRODUCT}/unpublish/${productId}`)
+  },
+  searchDraftProduct(keySearch: string) {
+    return axiosClient.get<SuccessResponse<Product[]>>(`${URL_PRODUCT}/drafts/search/${keySearch}`)
   }
 }
 

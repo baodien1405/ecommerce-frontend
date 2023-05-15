@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import productApi from '@/api/product.api'
 import { useQueryConfig } from '@/hooks'
 import { ErrorResponse, FormDataProduct, Product } from '@/types'
-import { isAxiosUnprocessableEntityError } from '@/utils'
+import { formatAmount, isAxiosUnprocessableEntityError } from '@/utils'
 import { ProductForm } from '../components'
 import { Card, Search } from '@/components/Common'
 import { EditIcon, TrashIcon } from '@/components/Icons'
@@ -24,7 +24,7 @@ interface DataType {
 export function AdminProductPublished() {
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
   const [product, setProduct] = useState<Product | undefined>()
-  // const [productList, setProductList] = useState<Product[]>([])
+  const [productList, setProductList] = useState<Product[]>([])
   const [loadingProduct, setLoadingProduct] = useState(false)
   const queryClient = useQueryClient()
   const queryConfig = useQueryConfig()
@@ -57,8 +57,6 @@ export function AdminProductPublished() {
     retry: 0
   })
 
-  const productList = productsQuery.data?.data.metadata || []
-
   const unPublishProductMutation = useMutation({
     mutationFn: (id: string) => productApi.unPublishProduct(id)
   })
@@ -89,7 +87,8 @@ export function AdminProductPublished() {
     {
       title: 'Price',
       dataIndex: 'price',
-      sorter: (a, b) => Number(a.price) - Number(b.price)
+      sorter: (a, b) => Number(a.price) - Number(b.price),
+      render: (value) => formatAmount(value)
     },
     {
       title: 'Quantity',
@@ -231,14 +230,20 @@ export function AdminProductPublished() {
   }
 
   const handleSearch = async ({ searchText }: { searchText: string }) => {
-    // if (!searchText) return
-    // try {
-    //   const response = await productApi.searchProduct(searchText)
-    //   const products = response.data.metadata
-    //   setProductList(products)
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      if (searchText) {
+        const response = await productApi.searchProduct(searchText)
+        const products = response.data.metadata
+
+        if (Array.isArray(products)) {
+          setProductList(products)
+        }
+      } else {
+        setProductList(productsQuery.data?.data.metadata || [])
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -255,6 +260,9 @@ export function AdminProductPublished() {
 
       <Table
         className='shadow'
+        pagination={{
+          pageSize: 5
+        }}
         locale={{
           emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='Empty product' />
         }}

@@ -17,10 +17,10 @@ export interface ProductFormProps {
   onSubmit?: (formValues: FormDataProduct) => void
 }
 
-export function ProductForm({ type = 'add', loading, initialValues, onSubmit }: ProductFormProps) {
+export function ProductForm({ type = 'add', loading, initialValues, isSuccess, onSubmit }: ProductFormProps) {
   const schema = useProductFormSchema()
 
-  const { control, handleSubmit, register, watch, setValue } = useForm<FormDataProduct>({
+  const { control, handleSubmit, register, watch, setValue, reset } = useForm<FormDataProduct>({
     defaultValues: initialValues,
     resolver: yupResolver(schema)
   })
@@ -32,6 +32,12 @@ export function ProductForm({ type = 'add', loading, initialValues, onSubmit }: 
       Object.entries(initialValues).map(([key, val]) => setValue(key as keyof FormDataProduct, String(val)))
     }
   }, [initialValues, setValue])
+
+  useEffect(() => {
+    if (isSuccess) {
+      reset()
+    }
+  }, [isSuccess, reset])
 
   const handleProductSubmit = async (formValues: FormDataProduct) => {
     formValues.image = await getBase64(formValues.image[0])
@@ -65,7 +71,7 @@ export function ProductForm({ type = 'add', loading, initialValues, onSubmit }: 
         label='Product Type'
         name='type'
         control={control}
-        placeholder=''
+        placeholder='-- Select one --'
         className='mb-5'
         options={[
           { label: 'Clothing', value: 'Clothing' },
@@ -137,7 +143,7 @@ export function ProductForm({ type = 'add', loading, initialValues, onSubmit }: 
         name='quantity'
         control={control}
         type='number'
-        placeholder=''
+        placeholder='0'
         variant='outline'
         className='mb-5'
       />
@@ -146,7 +152,7 @@ export function ProductForm({ type = 'add', loading, initialValues, onSubmit }: 
         label='Price'
         name='price'
         control={control}
-        placeholder=''
+        placeholder='0'
         variant='outline'
         type='number'
         className='mb-5'

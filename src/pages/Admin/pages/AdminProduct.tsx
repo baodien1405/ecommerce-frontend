@@ -11,7 +11,7 @@ import productApi from '@/api/product.api'
 import { path } from '@/constants'
 import { useQueryConfig } from '@/hooks'
 import { ErrorResponse, FormDataAction, FormDataProduct, Product, ProductListConfig } from '@/types'
-import { isAxiosUnprocessableEntityError } from '@/utils'
+import { formatAmount, isAxiosUnprocessableEntityError } from '@/utils'
 import { ActionForm, ProductForm } from '../components'
 import { Card, Search } from '@/components/Common'
 import LinkButton from '@/components/LinkButton'
@@ -89,7 +89,8 @@ export function AdminProduct() {
     {
       title: 'Name',
       dataIndex: 'name',
-      sorter: (a, b) => Number(a.name?.length) - Number(b.name?.length)
+      sorter: (a, b) => Number(a.name?.length) - Number(b.name?.length),
+      render: (value) => formatAmount(value)
     },
     {
       title: 'Price',
