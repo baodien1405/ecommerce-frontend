@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import productApi from '@/api/product.api'
 import { useQueryConfig } from '@/hooks'
 import { ErrorResponse, FormDataProduct, Product } from '@/types'
-import { isAxiosUnprocessableEntityError } from '@/utils'
+import { formatAmount, isAxiosUnprocessableEntityError } from '@/utils'
 import { ProductForm } from '../components'
 import { Card, Search } from '@/components/Common'
 import LinkButton from '@/components/LinkButton'
@@ -25,6 +25,7 @@ interface DataType {
 export function AdminProductDraft() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
+  const [productList, setProductList] = useState<Product[]>([])
   const [product, setProduct] = useState<Product | undefined>()
   const [loadingProduct, setLoadingProduct] = useState(false)
   const queryClient = useQueryClient()
@@ -57,8 +58,6 @@ export function AdminProductDraft() {
     keepPreviousData: true,
     retry: 0
   })
-
-  const productList = productsQuery.data?.data.metadata || []
 
   const publishProductMutation = useMutation({
     mutationFn: (id: string) => productApi.publishProduct(id)
@@ -94,7 +93,8 @@ export function AdminProductDraft() {
     {
       title: 'Price',
       dataIndex: 'price',
-      sorter: (a, b) => Number(a.price) - Number(b.price)
+      sorter: (a, b) => Number(a.price) - Number(b.price),
+      render: (value) => formatAmount(value)
     },
     {
       title: 'Quantity',
@@ -279,7 +279,22 @@ export function AdminProductDraft() {
     })
   }
 
-  const handleSearch = () => {}
+  const handleSearch = async ({ searchText }: { searchText: string }) => {
+    try {
+      if (searchText) {
+        const response = await productApi.searchDraftProduct(searchText)
+        const products = response.data.metadata
+
+        if (Array.isArray(products)) {
+          setProductList(products)
+        }
+      } else {
+        setProductList(productsQuery.data?.data.metadata || [])
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className='h-full bg-[#f3f4f6] p-4'>
@@ -315,6 +330,9 @@ export function AdminProductDraft() {
 
       <Table
         className='shadow'
+        pagination={{
+          pageSize: 5
+        }}
         locale={{
           emptyText: <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='Empty product' />
         }}
