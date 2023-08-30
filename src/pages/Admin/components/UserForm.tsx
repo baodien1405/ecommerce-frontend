@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { Button, Form } from 'antd'
+import { Button } from 'antd'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+
 import { InputField } from '@/components/FormFields'
 import { useUserFormSchema } from '@/hooks'
 import { User } from '@/types'
@@ -16,7 +17,6 @@ export interface UserFormProps {
 }
 
 export function UserForm({ loading, isSuccess, initialValues, onSubmit }: UserFormProps) {
-  const [form] = Form.useForm()
   const schema = useUserFormSchema()
 
   const {
@@ -38,28 +38,26 @@ export function UserForm({ loading, isSuccess, initialValues, onSubmit }: UserFo
           shouldValidate: true
         })
       )
-      form.setFieldsValue(initialValues)
     }
-  }, [initialValues, form, setValue])
+  }, [initialValues, setValue])
 
   useEffect(() => {
     if (isSuccess) {
       reset()
-      form.resetFields()
     }
-  }, [isSuccess, form, reset])
+  }, [isSuccess, reset])
 
   const handleUserFormSubmit = async (values: FormDataUser) => {
     await onSubmit?.(values)
   }
 
   return (
-    <Form form={form} colon={false} initialValues={initialValues} onFinish={handleSubmit(handleUserFormSubmit)}>
-      <InputField name='name' label='Name' control={control} placeholder='Thêm tên' classNameInput='py-2' />
+    <form onSubmit={handleSubmit(handleUserFormSubmit)}>
+      <InputField name='name' label='Name' control={control} placeholder='Thêm tên' />
 
-      <InputField name='email' label='Email' control={control} placeholder='abc@gmail.com' classNameInput='py-2' />
+      <InputField name='email' label='Email' control={control} placeholder='abc@gmail.com' />
 
-      <InputField name='phone' label='Phone' control={control} placeholder='' classNameInput='py-2' />
+      <InputField name='phone' label='Phone' control={control} placeholder='' />
 
       <Button
         loading={loading}
@@ -70,6 +68,6 @@ export function UserForm({ loading, isSuccess, initialValues, onSubmit }: UserFo
       >
         Update
       </Button>
-    </Form>
+    </form>
   )
 }

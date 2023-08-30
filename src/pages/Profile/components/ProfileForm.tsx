@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Form } from 'antd'
+import { Button } from 'antd'
 import { useForm } from 'react-hook-form'
+
 import { InputField } from '@/components/FormFields'
 import { FormDataProfile } from '@/types'
 import { useProfileFormSchema } from '@/hooks'
@@ -37,34 +38,15 @@ export function ProfileForm({ initialValues, loading, onSubmit }: ProfileFormPro
   }
 
   return (
-    <Form colon={false} initialValues={initialValues} onFinish={handleSubmit(handleUpdateProfile)}>
+    <form onSubmit={handleSubmit(handleUpdateProfile)}>
       <div className='flex gap-5'>
         <UploadAvatar avatar={avatar} onChange={handleAvatarUpload} />
 
         <div className='w-[700px]'>
-          <InputField label='Name' control={control} name='name' placeholder='Thêm tên' classNameInput='py-2' />
-          <InputField
-            name='email'
-            label='Email'
-            disabled
-            control={control}
-            placeholder='abc@email.com'
-            classNameInput='py-2'
-          />
-          <InputField
-            label='Phone'
-            control={control}
-            name='phone'
-            placeholder='Thêm số điện thoại'
-            classNameInput='py-2'
-          />
-          <InputField
-            label='Address'
-            control={control}
-            name='address'
-            placeholder='Thêm địa chỉ'
-            classNameInput='py-2'
-          />
+          <InputField label='Name' control={control} name='name' placeholder='Thêm tên' />
+          <InputField name='email' label='Email' disabled control={control} placeholder='abc@email.com' />
+          <InputField label='Phone' control={control} name='phone' placeholder='Thêm số điện thoại' />
+          <InputField label='Address' control={control} name='address' placeholder='Thêm địa chỉ' />
         </div>
       </div>
 
@@ -77,6 +59,6 @@ export function ProfileForm({ initialValues, loading, onSubmit }: ProfileFormPro
       >
         {t('save change')}
       </Button>
-    </Form>
+    </form>
   )
 }
