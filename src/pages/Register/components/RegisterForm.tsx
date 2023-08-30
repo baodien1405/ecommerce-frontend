@@ -31,9 +31,25 @@ export function RegisterForm({ loading, onSubmit }: RegisterFormProps) {
 
   return (
     <form onSubmit={handleSubmit(handleRegister)}>
-      <InputField label='Name' name='name' control={control} placeholder='Nguyen Van A' className='mb-5' />
-      <InputField label='Email' name='email' control={control} placeholder='abc@email.com' className='mb-5' />
-      <PasswordField label='Password' name='password' control={control} placeholder='************' />
+      <InputField
+        label='Name'
+        name='name'
+        control={control}
+        placeholder='Nguyen Van A'
+        className='mb-5'
+        variant='outline'
+      />
+
+      <InputField
+        label='Email'
+        name='email'
+        control={control}
+        placeholder='abc@email.com'
+        className='mb-5'
+        variant='outline'
+      />
+
+      <PasswordField label='Password' name='password' control={control} placeholder='************' variant='outline' />
 
       <Button
         loading={loading}

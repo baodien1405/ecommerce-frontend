@@ -30,9 +30,16 @@ export function LoginForm({ loading, onSubmit }: LoginFormProps) {
 
   return (
     <form onSubmit={handleSubmit(handleLogin)}>
-      <InputField label='Email' name='email' control={control} placeholder='abc@gmail.com' className='mb-5' />
+      <InputField
+        label='Email'
+        name='email'
+        control={control}
+        placeholder='abc@gmail.com'
+        className='mb-5'
+        variant='outline'
+      />
 
-      <PasswordField label='Password' name='password' control={control} placeholder='************' />
+      <PasswordField label='Password' name='password' control={control} placeholder='************' variant='outline' />
 
       <Button
         loading={loading}
