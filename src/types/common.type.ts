@@ -23,3 +23,9 @@ export interface TokenDecode {
   exp: number
   iat: number
 }
+
+export interface IconProps {
+  width?: string
+  height?: string
+  className?: string
+}
