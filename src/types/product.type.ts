@@ -48,9 +48,11 @@ export interface FormDataProduct {
   price: number
   description: string
   image: any
+
   brand?: string
   size?: string
   material?: string
+
   manufacturer?: string
   model?: string
   color?: string

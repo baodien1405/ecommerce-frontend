@@ -38,9 +38,11 @@ export function AdminProductDraft() {
     price: product?.product_price || 0,
     quantity: product?.product_quantity || 0,
     type: product?.product_type || '',
+
     brand: product?.product_attributes.brand,
     size: product?.product_attributes.size,
     material: product?.product_attributes.material,
+
     manufacturer: product?.product_attributes.manufacturer,
     model: product?.product_attributes.model,
     color: product?.product_attributes.color

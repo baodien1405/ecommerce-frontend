@@ -21,15 +21,23 @@ export const Primary = Template.bind({})
 
 Primary.args = {
   product: {
-    countInStock: 123,
-    description: 'Điện thoại nè',
-    image: 'http://res.cloudinary.com/dktajq8sb/image/upload/v1679297374/products/um6rssm7gkrum0by64jl.png',
-    name: 'Iphone 13',
-    price: 1500444,
-    rating: 4.4,
-    type: 'phone',
-    _id: '64180824c057cc62c5f8decf',
-    discount: 14,
-    quantitySold: 12
+    _id: '6446366efe2b894925b51ca0',
+    product_name: 'Mango Self Striped A Line Dress',
+    product_thumb: 'link-image-3',
+    product_description: 'Off-White self-striped knitted midi A-line dress, has a scoop neck, sleeveless, straight hem',
+    product_price: 550,
+    product_quantity: 25,
+    product_type: 'Clothing',
+    product_attributes: {
+      brand: 'MRN VietNam 5',
+      size: 'XL',
+      material: 'Coton',
+      color: '',
+      manufacturer: '',
+      model: ''
+    },
+    product_ratingsAverage: 4.5,
+    product_variations: [],
+    product_slug: 'mango-self-striped-a-line-dress'
   }
 }
