@@ -1,8 +1,10 @@
 {
   "sign in": "Đăng nhập",
   "hello": "Xin chào,",
-  "sign in or create account": "Đăng nhập hoặc Tạo tài khoản",
+  "LOGIN_TITLE": "Đăng nhập với email và mật khẩu của bạn",
   "forgot password": "Quên mật khẩu?",
   "no account": "Chưa có tài khoản?",
-  "create account": "Tạo tài khoản"
+  "create account": "Tạo tài khoản",
+  "LOGIN_WITH_GOOGLE": "Đăng nhập với Google",
+  "LOGIN_WITH_GITHUB": "Đăng nhập với Github"
 }

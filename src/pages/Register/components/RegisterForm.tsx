@@ -1,23 +1,28 @@
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Form } from 'antd'
 import { useForm } from 'react-hook-form'
-import { InputField, InputPasswordField } from '@/components/FormFields'
+
+import { InputField, PasswordField } from '@/components/FormFields'
 import { FormDataRegister } from '@/types'
 import { useRegisterFormSchema } from '@/hooks'
+import Button from '@/components/Button'
 
 export interface RegisterFormProps {
-  initialValues?: FormDataRegister
   loading?: boolean
   onSubmit?: (values: FormDataRegister) => void
 }
 
-export function RegisterForm({ initialValues, loading, onSubmit }: RegisterFormProps) {
+export function RegisterForm({ loading, onSubmit }: RegisterFormProps) {
   const [t] = useTranslation('register')
   const schema = useRegisterFormSchema()
+
   const { control, handleSubmit } = useForm<FormDataRegister>({
-    defaultValues: initialValues,
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: ''
+    }
   })
 
   const handleRegister = async (values: FormDataRegister) => {
@@ -25,27 +30,19 @@ export function RegisterForm({ initialValues, loading, onSubmit }: RegisterFormP
   }
 
   return (
-    <Form colon={false} initialValues={initialValues} onFinish={handleSubmit(handleRegister)}>
-      <InputField name='name' control={control} placeholder='Nguyen Van A' classNameInput='py-2' />
-      <InputField name='email' control={control} placeholder='abc@email.com' classNameInput='py-2' />
-      <InputPasswordField
-        name='password'
-        control={control}
-        type='password'
-        placeholder='Mật khẩu'
-        classNameInput='py-2'
-      />
+    <form onSubmit={handleSubmit(handleRegister)}>
+      <InputField label='Name' name='name' control={control} placeholder='Nguyen Van A' className='mb-5' />
+      <InputField label='Email' name='email' control={control} placeholder='abc@email.com' className='mb-5' />
+      <PasswordField label='Password' name='password' control={control} placeholder='************' />
 
       <Button
         loading={loading}
         disabled={loading}
-        type='primary'
-        danger
-        className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-[20px] font-medium leading-6'
         htmlType='submit'
+        className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
       >
         {t('sign up')}
       </Button>
-    </Form>
+    </form>
   )
 }

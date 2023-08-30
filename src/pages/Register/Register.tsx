@@ -12,6 +12,9 @@ import authApi from '@/api/auth.api'
 import { ErrorResponse, FormDataRegister } from '@/types'
 import { isAxiosUnprocessableEntityError } from '@/utils'
 import { AppContext } from '@/contexts'
+import images from '@/assets/images'
+import Button from '@/components/Button'
+import { GithubIcon, GoogleIcon } from '@/components/Icons'
 
 export default function Register() {
   const [t] = useTranslation('register')
@@ -21,12 +24,6 @@ export default function Register() {
   const registerAccountMutation = useMutation({
     mutationFn: (body: FormDataRegister) => authApi.registerAccount(body)
   })
-
-  const initialValuesFormRegister = {
-    name: '',
-    email: '',
-    password: ''
-  }
 
   const handleRegister = (values: FormDataRegister) => {
     registerAccountMutation.mutate(values, {
@@ -50,31 +47,41 @@ export default function Register() {
         <title>Register | Tiki Clone</title>
         <meta name='description' content='Register account into Tiki Clone project' />
       </Helmet>
-      <div className='flex w-[800px] rounded-[20px] bg-white'>
-        <div className='w-[500px] px-[45px] pt-10 pb-6'>
-          <h4 className='mb-[10px] text-2xl font-medium text-[#242424]'>{t('create account')}</h4>
-          <div className='mb-[20px] text-[15px] leading-[20px]'>{t('please enter info to register')}</div>
 
-          <RegisterForm
-            loading={registerAccountMutation.isLoading}
-            initialValues={initialValuesFormRegister}
-            onSubmit={handleRegister}
-          />
+      <div className='flex w-[550px] rounded-[20px] bg-white'>
+        <div className='w-[550px] p-8'>
+          <Image className='mb-4 w-[70px] rounded object-contain' alt='logo' src={images.blueLogo} />
+
+          <h4 className='mb-8 text-base text-body'>{t('please enter info to register')}</h4>
+
+          <RegisterForm loading={registerAccountMutation.isLoading} onSubmit={handleRegister} />
+
+          <hr className='mt-5' />
+
+          <Button
+            variant='outline'
+            htmlType='button'
+            className='mx-auto mt-[16px] h-[48px] w-full gap-2 border-[1px] px-3 py-2 text-base font-medium'
+          >
+            <GoogleIcon />
+            {t('LOGIN_WITH_GOOGLE')}
+          </Button>
+
+          <Button
+            variant='outline'
+            htmlType='button'
+            className='mx-auto mt-[16px] h-[48px] w-full gap-2 border-[1px] px-3 py-2 text-base font-medium'
+          >
+            <GithubIcon />
+            {t('LOGIN_WITH_GITHUB')}
+          </Button>
 
           <div className='mt-[20px] flex text-[13px]'>
             <span>{t('do you have account')}</span>
-            <Link to={path.login} className='ml-2 cursor-pointer text-[#0d5cb6]'>
+            <Link to={path.login} className='ml-2 cursor-pointer text-accent'>
               {t('sign in')}
             </Link>
           </div>
-        </div>
-
-        <div className='flex w-[300px] items-center justify-center overflow-hidden rounded-r-[20px] bg-gradient-to-r from-[#f0f8ff] to-[#dbeeff]'>
-          <Image
-            className='w-[230px] rounded object-contain'
-            alt='image'
-            src='https://salt.tikicdn.com/ts/upload/eb/f3/a3/25b2ccba8f33a5157f161b6a50f64a60.png'
-          />
         </div>
       </div>
     </div>

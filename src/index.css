@@ -40,8 +40,26 @@ html {
     --color-dark: 0, 0, 0;
 
     --text-base: 107, 114, 128;
+    --text-base-dark: 75, 85, 99;
+
     --text-heading: 31, 41, 55;
+    --text-sub-heading: 55, 65, 81;
+
     --text-muted-light: 209, 213, 219;
+    --color-muted-black: 17, 17, 17;
+
+    --text-bolder: 31, 41, 55;
+
+    --color-gray-50: 249, 250, 251;
+    --color-gray-100: 243, 244, 246;
+    --color-gray-200: 229, 231, 235;
+    --color-gray-300: 209, 213, 219;
+    --color-gray-400: 156, 163, 175;
+    --color-gray-500: 107, 114, 128;
+    --color-gray-600: 75, 85, 99;
+    --color-gray-700: 55, 65, 81;
+    --color-gray-800: 31, 41, 55;
+    --color-gray-900: 31, 41, 55;
   }
 }
 

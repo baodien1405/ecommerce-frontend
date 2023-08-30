@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { FileInputField, InputFieldVer2, SelectField, TextAreaField } from '@/components/FormFields'
+import { FileInputField, InputField, SelectField, TextAreaField } from '@/components/FormFields'
 import { useProductFormSchema } from '@/hooks'
 import { FormDataProduct } from '@/types'
 import Button from '@/components/Button'
@@ -58,14 +58,7 @@ export function ProductForm({ type = 'add', loading, initialValues, isSuccess, o
         className='mb-5'
       />
 
-      <InputFieldVer2
-        label='Name'
-        name='name'
-        control={control}
-        placeholder='Name...'
-        variant='outline'
-        className='mb-5'
-      />
+      <InputField label='Name' name='name' control={control} placeholder='Name...' variant='outline' className='mb-5' />
 
       <SelectField
         label='Product Type'
@@ -82,23 +75,9 @@ export function ProductForm({ type = 'add', loading, initialValues, isSuccess, o
 
       {['Clothing', 'Furniture'].includes(watchProductType) && (
         <>
-          <InputFieldVer2
-            label='Brand'
-            name='brand'
-            control={control}
-            placeholder=''
-            variant='outline'
-            className='mb-5'
-          />
-          <InputFieldVer2
-            label='Size'
-            name='size'
-            control={control}
-            placeholder=''
-            variant='outline'
-            className='mb-5'
-          />
-          <InputFieldVer2
+          <InputField label='Brand' name='brand' control={control} placeholder='' variant='outline' className='mb-5' />
+          <InputField label='Size' name='size' control={control} placeholder='' variant='outline' className='mb-5' />
+          <InputField
             label='Material'
             name='material'
             control={control}
@@ -111,7 +90,7 @@ export function ProductForm({ type = 'add', loading, initialValues, isSuccess, o
 
       {watchProductType === 'Electronics' && (
         <>
-          <InputFieldVer2
+          <InputField
             label='Manufacturer'
             name='manufacturer'
             control={control}
@@ -119,26 +98,12 @@ export function ProductForm({ type = 'add', loading, initialValues, isSuccess, o
             variant='outline'
             className='mb-5'
           />
-          <InputFieldVer2
-            label='Model'
-            name='model'
-            control={control}
-            placeholder=''
-            variant='outline'
-            className='mb-5'
-          />
-          <InputFieldVer2
-            label='Color'
-            name='color'
-            control={control}
-            placeholder=''
-            variant='outline'
-            className='mb-5'
-          />
+          <InputField label='Model' name='model' control={control} placeholder='' variant='outline' className='mb-5' />
+          <InputField label='Color' name='color' control={control} placeholder='' variant='outline' className='mb-5' />
         </>
       )}
 
-      <InputFieldVer2
+      <InputField
         label='Quantity'
         name='quantity'
         control={control}
@@ -148,7 +113,7 @@ export function ProductForm({ type = 'add', loading, initialValues, isSuccess, o
         className='mb-5'
       />
 
-      <InputFieldVer2
+      <InputField
         label='Price'
         name='price'
         control={control}
