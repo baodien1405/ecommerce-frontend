@@ -1,33 +1,35 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
-
-html {
-  height: 100%;
-  line-height: 1.2;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-.ant-input-group-addon > button {
-  background-color: #0d5cb6;
-}
-
-.ant-pagination-item-link {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import './global';
+@import './font';
+@import './element';
+@import './typo';
+
 @layer base {
   :root {
+    --body-light: #f9f9f9;
+    --body-dark: #00193b;
+
+    --text-light: #515c6b;
+    --text-dark: #e2e1e1;
+
+    --header-light: #00193b;
+    --header-dark: #d8e9ff;
+
+    --accent-light: #035ecf;
+    --accent-dark: #4f89fc;
+
+    --widget-light: #ffffff;
+    --widget-dark: #031123;
+
+    --border-light: #f1f1f1;
+    --border-dark: rgba(53, 69, 133, 0.4);
+
     --color-accent: 0, 159, 127;
     --color-accent-hover: 1, 147, 118;
     --color-accent-300: 153, 217, 204;
@@ -60,10 +62,8 @@ html {
     --color-gray-700: 55, 65, 81;
     --color-gray-800: 31, 41, 55;
     --color-gray-900: 31, 41, 55;
-  }
-}
 
-body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
+    --heading-font: 'Archivo SemiExpanded', sans-serif;
+    --transition: 0.3s ease-in-out;
+  }
 }

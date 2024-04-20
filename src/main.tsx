@@ -9,7 +9,7 @@ import App from './App'
 import { theme } from '@/utils'
 
 import '@/i18n/i18n'
-import './index.css'
+import '@/styles/index.scss'
 
 const queryClient = new QueryClient({
   defaultOptions: {

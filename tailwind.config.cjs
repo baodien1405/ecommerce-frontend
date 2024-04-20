@@ -20,6 +20,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        widget: 'var(--widget-light)',
+        border: 'var(--border-light)',
         orange: '#ee4d2d',
         light: withOpacity('--color-light'),
         dark: withOpacity('--color-dark'),
@@ -82,7 +84,6 @@ module.exports = {
         }
       })
     }),
-    require('@tailwindcss/line-clamp'),
     require('@headlessui/tailwindcss')
   ]
 }

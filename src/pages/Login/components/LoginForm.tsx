@@ -47,7 +47,7 @@ export function LoginForm({ loading, onSubmit }: LoginFormProps) {
         htmlType='submit'
         className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
       >
-        {t('sign in')}
+        {t('SIGN_IN')}
       </Button>
     </form>
   )

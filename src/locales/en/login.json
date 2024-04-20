@@ -1,9 +1,10 @@
 {
-  "sign in": "Sign In",
+  "SIGN_IN": "Sign In",
+  "SIGN_UP": "Sign Up",
   "hello": "Hello,",
-  "LOGIN_TITLE": "Login with your email & password",
+  "LOGIN_TITLE": "The technologies is using in project (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "forgot password": "Forgot password",
-  "no account": "No account?",
+  "DO_NOT_HAVE_AN_ACCOUNT": "Don't have an account?",
   "create account": "Create account",
   "LOGIN_WITH_GOOGLE": "Login with Google",
   "LOGIN_WITH_GITHUB": "Login with Github"

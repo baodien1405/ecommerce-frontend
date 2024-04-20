@@ -1,10 +1,11 @@
 import { lazy, Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
 import { path } from '@/constants'
-import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
+import { AdminLayout, AuthLayout, DefaultLayout, MainLayout } from '@/layouts'
 import { AdminProduct, AdminProductDraft, AdminProductPublished, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
 import { AdminRoute, ProtectedRoute, RejectedRoute } from './permissions'
 import Spinner from '@/components/Spinner'
+import Login2 from '@/pages/Login2'
 
 const Login = lazy(() => import('@/pages/Login'))
 const Register = lazy(() => import('@/pages/Register'))
@@ -24,11 +25,11 @@ export default function AppRoutes() {
         {
           path: path.login,
           element: (
-            <DefaultLayout>
+            <AuthLayout>
               <Suspense fallback={<Spinner />}>
-                <Login />
+                <Login2 />
               </Suspense>
-            </DefaultLayout>
+            </AuthLayout>
           )
         },
         {

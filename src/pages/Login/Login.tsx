@@ -86,7 +86,7 @@ export default function Login() {
           </div>
 
           <div className='mt-2 flex text-[13px]'>
-            <span>{t('no account')}</span>
+            <span>{t('DO_NOT_HAVE_AN_ACCOUNT')}</span>
             <Link to={path.register} className='ml-2 cursor-pointer text-accent'>
               {t('create account')}
             </Link>
