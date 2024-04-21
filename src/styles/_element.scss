@@ -13,7 +13,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 1;
-  color: var(--accent-light);
+  color: var(--accent);
   position: relative;
   width: fit-content;
   display: inline-flex;
@@ -27,7 +27,7 @@
     bottom: -2px;
     width: 0;
     height: 1px;
-    background: var(--accent-light);
+    background: var(--accent);
     transition: width var(--transition);
   }
 

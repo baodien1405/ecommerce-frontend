@@ -20,8 +20,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        widget: 'var(--widget-light)',
-        border: 'var(--border-light)',
+        widget: 'var(--widget)',
+        border: 'var(--border)',
+        header: 'var(--header)',
         orange: '#ee4d2d',
         light: withOpacity('--color-light'),
         dark: withOpacity('--color-dark'),

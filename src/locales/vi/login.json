@@ -2,6 +2,7 @@
   "SIGN_IN": "Đăng nhập",
   "SIGN_UP": "Đăng ký",
   "hello": "Xin chào,",
+  "INTRO": "Gain data-based insights, view progress at a glance, and manage your organization smarter",
   "LOGIN_TITLE": "Các công nghệ được sử dụng trong dự án (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "forgot password": "Quên mật khẩu?",
   "DO_NOT_HAVE_AN_ACCOUNT": "Chưa có tài khoản?",
