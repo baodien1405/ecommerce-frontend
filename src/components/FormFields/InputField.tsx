@@ -2,24 +2,21 @@ import cn from 'classnames'
 import { InputHTMLAttributes } from 'react'
 import { Control, useController } from 'react-hook-form'
 
-export interface Props extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   inputClassName?: string
   label?: string
   note?: string
-  name: string
   type?: string
   shadow?: boolean
   variant?: 'normal' | 'solid' | 'outline'
+  name: string
   control?: Control<any>
 }
+
 const classes = {
-  root: 'px-4 h-12 flex items-center w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0',
-  normal: 'bg-gray-100 border border-border-base focus:shadow focus:bg-light focus:border-accent',
-  solid: 'bg-gray-100 border border-border-100 focus:bg-light focus:border-accent',
-  outline: 'border border-border-base focus:border-accent',
-  error: 'border border-red-500 focus:border-red-500',
-  shadow: 'focus:shadow'
+  root: 'h-11 px-5 input-bg w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-lg border border-solid border-input-border transition-all ease-in-out duration-300 focus-within:outline-none-override placeholder:text-gray placeholder:transition-opacity focus:placeholder:opacity-0 hover:border-accent focus:border-accent',
+  error: 'border border-red focus:border-red'
 }
 
 export const InputField = ({
@@ -27,13 +24,11 @@ export const InputField = ({
   label,
   note,
   name,
-  variant = 'normal',
-  shadow = false,
   type = 'text',
   inputClassName,
   control,
   ...rest
-}: Props) => {
+}: InputFieldProps) => {
   const {
     field: { onBlur, onChange, value, ref },
     fieldState: { invalid, error }
@@ -45,12 +40,6 @@ export const InputField = ({
   const rootClassName = cn(
     classes.root,
     {
-      [classes.normal]: variant === 'normal',
-      [classes.solid]: variant === 'solid',
-      [classes.outline]: variant === 'outline'
-    },
-    {
-      [classes.shadow]: shadow,
       [classes.error]: invalid
     },
     inputClassName
@@ -59,7 +48,7 @@ export const InputField = ({
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={name} className='leading-non mb-3 block text-sm font-semibold text-body'>
+        <label htmlFor={name} className='mb-[10px] block w-fit text-[12px] font-bold text-gray'>
           {label}
         </label>
       )}
@@ -82,7 +71,7 @@ export const InputField = ({
       />
 
       {note && <p className='mt-2 text-xs text-body'>{note}</p>}
-      {error && <p className='my-2 text-start text-xs text-red-500'>{error.message}</p>}
+      {error?.message && <p className='my-2 text-start text-xs text-red'>{error.message}</p>}
     </div>
   )
 }

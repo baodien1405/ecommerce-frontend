@@ -7,23 +7,21 @@ export interface PasswordFieldProps extends InputHTMLAttributes<HTMLInputElement
   className?: string
   inputClassName?: string
   label?: string
-  name: string
   forgotPageLink?: string
   shadow?: boolean
   variant?: 'normal' | 'solid' | 'outline'
+  name: string
   control?: Control<any>
 }
 
-const variantClasses = {
-  normal: 'bg-gray-100 border border-border-base focus:shadow focus:bg-light focus:border-accent',
-  solid: 'bg-gray-100 border border-border-100 focus:bg-light focus:border-accent',
-  outline: 'border border-border-base focus:border-accent',
-  error: 'border border-red-500 focus:border-red-500'
+const classes = {
+  root: 'h-11 px-5 input-bg w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-lg border border-solid border-input-border transition-all ease-in-out duration-300 focus-within:outline-none-override placeholder:text-gray placeholder:transition-opacity focus:placeholder:opacity-0 hover:border-accent focus:border-accent',
+  error: 'border border-red focus:border-red'
 }
 
 // eslint-disable-next-line react/display-name
 export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
-  ({ className, inputClassName, label, name, variant = 'normal', shadow = false, control, ...rest }, ref) => {
+  ({ className, inputClassName, label, name, control, ...rest }, ref) => {
     const [show, setShow] = useState(false)
 
     const {
@@ -34,10 +32,18 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
       control
     })
 
+    const rootClassName = cn(
+      classes.root,
+      {
+        [classes.error]: invalid
+      },
+      inputClassName
+    )
+
     return (
       <div className={className}>
         {label && (
-          <label htmlFor={name} className='leading-non mb-3 block text-sm font-semibold text-body'>
+          <label htmlFor={name} className='mb-[10px] block w-fit text-[12px] font-bold text-gray'>
             {label}
           </label>
         )}
@@ -48,15 +54,7 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
             name={name}
             type={show ? 'text' : 'password'}
             ref={ref || refRHF}
-            className={cn(
-              'w-full appearance-none rounded py-3 pe-11 ps-4 text-sm text-heading transition duration-300 ease-in-out focus:outline-none focus:ring-0',
-              shadow && 'focus:shadow',
-              variantClasses[variant],
-              inputClassName,
-              {
-                [variantClasses.error]: invalid
-              }
-            )}
+            className={rootClassName}
             autoComplete='off'
             autoCorrect='off'
             autoCapitalize='off'
@@ -72,11 +70,11 @@ export const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(
             className='absolute end-4 top-5 -mt-2 cursor-pointer text-body'
             onClick={() => setShow((prev) => !prev)}
           >
-            {show ? <EyeOffIcon className='h-6 w-6' /> : <EyeIcon className='h-6 w-6' />}
+            {show ? <EyeOffIcon className='h-5 w-5 text-accent' /> : <EyeIcon className='h-5 w-5 text-accent' />}
           </label>
         </div>
 
-        {error && <p className='my-2 text-start text-xs text-red-500'>{error.message}</p>}
+        {error?.message && <p className='my-2 text-start text-xs text-red'>{error.message}</p>}
       </div>
     )
   }

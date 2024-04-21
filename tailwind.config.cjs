@@ -24,9 +24,17 @@ module.exports = {
         border: 'var(--border)',
         header: 'var(--header)',
         orange: '#ee4d2d',
+        gray: 'var(--gray)',
+        red: 'var(--red)',
+
+        'input-border': 'var(--input-border)',
+        'input-bg': 'var(--input-bg)',
+
+        accent: 'var(--accent)',
+
         light: withOpacity('--color-light'),
         dark: withOpacity('--color-dark'),
-        accent: withOpacity('--color-accent'),
+        // accent: withOpacity('--color-accent'),
         'accent-hover': withOpacity('--color-accent-hover'),
         'accent-300': withOpacity('--color-accent-300'),
         'accent-400': withOpacity('--color-accent-400'),
@@ -82,6 +90,11 @@ module.exports = {
       addComponents({
         '.header-height': {
           height: '58px'
+        }
+      })
+      addComponents({
+        '.outline-none-override': {
+          outline: 'none'
         }
       })
     }),
