@@ -45,7 +45,7 @@ export function LoginForm({ loading, onSubmit }: LoginFormProps) {
       <Button
         loading={loading}
         disabled={loading}
-        variant='secondary'
+        variant='primary'
         htmlType='submit'
         className='mx-auto h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
       >

@@ -4,6 +4,7 @@ import { ButtonHTMLAttributes } from 'react'
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
   variant?: 'primary' | 'secondary' | 'outline' | 'custom'
+  outlineColor?: 'red' | 'green' | 'blue'
   size?: 'large' | 'medium' | 'small'
   active?: boolean
   loading?: boolean
@@ -15,6 +16,9 @@ const classes = {
   primary: 'bg-green text-light border border-green-100 hover:bg-green-200 focus:bg-green-200',
   secondary: 'bg-accent text-light border-transparent hover:bg-[#0a458f] focus:bg-[#0a458f]',
   outline: 'border border-border-400 bg-widget text-body hover:text-light hover:bg-gray-400',
+  red: 'border border-red text-red hover:text-white hover:bg-red',
+  blue: 'border border-accent !text-accent hover:!text-white hover:!bg-accent',
+  green: 'border border-green text-green hover:text-white hover:bg-green',
   loading: 'mr-2 h-4 w-4 ms-2 rounded-full border-2 border-transparent border-t-2 animate-spin',
   disabled: 'border-none bg-gray-300 text-body cursor-not-allowed',
   disabledOutline: 'border border-border-base text-muted cursor-not-allowed',
@@ -27,6 +31,7 @@ const Button = ({
   className,
   variant = 'primary',
   size = 'medium',
+  outlineColor,
   children,
   active,
   htmlType,
@@ -41,6 +46,9 @@ const Button = ({
       [classes.secondary]: !disabled && variant === 'secondary',
       [classes.disabled]: disabled && variant === 'primary',
       [classes.outline]: !disabled && variant === 'outline',
+      [classes.red]: !disabled && variant === 'outline' && outlineColor === 'red',
+      [classes.blue]: !disabled && variant === 'outline' && outlineColor === 'blue',
+      [classes.green]: !disabled && variant === 'outline' && outlineColor === 'green',
       [classes.disabledOutline]: disabled && variant === 'outline',
       [classes.small]: size === 'small',
       [classes.medium]: size === 'medium',
