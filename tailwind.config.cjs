@@ -26,6 +26,9 @@ module.exports = {
         orange: '#ee4d2d',
         gray: 'var(--gray)',
         red: 'var(--red)',
+        green: 'var(--green)',
+        'green-100': 'var(--green-100)',
+        'green-200': 'var(--green-200)',
 
         'input-border': 'var(--input-border)',
         'input-bg': 'var(--input-bg)',

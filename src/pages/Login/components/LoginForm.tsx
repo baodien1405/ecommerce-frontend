@@ -6,6 +6,8 @@ import { InputField, PasswordField } from '@/components/FormFields'
 import { FormDataLogin } from '@/types'
 import { useLoginFormSchema } from '@/hooks'
 import Button from '@/components/Button'
+import { Link } from 'react-router-dom'
+import { path } from '@/constants'
 
 export interface LoginFormProps {
   loading?: boolean
@@ -32,13 +34,20 @@ export function LoginForm({ loading, onSubmit }: LoginFormProps) {
     <form onSubmit={handleSubmit(handleLogin)}>
       <InputField label='E-mail' name='email' control={control} placeholder='Your E-mail address' className='mb-5' />
 
-      <PasswordField label='Password' name='password' control={control} placeholder='Your password' />
+      <PasswordField label='Password' name='password' control={control} placeholder='Your password' className='mb-4' />
+
+      <div className='mb-4 text-center'>
+        <Link to={path.forgotPassword} className='text-btn'>
+          {t('FORGOT_PASSWORD')}
+        </Link>
+      </div>
 
       <Button
         loading={loading}
         disabled={loading}
+        variant='secondary'
         htmlType='submit'
-        className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
+        className='mx-auto h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
       >
         {t('SIGN_IN')}
       </Button>

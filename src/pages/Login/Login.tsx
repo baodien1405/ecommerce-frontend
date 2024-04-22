@@ -70,7 +70,7 @@ export default function Login() {
           </div>
         )}
 
-        <div className='flex w-full items-center justify-center bg-red-300 bg-widget px-4 py-10 lg:p-[60px]'>
+        <div className='flex w-full items-center justify-center bg-widget px-4 py-10 lg:p-[60px]'>
           <Spring className='w-full max-w-[460px]' type='slideUp' duration={400} delay={300}>
             <div className='mb-5 flex flex-col gap-2.5 text-center'>
               <h1>Welcome back!</h1>

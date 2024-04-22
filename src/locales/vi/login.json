@@ -4,7 +4,7 @@
   "hello": "Xin chào,",
   "INTRO": "Gain data-based insights, view progress at a glance, and manage your organization smarter",
   "LOGIN_TITLE": "Các công nghệ được sử dụng trong dự án (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
-  "forgot password": "Quên mật khẩu?",
+  "FORGOT_PASSWORD": "Quên mật khẩu?",
   "DO_NOT_HAVE_AN_ACCOUNT": "Chưa có tài khoản?",
   "create account": "Tạo tài khoản",
   "LOGIN_WITH_GOOGLE": "Đăng nhập với Google",
