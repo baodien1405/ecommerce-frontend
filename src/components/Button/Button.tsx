@@ -12,19 +12,19 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   htmlType?: 'button' | 'submit'
 }
 const classes = {
-  root: 'inline-flex items-center justify-center flex-shrink-0 font-semibold leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700',
+  root: 'inline-flex items-center justify-center flex-shrink-0 font-semibold leading-none rounded-[23px] outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow focus:ring-1 focus:ring-accent-700 font-semibold h-[44px]',
   primary: 'bg-green text-light border border-green-100 hover:bg-green-200 focus:bg-green-200',
   secondary: 'bg-accent text-light border-transparent hover:bg-[#0a458f] focus:bg-[#0a458f]',
-  outline: 'border border-border-400 bg-widget text-body hover:text-light hover:bg-gray-400',
+  outline: 'border border-border-400 bg-widget text-body hover:text-light hover:bg-gray-400 h-[38px]',
   red: 'border border-red text-red hover:text-white hover:bg-red',
   blue: 'border border-accent !text-accent hover:!text-white hover:!bg-accent',
   green: 'border border-green text-green hover:text-white hover:bg-green',
   loading: 'mr-2 h-4 w-4 ms-2 rounded-full border-2 border-transparent border-t-2 animate-spin',
   disabled: 'border-none bg-gray-300 text-body cursor-not-allowed',
   disabledOutline: 'border border-border-base text-muted cursor-not-allowed',
-  small: 'px-3 py-0 h-9 text-sm h-10',
-  medium: 'px-5 py-0 h-12',
-  large: 'px-10 py-0 h-14'
+  small: 'px-[10px] py-0 !h-[26px] text-[12px]',
+  medium: 'px-[15px] py-0 !h-[32px] text-[14px]',
+  large: 'px-[26px] py-0 text-[16px]'
 }
 
 const Button = ({
@@ -66,6 +66,7 @@ const Button = ({
       disabled={disabled}
       {...rest}
     >
+      <div className='rounded-3xl'></div>
       {loading && (
         <span
           className={classes.loading}

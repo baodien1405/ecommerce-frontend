@@ -47,7 +47,8 @@ export function LoginForm({ loading, onSubmit }: LoginFormProps) {
         disabled={loading}
         variant='primary'
         htmlType='submit'
-        className='mx-auto h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
+        size='large'
+        className='mx-auto w-full'
       >
         {t('SIGN_IN')}
       </Button>
