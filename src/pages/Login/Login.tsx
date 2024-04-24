@@ -89,21 +89,13 @@ export default function Login() {
                 </span>
               </div>
 
-              <div className='2xs:grid-cols-2 xs:gap-[30px] mb-9 mt-[30px] grid grid-cols-1 gap-4'>
-                <Button
-                  variant='outline'
-                  htmlType='button'
-                  className='mx-auto mt-[16px] h-[48px] w-full gap-2 border-[1px] px-3 py-2 text-base font-medium'
-                >
+              <div className='mb-9 mt-[30px] flex items-center justify-center gap-2'>
+                <Button variant='outline' size='large' htmlType='button' className='mx-auto mt-[16px] gap-2'>
                   <GoogleIcon />
                   {t('LOGIN_WITH_GOOGLE')}
                 </Button>
 
-                <Button
-                  variant='outline'
-                  htmlType='button'
-                  className='mx-auto mt-[16px] h-[48px] w-full gap-2 border-[1px] px-3 py-2 text-base font-medium'
-                >
+                <Button variant='outline' size='large' htmlType='button' className='mx-auto mt-[16px] gap-2'>
                   <GithubIcon />
                   {t('LOGIN_WITH_GITHUB')}
                 </Button>

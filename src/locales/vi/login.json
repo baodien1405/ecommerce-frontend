@@ -7,6 +7,6 @@
   "FORGOT_PASSWORD": "Quên mật khẩu?",
   "DO_NOT_HAVE_AN_ACCOUNT": "Chưa có tài khoản?",
   "create account": "Tạo tài khoản",
-  "LOGIN_WITH_GOOGLE": "Đăng nhập với Google",
-  "LOGIN_WITH_GITHUB": "Đăng nhập với Github"
+  "LOGIN_WITH_GOOGLE": "Google",
+  "LOGIN_WITH_GITHUB": "Github"
 }
