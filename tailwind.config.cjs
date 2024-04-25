@@ -32,7 +32,8 @@ module.exports = {
 
         'input-border': 'var(--input-border)',
         'input-bg': 'var(--input-bg)',
-
+        'social-btn': 'var(--social-btn-color)',
+        body: 'var(--body)',
         accent: 'var(--accent)',
 
         light: withOpacity('--color-light'),
@@ -65,6 +66,10 @@ module.exports = {
           google: '#DB4437',
           'google-hover': '#cc3e30'
         }
+      },
+      fontFamily: {
+        body: 'var(--body-font)',
+        heading: 'var(--heading-font)'
       },
       textColor: {
         body: withOpacity('--text-base'),

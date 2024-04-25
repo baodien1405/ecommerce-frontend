@@ -89,17 +89,18 @@ export default function Login() {
                 </span>
               </div>
 
-              <div className='mb-9 mt-[30px] flex items-center justify-center gap-2'>
-                <Button variant='outline' size='large' htmlType='button' className='mx-auto mt-[16px] gap-2'>
+              <div className='mb-9 mt-[30px] grid grid-cols-2 gap-4 sm:grid-cols-2 md:gap-[30px]'>
+                <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
                   <GoogleIcon />
                   {t('LOGIN_WITH_GOOGLE')}
                 </Button>
 
-                <Button variant='outline' size='large' htmlType='button' className='mx-auto mt-[16px] gap-2'>
+                <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
                   <GithubIcon />
                   {t('LOGIN_WITH_GITHUB')}
                 </Button>
               </div>
+
               <div className='flex justify-center gap-2.5 leading-none'>
                 <p>{t('DO_NOT_HAVE_AN_ACCOUNT')}</p>
                 <Link to={path.register} className='text-btn'>

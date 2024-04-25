@@ -34,24 +34,24 @@ export function LoginForm({ loading, onSubmit }: LoginFormProps) {
     <form onSubmit={handleSubmit(handleLogin)}>
       <InputField label='E-mail' name='email' control={control} placeholder='Your E-mail address' className='mb-5' />
 
-      <PasswordField label='Password' name='password' control={control} placeholder='Your password' className='mb-4' />
+      <PasswordField label='Password' name='password' control={control} placeholder='Your password' />
 
-      <div className='mb-4 text-center'>
+      <div className='mb-10 mt-4 flex flex-col items-center gap-6'>
         <Link to={path.forgotPassword} className='text-btn'>
           {t('FORGOT_PASSWORD')}
         </Link>
-      </div>
 
-      <Button
-        loading={loading}
-        disabled={loading}
-        variant='primary'
-        htmlType='submit'
-        size='large'
-        className='mx-auto w-full'
-      >
-        {t('SIGN_IN')}
-      </Button>
+        <Button
+          loading={loading}
+          disabled={loading}
+          variant='primary'
+          htmlType='submit'
+          size='large'
+          className='mx-auto w-full'
+        >
+          {t('LOG_IN')}
+        </Button>
+      </div>
     </form>
   )
 }

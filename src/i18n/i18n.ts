@@ -42,7 +42,7 @@ export const defaultNS = 'productList'
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'vi',
+  lng: 'en',
   ns: ['login', 'productList'],
   fallbackLng: 'vi',
   defaultNS,
