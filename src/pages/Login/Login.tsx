@@ -73,10 +73,8 @@ export default function Login() {
         <div className='flex w-full items-center justify-center bg-widget px-4 py-10 lg:p-[60px]'>
           <Spring className='w-full max-w-[460px]' type='slideUp' duration={400} delay={300}>
             <div className='mb-5 flex flex-col gap-2.5 text-center'>
-              <h1>Welcome back!</h1>
-              <p className='m-auto lg:max-w-[300px] 4xl:max-w-[unset]'>
-                Etiam quis quam urna. Aliquam odio erat, accumsan eu nulla in
-              </p>
+              <h1>{t('LOGIN_TITLE')}</h1>
+              <p className='m-auto lg:max-w-[300px] 4xl:max-w-[unset]'>{t('LOGIN_SUB_TITLE')}</p>
             </div>
 
             <LoginForm loading={loginMutation.isLoading} onSubmit={handleLogin} />

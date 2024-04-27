@@ -1,9 +1,11 @@
 {
   "SIGN_UP": "Sign Up",
-  "create account": "Create account",
-  "please enter info to register": "Please enter info to register",
-  "do you have account": "Do you have account?",
-  "sign in": "Sign in",
-  "LOGIN_WITH_GOOGLE": "Login with Google",
-  "LOGIN_WITH_GITHUB": "Login with Github"
+  "INTRO": "ShopFood is a project which develop by Avan Dien",
+  "HAVE_ALREADY_ACCOUNT": "Already have an account?",
+  "LOG_IN": "Log In",
+  "LOGIN_WITH_GOOGLE": "Google",
+  "LOGIN_WITH_GITHUB": "Github",
+  "REGISTER_TITLE": "Register to sell!",
+  "REGISTER_SUB_TITLE": "The technologies is using in project (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
+  "REGISTER_NOTE": "ShopFood currently only supports registration via email!"
 }

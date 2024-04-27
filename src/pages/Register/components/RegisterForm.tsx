@@ -31,34 +31,26 @@ export function RegisterForm({ loading, onSubmit }: RegisterFormProps) {
 
   return (
     <form onSubmit={handleSubmit(handleRegister)}>
-      <InputField
-        label='Name'
-        name='name'
-        control={control}
-        placeholder='Nguyen Van A'
-        className='mb-5'
-        variant='outline'
-      />
+      <InputField label='Name' name='name' control={control} placeholder='Your name' className='mb-5' />
 
-      <InputField
-        label='Email'
-        name='email'
-        control={control}
-        placeholder='abc@email.com'
-        className='mb-5'
-        variant='outline'
-      />
+      <InputField label='Email' name='email' control={control} placeholder='Your E-mail address' className='mb-5' />
 
-      <PasswordField label='Password' name='password' control={control} placeholder='************' variant='outline' />
+      <PasswordField label='Password' name='password' control={control} placeholder='Your password' />
 
-      <Button
-        loading={loading}
-        disabled={loading}
-        htmlType='submit'
-        className='mx-auto mt-[16px] h-[48px] w-full border-[1px] px-3 py-2 text-base font-medium'
-      >
-        {t('sign up')}
-      </Button>
+      <div className='mb-10 mt-4 flex flex-col items-center gap-6'>
+        <div>{t('REGISTER_NOTE')}</div>
+
+        <Button
+          loading={loading}
+          disabled={loading}
+          variant='primary'
+          htmlType='submit'
+          size='large'
+          className='mx-auto w-full'
+        >
+          {t('SIGN_UP')}
+        </Button>
+      </div>
     </form>
   )
 }

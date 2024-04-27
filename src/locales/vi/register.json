@@ -1,9 +1,11 @@
 {
   "SIGN_UP": "Đăng ký",
-  "create account": "Tạo tài khoản",
-  "please enter info to register": "Vui lòng nhập thông tin để đăng ký",
-  "do you have account": "Bạn đã có tài khoản?",
-  "sign in": "Đăng nhập",
-  "LOGIN_WITH_GOOGLE": "Đăng nhập với Google",
-  "LOGIN_WITH_GITHUB": "Đăng nhập với Github"
+  "INTRO": "Dự án ShopFood được phát triển bởi Avan Dien",
+  "HAVE_ALREADY_ACCOUNT": "Bạn đã có tài khoản?",
+  "LOG_IN": "Đăng nhập",
+  "LOGIN_WITH_GOOGLE": "Google",
+  "LOGIN_WITH_GITHUB": "Github",
+  "REGISTER_TITLE": "Đăng ký bán hàng!",
+  "REGISTER_SUB_TITLE": "Các công nghệ được sử dụng trong dự án (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
+  "REGISTER_NOTE": "Hiện tại ShopFood chỉ hỗ trợ đăng ký email!"
 }
