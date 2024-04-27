@@ -17,6 +17,7 @@ import cartIcon from '@/assets/images/cart-icon.png'
 import locationIcon from '@/assets/images/location-icon.png'
 import pageNotFound from '@/assets/images/page-not-found.png'
 import mediaImage from '@/assets/images/media.webp'
+import collage404Image from '@/assets/images/collage-404.webp'
 
 const images = {
   logo: logoImage,
@@ -37,7 +38,8 @@ const images = {
   cartIcon: cartIcon,
   locationIcon: locationIcon,
   pageNotFound: pageNotFound,
-  media: mediaImage
+  media: mediaImage,
+  collage404: collage404Image
 }
 
 export default images
