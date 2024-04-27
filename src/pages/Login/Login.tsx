@@ -57,7 +57,7 @@ export default function Login() {
         <meta name='description' content='Login into Shop Food project' />
       </Helmet>
 
-      <div className='4xl:grid-cols-[minmax(0,_1030px)_minmax(0,_1fr)] grid flex-1 grid-cols-1 lg:grid-cols-2'>
+      <div className='grid flex-1 grid-cols-1 lg:grid-cols-2 4xl:grid-cols-[minmax(0,_1030px)_minmax(0,_1fr)]'>
         {width >= 1024 && (
           <div className='flex flex-col items-center justify-center lg:p-[60px]'>
             <Logo imgClass='w-[40px]' textClass='text-[28px]' />
@@ -74,7 +74,7 @@ export default function Login() {
           <Spring className='w-full max-w-[460px]' type='slideUp' duration={400} delay={300}>
             <div className='mb-5 flex flex-col gap-2.5 text-center'>
               <h1>Welcome back!</h1>
-              <p className='4xl:max-w-[unset] m-auto lg:max-w-[300px]'>
+              <p className='m-auto lg:max-w-[300px] 4xl:max-w-[unset]'>
                 Etiam quis quam urna. Aliquam odio erat, accumsan eu nulla in
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function Login() {
                 </span>
               </div>
 
-              <div className='mb-9 mt-[30px] grid grid-cols-2 gap-4 sm:grid-cols-2 md:gap-[30px]'>
+              <div className='mb-9 mt-[30px] grid grid-cols-1 gap-4 2xs:grid-cols-2 xs:gap-[30px]'>
                 <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
                   <GoogleIcon />
                   {t('LOGIN_WITH_GOOGLE')}

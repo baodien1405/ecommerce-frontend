@@ -4,7 +4,7 @@
   "hello": "Hello,",
   "INTRO": "Gain data-based insights, view progress at a glance, and manage your organization smarter",
   "LOGIN_TITLE": "The technologies is using in project (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
-  "FORGOT_PASSWORD": "Forgot Password",
+  "FORGOT_PASSWORD": "Forgot Password?",
   "DO_NOT_HAVE_AN_ACCOUNT": "Don't have an account?",
   "create account": "Create account",
   "LOGIN_WITH_GOOGLE": "Google",

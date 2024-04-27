@@ -12,8 +12,8 @@ describe('Login', () => {
   beforeAll(async () => {
     renderWithRouter({ route: path.login })
     await waitFor(() => {
-      expect(screen.queryByPlaceholderText('abc@gmail.com')).toBeInTheDocument()
-      expect(screen.queryByPlaceholderText('Mật khẩu')).toBeInTheDocument()
+      expect(screen.queryByPlaceholderText('Your E-mail address')).toBeInTheDocument()
+      expect(screen.queryByPlaceholderText('Your password')).toBeInTheDocument()
     })
     emailInput = document.querySelector('form input[id="email"]') as HTMLInputElement
     passwordInput = document.querySelector('form input[id="password"]') as HTMLInputElement

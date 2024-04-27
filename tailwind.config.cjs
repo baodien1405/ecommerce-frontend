@@ -71,6 +71,13 @@ module.exports = {
         body: 'var(--body-font)',
         heading: 'var(--heading-font)'
       },
+      screens: {
+        '2xs': '375px',
+        xs: '414px',
+        '3xl': '1366px',
+        '4xl': '1920px',
+        '5xl': '2048px'
+      },
       textColor: {
         body: withOpacity('--text-base'),
         heading: withOpacity('--text-heading'),
