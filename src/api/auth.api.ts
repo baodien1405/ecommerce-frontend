@@ -1,10 +1,10 @@
 import { AuthResponse, FormDataLogin, FormDataRegister, SuccessResponse } from '@/types'
 import axiosClient, { HEADER } from './axiosClient'
 
-export const URL_REGISTER = '/user/sign-up'
-export const URL_LOGIN = '/user/login'
-export const URL_LOGOUT = '/user/logout'
-export const URL_REFRESH_TOKEN = '/user/refresh-token'
+export const URL_REGISTER = '/shop/sign-up'
+export const URL_LOGIN = '/shop/login'
+export const URL_LOGOUT = '/shop/logout'
+export const URL_REFRESH_TOKEN = '/shop/refresh-token'
 
 const authApi = {
   registerAccount(body: FormDataRegister) {

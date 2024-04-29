@@ -34,7 +34,7 @@ export default function Register() {
       onSuccess: (data) => {
         toast.success(data.data.message)
         setIsAuthenticated(true)
-        setProfile(data.data.metadata.user)
+        setProfile(data.data.metadata.shop)
         navigate('/')
       },
       onError: (error) => {

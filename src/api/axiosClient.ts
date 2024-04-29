@@ -61,7 +61,7 @@ axiosClient.interceptors.response.use(
     const { url } = response.config
     if ([URL_LOGIN, URL_REGISTER].includes(url as string)) {
       const data = response.data as AuthResponse
-      profile = data.metadata.user
+      profile = data.metadata.shop
       accessToken = data.metadata.accessToken
       refreshToken = data.metadata.refreshToken
       setAccessTokenToLS(accessToken)

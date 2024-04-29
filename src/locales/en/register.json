@@ -5,7 +5,7 @@
   "LOG_IN": "Log In",
   "LOGIN_WITH_GOOGLE": "Google",
   "LOGIN_WITH_GITHUB": "Github",
-  "REGISTER_TITLE": "Register to sell!",
+  "REGISTER_TITLE": "Register",
   "REGISTER_SUB_TITLE": "The technologies is using in project (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "REGISTER_NOTE": "ShopFood currently only supports registration via email!"
 }

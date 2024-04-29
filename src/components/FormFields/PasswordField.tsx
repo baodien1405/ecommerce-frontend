@@ -15,7 +15,7 @@ export interface PasswordFieldProps extends InputHTMLAttributes<HTMLInputElement
 }
 
 const classes = {
-  root: 'h-11 px-5 input-bg w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-lg border border-solid border-input-border transition-all ease-in-out duration-300 focus-within:outline-none-override placeholder:text-gray placeholder:transition-opacity focus:placeholder:opacity-0 hover:border-accent focus:border-accent',
+  root: 'h-11 px-5 bg-input-bg w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-lg border border-solid border-input-border transition-all ease-in-out duration-300 focus-within:outline-none-override placeholder:text-gray placeholder:transition-opacity focus:placeholder:opacity-0 hover:border-accent focus:border-accent',
   error: 'border border-red focus:border-red'
 }
 

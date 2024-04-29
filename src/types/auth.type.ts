@@ -11,7 +11,7 @@ export interface FormDataRegister {
 }
 
 export type AuthResponse = SuccessResponse<{
-  user: User
+  shop: User
   accessToken: string
   refreshToken: string
 }>

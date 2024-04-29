@@ -34,7 +34,7 @@ export default function Login() {
     loginMutation.mutate(formValues, {
       onSuccess: async (data) => {
         setIsAuthenticated(true)
-        setProfile(data.data.metadata.user)
+        setProfile(data.data.metadata.shop)
 
         if (location?.state) {
           navigate(location.state)

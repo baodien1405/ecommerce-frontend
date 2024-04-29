@@ -5,7 +5,7 @@
   "LOG_IN": "Đăng nhập",
   "LOGIN_WITH_GOOGLE": "Google",
   "LOGIN_WITH_GITHUB": "Github",
-  "REGISTER_TITLE": "Đăng ký bán hàng!",
+  "REGISTER_TITLE": "Đăng ký",
   "REGISTER_SUB_TITLE": "Các công nghệ được sử dụng trong dự án (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "REGISTER_NOTE": "Hiện tại ShopFood chỉ hỗ trợ đăng ký email!"
 }
