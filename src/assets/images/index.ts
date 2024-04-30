@@ -18,6 +18,8 @@ import locationIcon from '@/assets/images/location-icon.png'
 import pageNotFound from '@/assets/images/page-not-found.png'
 import mediaImage from '@/assets/images/media.webp'
 import collage404Image from '@/assets/images/collage-404.webp'
+import usFlagImage from '@/assets/images/us-flag.png'
+import vnFlagImage from '@/assets/images/vn-flag.png'
 
 const images = {
   logo: logoImage,
@@ -39,7 +41,9 @@ const images = {
   locationIcon: locationIcon,
   pageNotFound: pageNotFound,
   media: mediaImage,
-  collage404: collage404Image
+  collage404: collage404Image,
+  usFlag: usFlagImage,
+  vnFlag: vnFlagImage
 }
 
 export default images

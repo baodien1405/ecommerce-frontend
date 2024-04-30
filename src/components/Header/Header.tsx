@@ -1,39 +1,66 @@
-import { SearchOutlined, UserOutlined } from '@ant-design/icons'
-import { Input, Tooltip } from 'antd'
-import { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
+import { Tooltip } from 'antd'
+import { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
-import images from '@/assets/images'
-import { GlobalIcon } from '@/components/Icons'
-import Image from '@/components/Image'
-import { path, Roles } from '@/constants'
-import { AppContext } from '@/contexts'
-import { locales } from '@/i18n/i18n'
-import { clearLS } from '@/utils'
-import { useSearchProducts } from '@/hooks'
 import authApi from '@/api/auth.api'
+import images from '@/assets/images'
+import { BellSolidIcon, MenuIcon, MessageSolidIcon, MoonIcon, SearchIcon, SunIcon, UserIcon } from '@/components/Icons'
+import Image from '@/components/Image'
+import Search from '@/components/Search'
+import { AppContext, useTheme } from '@/contexts'
+import { useSearchProducts } from '@/hooks'
+import { clearLS } from '@/utils'
+import Headroom from 'react-headroom'
+import { useWindowSize } from 'react-use'
 
-const { Search } = Input
+export const LOCALES = [
+  { value: 'en', label: 'English (EN)', icon: images.usFlag },
+  { value: 'vi', label: 'Vietnam (VN)', icon: images.vnFlag }
+] as const
+
+const LocaleMenu = ({
+  currentLanguage,
+  changeLanguage
+}: {
+  currentLanguage: 'en' | 'vi'
+  changeLanguage: (lang: 'en' | 'vi') => void
+}) => {
+  return (
+    <div className='flex flex-col gap-4 p-4'>
+      {LOCALES.map((locale) => (
+        <button
+          key={locale.value}
+          className='group flex w-fit items-center gap-2.5'
+          onClick={() => changeLanguage(locale.value)}
+        >
+          <Image className='h-5 w-5 rounded-full' src={locale.icon} alt={locale.label} />
+          <span
+            className={`text-sm font-medium transition group-hover:text-accent ${
+              currentLanguage === locale.value ? 'text-accent' : 'text-header'
+            }`}
+          >
+            {locale.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  )
+}
 
 export default function Header() {
   const navigate = useNavigate()
+  const { width } = useWindowSize()
   const { profile, reset, isAuthenticated } = useContext(AppContext)
   const { onSubmitSearch } = useSearchProducts()
   const [t, i18n] = useTranslation('header')
   const currentLanguage = i18n.language as 'en' | 'vi'
-
-  const quickLinks = [
-    { id: '1', to: '', content: t('quick links.fruit') },
-    { id: '2', to: '', content: t('quick links.meat, egg') },
-    { id: '3', to: '', content: t('quick links.vegetable') },
-    { id: '4', to: '', content: t('quick links.milk, butter, cheese') },
-    { id: '5', to: '', content: t('quick links.seafood') },
-    { id: '6', to: '', content: t('quick links.rice, noodles') },
-    { id: '7', to: '', content: t('quick links.drink, bear, wine') },
-    { id: '8', to: '', content: t('quick links.cake, candy') }
-  ]
+  const currentLocal = LOCALES.find((x) => x.value === currentLanguage) || LOCALES[0]
+  const { theme, toggleTheme } = useTheme()
+  const [searchModalOpen, setSearchModalOpen] = useState(false)
+  const [notificationsPanelOpen, setNotificationsPanelOpen] = useState(false)
+  const [messagesPanelOpen, setMessagesPanelOpen] = useState(false)
 
   const logoutMutation = useMutation({
     mutationFn: authApi.logout,
@@ -58,170 +85,88 @@ export default function Header() {
   }
 
   return (
-    <div className='py-2 shadow'>
-      <div className='container w-full'>
-        <div className='flex items-center justify-between'>
-          <div className='flex flex-1 items-center'>
-            <div className='mr-12'>
-              <Image
-                src={images.blueLogo}
-                alt='logo'
-                className='w-[60px] cursor-pointer'
-                onClick={() => navigate(path.product)}
-              />
-            </div>
+    <Headroom style={{ zIndex: 999 }}>
+      <div className='flex items-center justify-between px-20'>
+        {width < 1920 && (
+          <MenuIcon
+            width='30px'
+            height='30px'
+            className='text-2xl leading-none text-accent hover:cursor-pointer'
+            onClick={() => {}}
+          />
+        )}
 
-            <div className='flex-1'>
-              <Search
-                placeholder='Search product...'
-                onSearch={handleSearch}
-                size='large'
-                enterButton={
-                  <div className='flex items-center gap-4'>
-                    <SearchOutlined />
-                    <span>{t('search')}</span>
-                  </div>
-                }
-              />
-            </div>
+        {width >= 768 && <Search wrapperClass='flex-1 max-w-[1054px] ml-5 mr-auto 4xl:ml-0' />}
+
+        <div className='flex items-center gap-5 md:ml-5 xl:gap-[26px]'>
+          {width < 768 && (
+            // <button
+            //   className='dark:text-gray-red text-[20px] leading-none text-gray xl:text-2xl'
+            //   aria-label='Open search'
+            //   // onClick={() => setSearchModalOpen(true)}
+            // >
+            //   <i className='icon-magnifying-glass-solid' />
+            // </button>
+
+            <SearchIcon
+              width='20px'
+              height='20px'
+              className='absolute !right-[80px] top-1/2 -translate-y-1/2 leading-[0] text-accent hover:cursor-pointer'
+              onClick={() => setSearchModalOpen(true)}
+            />
+          )}
+
+          <button aria-label='Change theme' onClick={toggleTheme}>
+            {theme === 'light' ? <SunIcon /> : <MoonIcon />}
+          </button>
+
+          <Tooltip
+            color='var(--widget)'
+            open={true}
+            overlayInnerStyle={{ padding: 0 }}
+            title={<LocaleMenu currentLanguage={currentLanguage} changeLanguage={changeLanguage} />}
+          >
+            <button className='h-6 w-6 overflow-hidden rounded-full xl:h-8 xl:w-8' aria-label='Change language'>
+              <Image src={currentLocal.icon} alt={currentLocal.label} className='h-full w-full object-cover' />
+            </button>
+          </Tooltip>
+
+          <div className='relative mt-1.5 h-fit xl:mr-1.5 xl:mt-0 xl:self-end'>
+            <BellSolidIcon
+              className='dark:text-gray-red text-lg leading-none text-gray xl:text-[20px]'
+              onClick={() => setNotificationsPanelOpen(true)}
+            />
+
+            <span className='absolute -right-1.5 -top-1.5 h-3 w-3 rounded-full border-[2px] border-body bg-red xl:-right-4 xl:-top-5 xl:flex xl:h-6 xl:w-6 xl:items-center xl:justify-center'>
+              <span className='hidden text-xs font-bold text-white dark:text-[#00193B] xl:block'>7</span>
+            </span>
           </div>
 
-          <div className='ml-12 flex items-center'>
-            <div className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#0060ff1f]'>
-              <Image
-                className='mr-1 h-6 w-6 rounded-full'
-                src={images.homeLogo}
-                alt='logo'
-                onClick={() => navigate(path.product)}
-              />
-              <Link to='/' className='text-[14px] font-medium leading-normal text-[#0a68ff]'>
-                {t('home page')}
-              </Link>
-            </div>
+          <div className='relative mt-1.5 h-fit xl:mr-1.5 xl:mt-0 xl:self-end'>
+            <MessageSolidIcon
+              className='dark:text-gray-red text-lg leading-none text-gray xl:text-[20px]'
+              onClick={() => setMessagesPanelOpen(true)}
+            />
 
-            <Tooltip
-              title={
-                <div className='w-[120px] cursor-pointer'>
-                  <div
-                    className={`rounded p-2 transition ${
-                      currentLanguage === 'vi' ? 'bg-slate-500 text-white' : 'text-black'
-                    }`}
-                    onClick={() => changeLanguage('vi')}
-                  >
-                    Tiếng Việt
-                  </div>
-                  <div
-                    className={`rounded p-2 transition ${
-                      currentLanguage === 'en' ? 'bg-slate-500 text-white' : 'text-black'
-                    }`}
-                    onClick={() => changeLanguage('en')}
-                  >
-                    English
-                  </div>
-                </div>
-              }
-              color='white'
+            <span
+              className='absolute -right-1.5 -top-1.5 h-3 w-3 rounded-full border-[2px] border-body bg-green
+                      xl:-right-4 xl:-top-5 xl:flex xl:h-6 xl:w-6 xl:items-center xl:justify-center'
             >
-              <div className='flex w-[124px] cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]'>
-                <GlobalIcon className='mr-1 h-6 w-6 cursor-pointer text-[#808089] ' />
-                <Link to='' className='text-[14px] font-normal leading-normal text-[#808089]'>
-                  {locales[currentLanguage]}
-                </Link>
-              </div>
-            </Tooltip>
-
-            {isAuthenticated ? (
-              <Tooltip
-                title={
-                  <>
-                    <div
-                      className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
-                      onClick={() => navigate(path.profile)}
-                    >
-                      {t('customer information')}
-                    </div>
-
-                    {profile?.roles?.includes(Roles.ADMIN) && (
-                      <div
-                        className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
-                        onClick={() => navigate(path.adminUser)}
-                      >
-                        {t('system management')}
-                      </div>
-                    )}
-
-                    <div
-                      className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
-                      onClick={handleLogout}
-                    >
-                      {t('logout')}
-                    </div>
-                  </>
-                }
-                color='white'
-              >
-                <div className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]'>
-                  <Image
-                    className='mr-1 h-[24px] w-[24px] rounded-full object-cover'
-                    alt='image'
-                    src={profile?.avatar || ''}
-                  />
-                  <Link to='' className='text-[14px] font-normal leading-normal text-[#808089]'>
-                    {t('account')}
-                  </Link>
-                </div>
-              </Tooltip>
-            ) : (
-              <div
-                className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]'
-                // onClick={() => navigate(path.login)}
-              >
-                <UserOutlined className='text-[20px]' />
-                <Link to={path.login} className='text-[14px] font-normal leading-normal text-[#808089]'>
-                  {t('account')}
-                </Link>
-              </div>
-            )}
-
-            <Link
-              to={path.order}
-              className='ml-6 flex cursor-pointer items-end gap-[8px] rounded p-2 text-white hover:bg-[#0060ff1f]'
-            >
-              <div className='relative before:absolute before:-left-3 before:block before:h-5 before:border-[1px] before:border-solid before:border-[#ebebf0] before:content-[""]'>
-                <Image className='h-[24px] w-[24px]' alt='image' src={images.cartIcon} />
-                <span className='absolute -top-[10px] -right-1 inline-block h-[16px] rounded-lg bg-[#ff424f] py-[0.5px] px-1 text-center text-[10px] font-bold leading-normal text-white'>
-                  0
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-
-        <div className='flex justify-between'>
-          <div className='ml-[105px] mt-2 flex'>
-            {quickLinks.map((item) => (
-              <span
-                className='mr-3 whitespace-nowrap text-[14px] font-normal leading-normal text-[#808089]'
-                key={item.id}
-              >
-                {item.content}
-              </span>
-            ))}
+              <span className='hidden text-xs font-bold text-white dark:text-[#00193B] xl:block'>2</span>
+            </span>
           </div>
 
-          <div className='mt-2 w-[348px]'>
-            <div className='flex items-center justify-end'>
-              <Image className='mr-1 h-[20px] w-[20px]' alt='image' src={images.locationIcon} />
-              <h4 className='whitespace-nowrap pr-1 text-[14px] font-normal leading-normal text-[#808089]'>
-                Giao đến:
-              </h4>
-              <div className='overflow-hidden whitespace-nowrap text-[14px] font-medium leading-normal text-[#27272a] underline'>
-                Q. Tân Bình, P. 04, Hồ Chí Minh
-              </div>
-            </div>
+          <div className='relative'>
+            <UserIcon
+              className='relative flex h-4 w-4 items-center justify-center rounded-full bg-accent
+            text-sm text-widget xl:h-11 xl:w-11 xl:text-lg'
+              onClick={() => navigate('/general-settings')}
+            />
+
+            <span className='absolute bottom-0 right-0 z-10 block h-[9px] w-[9px] rounded-full border-[2px] border-solid border-body bg-green xl:h-3 xl:w-3' />
           </div>
         </div>
       </div>
-    </div>
+    </Headroom>
   )
 }

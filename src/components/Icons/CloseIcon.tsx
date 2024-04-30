@@ -1,6 +1,6 @@
 import { IconProps } from '@/types'
 
-export const CloseIcon = ({ width = '24px', height = '24px', className }: IconProps) => (
+export const CloseIcon = ({ width = '24px', height = '24px', className, onClick }: IconProps) => (
   <svg
     height={height}
     width={width}
@@ -8,6 +8,7 @@ export const CloseIcon = ({ width = '24px', height = '24px', className }: IconPr
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 20 20'
     fill='currentColor'
+    onClick={onClick}
   >
     <path
       fillRule='evenodd'

@@ -1,32 +1,41 @@
-import { Dispatch, SetStateAction } from 'react'
+import cn from 'classnames'
+import { useForm } from 'react-hook-form'
+
+import { InputField } from '@/components/FormFields'
+import { CloseIcon, SearchIcon } from '@/components/Icons'
 
 interface SearchProps {
   placeholder?: string
-  query: string
-  setQuery: Dispatch<SetStateAction<string>>
   wrapperClass: string
 }
 
-const Search = ({ placeholder = 'Search...', query, setQuery, wrapperClass }: SearchProps) => {
+const Search = ({ placeholder = 'Search...', wrapperClass }: SearchProps) => {
+  const { control, setValue, watch } = useForm<{ search: string }>({
+    defaultValues: {
+      search: ''
+    }
+  })
+
+  const watchSearch = watch('search')
+
   return (
-    <div className={`relative ${wrapperClass || ''}`}>
-      <input
-        className='field-input !pr-[60px]'
-        type='search'
-        placeholder={placeholder}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button
-        className={`field-btn !right-[40px] text-red transition ${query ? 'opacity-100' : 'opacity-0'}`}
-        onClick={() => setQuery('')}
-        aria-label='Clear all'
-      >
-        <i className='icon-xmark-regular' />
-      </button>
-      <button className='field-btn icon' aria-label='Search'>
-        <i className='icon-magnifying-glass-solid' />
-      </button>
+    <div className={cn('relative', wrapperClass)}>
+      <InputField name='search' control={control} placeholder={placeholder} className='!pr-[60px]' />
+
+      {watchSearch ? (
+        <CloseIcon
+          className='absolute !right-[80px] top-1/2 -translate-y-1/2 leading-[0] text-red transition hover:cursor-pointer'
+          width='16px'
+          height='16px'
+          onClick={() => setValue('search', '')}
+        />
+      ) : (
+        <SearchIcon
+          width='20px'
+          height='20px'
+          className='absolute !right-[80px] top-1/2 -translate-y-1/2 leading-[0] text-accent hover:cursor-pointer'
+        />
+      )}
     </div>
   )
 }
