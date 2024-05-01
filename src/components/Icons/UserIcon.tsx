@@ -1,10 +1,11 @@
 import { IconProps } from '@/types'
 
-export const UserIcon = ({ width = '24px', height = '24px', className }: IconProps) => (
+export const UserIcon = ({ width = '24px', height = '24px', className, onClick }: IconProps) => (
   <svg
     className={className}
     height={height}
     width={width}
+    onClick={onClick}
     strokeWidth='0'
     stroke='currentColor'
     fill='currentColor'
