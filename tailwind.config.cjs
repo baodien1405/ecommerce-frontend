@@ -84,10 +84,16 @@ module.exports = {
         'muted-light': withOpacity('--text-muted-light')
       },
       boxShadow: {
-        base: 'rgba(0, 0, 0, 0.16) 0px 4px 16px'
+        base: 'rgba(0, 0, 0, 0.16) 0px 4px 16px',
+        default: 'var(--shadow)'
       },
       accentColor: {
         green: withOpacity('--color-accent')
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'ping-slow': 'ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite'
       }
     }
   },

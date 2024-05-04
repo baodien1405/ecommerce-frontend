@@ -10,6 +10,7 @@ import { AppContext } from '@/contexts'
 import userApi from '@/api/user.api'
 import { AsideProfile, ProfileForm } from './components'
 import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
+import PageHeader from '@/components/PageHeader'
 
 export default function Profile() {
   const [t] = useTranslation('profile')
@@ -46,18 +47,19 @@ export default function Profile() {
   }
 
   return (
-    <div className='h-[calc(100vh-61px)] bg-[#efefef]'>
+    <div>
       <Helmet>
         <title>Profile | Tiki Clone</title>
         <meta name='description' content='Profile of Tiki Clone' />
       </Helmet>
-      <div className='container'>
-        <h4 className='py-[10px] text-sm font-light text-[#808089]'>{t('homepage > account info')}</h4>
+
+      <div>
+        <PageHeader title='Settings' />
 
         <div className='flex gap-[17px]'>
           <AsideProfile />
           <div className='flex-1'>
-            <div className='mt-1 mb-3 text-[20px] font-light leading-8'>{t('account info')}</div>
+            <div className='mb-3 mt-1 text-[20px] font-light leading-8'>{t('account info')}</div>
             <div className='rounded-lg bg-white p-4'>
               <span className='mb-4 inline-block text-base font-normal text-[#64646d]'>{t('personal info')}</span>
               <ProfileForm

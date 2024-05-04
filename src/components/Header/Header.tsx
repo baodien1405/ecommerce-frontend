@@ -10,7 +10,7 @@ import { BellSolidIcon, MenuIcon, MessageSolidIcon, MoonIcon, SearchIcon, SunIco
 import Image from '@/components/Image'
 import LocaleMenu from '@/components/LocalMenu'
 import Search from '@/components/Search'
-import { LOCALES } from '@/constants'
+import { LOCALES, path } from '@/constants'
 import { useTheme } from '@/contexts'
 
 export default function Header() {
@@ -112,7 +112,7 @@ export default function Header() {
                 className='relative flex h-8 w-8 items-center justify-center rounded-full bg-accent
               text-sm text-widget xl:h-11 xl:w-11 xl:text-lg'
               >
-                <UserIcon onClick={() => navigate('/general-settings')} />
+                <UserIcon onClick={() => navigate(path.profile)} />
               </button>
 
               <span className='absolute bottom-0 right-0 z-10 block h-[9px] w-[9px] rounded-full border-[2px] border-solid border-body bg-green xl:h-3 xl:w-3' />

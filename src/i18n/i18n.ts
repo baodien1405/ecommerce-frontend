@@ -13,6 +13,8 @@ import HEADER_EN from '@/locales/en/header.json'
 import HEADER_VI from '@/locales/vi/header.json'
 import LAYOUT_EN from '@/locales/en/layout.json'
 import LAYOUT_VI from '@/locales/vi/layout.json'
+import COMMON_EN from '@/locales/en/common.json'
+import COMMON_VI from '@/locales/vi/common.json'
 
 export const locales = {
   en: 'English',
@@ -26,7 +28,8 @@ export const resources = {
     register: REGISTER_EN,
     profile: PROFILE_EN,
     header: HEADER_EN,
-    layout: LAYOUT_EN
+    layout: LAYOUT_EN,
+    common: COMMON_EN
   },
   vi: {
     login: LOGIN_VI,
@@ -34,7 +37,8 @@ export const resources = {
     register: REGISTER_VI,
     profile: PROFILE_VI,
     header: HEADER_VI,
-    layout: LAYOUT_VI
+    layout: LAYOUT_VI,
+    common: COMMON_VI
   }
 } as const
 
