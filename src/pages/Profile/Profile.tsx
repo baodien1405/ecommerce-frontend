@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet-async'
 import { ErrorResponse, FormDataProfile } from '@/types'
 import { AppContext } from '@/contexts'
 import userApi from '@/api/user.api'
-import { AsideProfile, ProfileForm } from './components'
+import { AsideProfile, ProfileCard, ProfileForm, ProfileInfo, ProfilePanel } from './components'
 import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
 import PageHeader from '@/components/PageHeader'
 
@@ -53,22 +53,20 @@ export default function Profile() {
         <meta name='description' content='Profile of Tiki Clone' />
       </Helmet>
 
-      <div>
+      <div className='px-[15px] 3xl:px-[26px]'>
         <PageHeader title='Settings' />
 
-        <div className='flex gap-[17px]'>
-          <AsideProfile />
-          <div className='flex-1'>
-            <div className='mb-3 mt-1 text-[20px] font-light leading-8'>{t('account info')}</div>
-            <div className='rounded-lg bg-white p-4'>
-              <span className='mb-4 inline-block text-base font-normal text-[#64646d]'>{t('personal info')}</span>
-              <ProfileForm
-                loading={updateProfileMutation.isLoading}
-                initialValues={initialProfileFormValues}
-                onSubmit={handleProfileFormSubmit}
-              />
+        <div className='widgets-grid md:!grid-cols-2 xl:!grid-cols-[340px,_minmax(0,1fr)]'>
+          <div className='widgets-grid md:col-span-2 md:!grid-cols-2 xl:col-span-1 xl:!grid-cols-1'>
+            <ProfileCard profile={profile} />
+
+            <div className='widgets-grid'>
+              <ProfilePanel />
+              <ProfileInfo />
             </div>
           </div>
+
+          <ProfileForm />
         </div>
       </div>
     </div>

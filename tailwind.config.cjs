@@ -27,6 +27,7 @@ module.exports = {
         gray: 'var(--gray)',
         red: 'var(--red)',
         green: 'var(--green)',
+        'green-darker': '#02A189',
         'green-100': 'var(--green-100)',
         'green-200': 'var(--green-200)',
 
@@ -46,6 +47,7 @@ module.exports = {
         'accent-600': withOpacity('--color-accent-600'),
         'accent-700': withOpacity('--color-accent-700'),
 
+        'gray-red': 'var(--text-dark)',
         'gray-50': withOpacity('--color-gray-50'),
         'gray-100': withOpacity('--color-gray-100'),
         'gray-200': withOpacity('--color-gray-200'),

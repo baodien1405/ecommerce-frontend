@@ -83,3 +83,33 @@
     --transition: 0.3s ease-in-out;
   }
 }
+
+@layer components {
+  .card {
+    @apply rounded-md bg-widget p-5 shadow-default transition-shadow duration-300 md:p-[26px];
+
+    &:not(.no-hover) {
+      &:hover {
+        box-shadow: var(--hover-shadow);
+      }
+    }
+  }
+
+  .badge {
+    @apply inline-flex h-[22px] items-center justify-center px-[7px] py-0 font-heading text-[13px] font-bold leading-[1] text-widget;
+
+    &--square {
+      @apply rounded-md;
+    }
+  }
+
+  .icon-wrapper {
+    @apply flex w-[18px] items-center justify-center text-[18px];
+  }
+}
+
+@layer utilities {
+  .widgets-grid {
+    @apply grid gap-5 md:gap-[26px];
+  }
+}
