@@ -46,7 +46,7 @@ export function ProfileForm({ initialValues, loading, onSubmit }: ProfileFormPro
                 xl:col-span-1 xl:col-start-2 xl:row-start-1'
     >
       <div className='flex flex-col gap-5'>
-        <h5>My Profile Details</h5>
+        <h5>{t('MY_PROFILE_DETAILS')}</h5>
         <form onSubmit={handleSubmit(handleUpdateProfile)}>
           <div className='grid gap-4 md:grid-cols-2 md:gap-5'>
             <div className='grid gap-4'>

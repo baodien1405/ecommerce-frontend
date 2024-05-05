@@ -1,24 +1,9 @@
 {
-  "aside profile": {
-    "account info": "Account info",
-    "my notification": "My notification",
-    "order management": "Order management",
-    "refund management": "Refund management",
-    "address": "Address",
-    "payment info": "Payment info",
-    "product review": "Product review",
-    "product seen": "Product seen",
-    "product love": "Product love",
-    "product buy later": "Product buy later",
-    "my review": "My review"
-  },
-  "homepage > account info": "Homepage > Account Info",
-  "account info": "Account info",
-  "personal info": "Personal info",
   "UPDATE_INFORMATION": "Update Information",
   "NOTIFICATIONS": "Notifications",
   "MESSAGES": "Messages",
   "ADMIN_PANEL_TOOLS": "Admin Panel Tools",
   "VIEW_MODE": "View Mode",
-  "MY_PROFILE_DETAILS": "My Profile Details"
+  "MY_PROFILE_DETAILS": "My Profile Details",
+  "PROFILE": "Profile"
 }

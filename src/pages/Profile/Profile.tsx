@@ -1,16 +1,16 @@
-import { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 import { useMutation } from '@tanstack/react-query'
 import omit from 'lodash/omit'
+import { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
-import { ErrorResponse, FormDataProfile } from '@/types'
-import { AppContext } from '@/contexts'
 import userApi from '@/api/user.api'
-import { AsideProfile, ProfileCard, ProfileForm, ProfileInfo, ProfilePanel } from './components'
-import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
 import PageHeader from '@/components/PageHeader'
+import { AppContext } from '@/contexts'
+import { ErrorResponse, FormDataProfile } from '@/types'
+import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
+import { ProfileCard, ProfileForm, ProfileInfo, ProfilePanel } from './components'
 
 export default function Profile() {
   const [t] = useTranslation('profile')
@@ -49,12 +49,12 @@ export default function Profile() {
   return (
     <div>
       <Helmet>
-        <title>Profile | Tiki Clone</title>
-        <meta name='description' content='Profile of Tiki Clone' />
+        <title>Profile | Shop Food</title>
+        <meta name='description' content='Profile of Shop Food' />
       </Helmet>
 
       <div className='px-[15px] 3xl:px-[26px]'>
-        <PageHeader title='Settings' />
+        <PageHeader title={t('PROFILE')} />
 
         <div className='widgets-grid md:!grid-cols-2 xl:!grid-cols-[340px,_minmax(0,1fr)]'>
           <div className='widgets-grid md:col-span-2 md:!grid-cols-2 xl:col-span-1 xl:!grid-cols-1'>
@@ -66,7 +66,11 @@ export default function Profile() {
             </div>
           </div>
 
-          <ProfileForm />
+          <ProfileForm
+            loading={updateProfileMutation.isLoading}
+            initialValues={initialProfileFormValues}
+            onSubmit={handleProfileFormSubmit}
+          />
         </div>
 
         <div className='h-[80px]' />
