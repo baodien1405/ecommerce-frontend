@@ -68,6 +68,8 @@ export default function Profile() {
 
           <ProfileForm />
         </div>
+
+        <div className='h-[80px]' />
       </div>
     </div>
   )

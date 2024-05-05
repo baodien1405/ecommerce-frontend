@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 import theme from 'styled-theming'
 
-const ThemeStyles = createGlobalStyle`
+export const ThemeStyles = createGlobalStyle`
   :root {
     --body: ${theme('theme', {
       light: 'var(--body-light)',
@@ -81,5 +81,3 @@ const ThemeStyles = createGlobalStyle`
     })};
   }
 `
-
-export default ThemeStyles

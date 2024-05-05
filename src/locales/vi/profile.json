@@ -15,7 +15,10 @@
   "homepage > account info": "Trang chủ > Thông tin tài khoản",
   "account info": "Thông tin tài khoản",
   "personal info": "Thông tin cá nhân",
-  "save change": "Lưu thay đổi",
+  "UPDATE_INFORMATION": "Cập nhật thông tin",
   "NOTIFICATIONS": "Thông báo",
-  "MESSAGES": "Tin nhắn"
+  "MESSAGES": "Tin nhắn",
+  "ADMIN_PANEL_TOOLS": "Công cụ bảng quản trị",
+  "VIEW_MODE": "Chế độ xem",
+  "MY_PROFILE_DETAILS": "Thông tin chi tiết"
 }

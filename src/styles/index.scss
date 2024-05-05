@@ -106,6 +106,10 @@
   .icon-wrapper {
     @apply flex w-[18px] items-center justify-center text-[18px];
   }
+
+  .tool-btn {
+    @apply inline-flex w-fit items-center gap-[10px] font-heading text-[14px] font-bold leading-[1] transition duration-300 hover:text-accent focus:text-accent;
+  }
 }
 
 @layer utilities {

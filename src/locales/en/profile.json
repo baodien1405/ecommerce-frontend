@@ -15,7 +15,10 @@
   "homepage > account info": "Homepage > Account Info",
   "account info": "Account info",
   "personal info": "Personal info",
-  "save change": "Save",
+  "UPDATE_INFORMATION": "Update Information",
   "NOTIFICATIONS": "Notifications",
-  "MESSAGES": "Messages"
+  "MESSAGES": "Messages",
+  "ADMIN_PANEL_TOOLS": "Admin Panel Tools",
+  "VIEW_MODE": "View Mode",
+  "MY_PROFILE_DETAILS": "My Profile Details"
 }

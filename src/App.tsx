@@ -1,15 +1,15 @@
 import { useContext, useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { HelmetProvider } from 'react-helmet-async'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ThemeProvider } from 'styled-components'
-import ThemeStyles from '@/styles/theme'
 
-import { LocalStorageEventTarget } from '@/utils'
+import { LocalStorageEventTarget, ThemeStyles } from '@/utils'
 import { AppContext, useTheme } from '@/contexts'
 import AppRoutes from '@/routes/AppRoutes'
 import ErrorBoundary from '@/components/ErrorBoundary'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const { reset } = useContext(AppContext)
