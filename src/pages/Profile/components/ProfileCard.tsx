@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
+import { useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
 
 import Spring from '@/components/Spring'
 import Button from '@/components/Button'
@@ -7,6 +9,8 @@ import Image from '@/components/Image'
 import { CameraSolidIcon } from '@/components/Icons'
 import { User } from '@/types'
 import { convertTitleCase } from '@/utils'
+import authApi from '@/api/auth.api'
+import { AppContext } from '@/contexts'
 
 interface ProfileCardProps {
   profile: User | null
@@ -14,6 +18,14 @@ interface ProfileCardProps {
 
 export function ProfileCard({ profile }: ProfileCardProps) {
   const [t] = useTranslation(['common'])
+  const { reset } = useContext(AppContext)
+
+  const logoutMutation = useMutation({
+    mutationFn: authApi.logout,
+    onSuccess: () => {
+      reset()
+    }
+  })
 
   return (
     <Spring type='fade' className='card flex flex-col items-center justify-center' id='userProfileCard'>
@@ -44,7 +56,13 @@ export function ProfileCard({ profile }: ProfileCardProps) {
 
       <p className='subheading-2 mb-[18px] mt-6'>last visit {dayjs().format('DD/MM/YYYY')}</p>
 
-      <Button variant='secondary' size='large' className='mx-auto w-full md:max-w-[280px]'>
+      <Button
+        variant='secondary'
+        size='large'
+        className='mx-auto w-full md:max-w-[280px]'
+        loading={logoutMutation.isLoading}
+        onClick={() => logoutMutation.mutate()}
+      >
         {t('common:LOG_OUT')}
       </Button>
     </Spring>
