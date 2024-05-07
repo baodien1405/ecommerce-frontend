@@ -1,4 +1,6 @@
 {
   "DATA_REFRESH": "Làm mới dữ liệu",
-  "LOG_OUT": "Đăng xuất"
+  "LOG_OUT": "Đăng xuất",
+  "LOGIN_WITH_GOOGLE": "Google",
+  "LOGIN_WITH_GITHUB": "Github"
 }

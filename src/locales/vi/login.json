@@ -5,7 +5,5 @@
   "LOGIN_TITLE": "Đăng nhập",
   "LOGIN_SUB_TITLE": "Các công nghệ được sử dụng trong dự án (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "FORGOT_PASSWORD": "Quên mật khẩu?",
-  "DO_NOT_HAVE_AN_ACCOUNT": "Chưa có tài khoản?",
-  "LOGIN_WITH_GOOGLE": "Google",
-  "LOGIN_WITH_GITHUB": "Github"
+  "DO_NOT_HAVE_AN_ACCOUNT": "Chưa có tài khoản?"
 }

@@ -5,7 +5,5 @@
   "LOGIN_TITLE": "Login",
   "LOGIN_SUB_TITLE": "The technologies is using in project (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "FORGOT_PASSWORD": "Forgot Password?",
-  "DO_NOT_HAVE_AN_ACCOUNT": "Don't have an account?",
-  "LOGIN_WITH_GOOGLE": "Google",
-  "LOGIN_WITH_GITHUB": "Github"
+  "DO_NOT_HAVE_AN_ACCOUNT": "Don't have an account?"
 }

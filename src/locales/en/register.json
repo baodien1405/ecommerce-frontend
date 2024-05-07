@@ -3,8 +3,6 @@
   "INTRO": "ShopFood is a project which develop by Avan Dien",
   "HAVE_ALREADY_ACCOUNT": "Already have an account?",
   "LOG_IN": "Log In",
-  "LOGIN_WITH_GOOGLE": "Google",
-  "LOGIN_WITH_GITHUB": "Github",
   "REGISTER_TITLE": "Register",
   "REGISTER_SUB_TITLE": "The technologies is using in project (react, express, mysql, mongodb, aws, redis, elasticsearch, rabbitmg, nginx,...)",
   "REGISTER_NOTE": "ShopFood currently only supports registration via email!"

@@ -7,8 +7,6 @@ import { toast } from 'react-toastify'
 import { useWindowSize } from 'react-use'
 
 import authApi from '@/api/auth.api'
-import Button from '@/components/Button'
-import { GithubIcon, GoogleIcon } from '@/components/Icons'
 import Spring from '@/components/Spring'
 import { path } from '@/constants'
 import { AppContext } from '@/contexts'
@@ -18,6 +16,7 @@ import { isAxiosUnprocessableEntityError } from '@/utils'
 import Logo from '@/components/Logo'
 import Image from '@/components/Image'
 import images from '@/assets/images'
+import SocialButtonGroup from '@/components/SocialButtonGroup'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -80,26 +79,16 @@ export default function Login() {
             <LoginForm loading={loginMutation.isLoading} onSubmit={handleLogin} />
 
             <div className='mt-10'>
-              <div className='relative'>
+              <div className='relative mb-[30px] '>
                 <span className='absolute left-0 top-1/2 h-[1px] w-full -translate-y-1/2 bg-border' />
                 <span className='relative z-10 m-auto flex h-[23px] w-11 items-center justify-center bg-widget'>
                   or
                 </span>
               </div>
 
-              <div className='mb-9 mt-[30px] grid grid-cols-1 gap-4 2xs:grid-cols-2 xs:gap-[30px]'>
-                <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
-                  <GoogleIcon />
-                  {t('LOGIN_WITH_GOOGLE')}
-                </Button>
+              <SocialButtonGroup />
 
-                <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
-                  <GithubIcon />
-                  {t('LOGIN_WITH_GITHUB')}
-                </Button>
-              </div>
-
-              <div className='flex justify-center gap-2.5 leading-none'>
+              <div className='mt-9 flex justify-center gap-2.5 leading-none'>
                 <p>{t('DO_NOT_HAVE_AN_ACCOUNT')}</p>
                 <Link to={path.register} className='text-btn'>
                   {t('SIGN_UP')}

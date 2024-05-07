@@ -14,10 +14,9 @@ import { ErrorResponse, FormDataRegister } from '@/types'
 import { isAxiosUnprocessableEntityError } from '@/utils'
 import { AppContext } from '@/contexts'
 import images from '@/assets/images'
-import Button from '@/components/Button'
-import { GithubIcon, GoogleIcon } from '@/components/Icons'
 import Logo from '@/components/Logo'
 import Spring from '@/components/Spring'
+import SocialButtonGroup from '@/components/SocialButtonGroup'
 
 export default function Register() {
   const [t] = useTranslation('register')
@@ -75,26 +74,16 @@ export default function Register() {
             <RegisterForm loading={registerAccountMutation.isLoading} onSubmit={handleRegister} />
 
             <div className='mt-10'>
-              <div className='relative'>
+              <div className='relative mb-[30px]'>
                 <span className='absolute left-0 top-1/2 h-[1px] w-full -translate-y-1/2 bg-border' />
                 <span className='relative z-10 m-auto flex h-[23px] w-11 items-center justify-center bg-widget'>
                   or
                 </span>
               </div>
 
-              <div className='mb-9 mt-[30px] grid grid-cols-1 gap-4 2xs:grid-cols-2 xs:gap-[30px]'>
-                <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
-                  <GoogleIcon />
-                  {t('LOGIN_WITH_GOOGLE')}
-                </Button>
+              <SocialButtonGroup />
 
-                <Button variant='social' size='large' htmlType='button' className='mx-auto w-full'>
-                  <GithubIcon />
-                  {t('LOGIN_WITH_GITHUB')}
-                </Button>
-              </div>
-
-              <div className='flex justify-center gap-2.5 leading-none'>
+              <div className='mt-9 flex justify-center gap-2.5 leading-none'>
                 <p>{t('HAVE_ALREADY_ACCOUNT')}</p>
                 <Link to={path.login} className='text-btn'>
                   {t('LOG_IN')}

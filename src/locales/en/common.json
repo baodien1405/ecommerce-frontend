@@ -1,4 +1,6 @@
 {
   "DATA_REFRESH": "Data Refresh",
-  "LOG_OUT": "Log Out"
+  "LOG_OUT": "Log Out",
+  "LOGIN_WITH_GOOGLE": "Google",
+  "LOGIN_WITH_GITHUB": "Github"
 }
