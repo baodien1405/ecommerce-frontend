@@ -31,9 +31,9 @@ export default function Register() {
   const handleRegister = (values: FormDataRegister) => {
     registerAccountMutation.mutate(values, {
       onSuccess: (data) => {
-        toast.success(data.data.message)
         setIsAuthenticated(true)
         setProfile(data.data.metadata.shop)
+        toast.success(data.data.message)
         navigate('/')
       },
       onError: (error) => {
@@ -47,8 +47,8 @@ export default function Register() {
   return (
     <div className='flex min-h-screen flex-col'>
       <Helmet>
-        <title>Register | Tiki Clone</title>
-        <meta name='description' content='Register account into Tiki Clone project' />
+        <title>Register | Shop Food</title>
+        <meta name='description' content='Register account into Shop Food project' />
       </Helmet>
 
       <div className='grid flex-1 grid-cols-1 lg:grid-cols-2 4xl:grid-cols-[minmax(0,_1030px)_minmax(0,_1fr)]'>

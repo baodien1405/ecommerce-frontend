@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import { AppProvider, ThemeProvider } from './contexts'
+import { AppProvider, SidebarProvider, ThemeProvider } from './contexts'
 import App from './App'
 
 import '@/i18n/i18n'
@@ -23,7 +23,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <QueryClientProvider client={queryClient}>
         <AppProvider>
           <ThemeProvider>
-            <App />
+            <SidebarProvider>
+              <App />
+            </SidebarProvider>
           </ThemeProvider>
         </AppProvider>
       </QueryClientProvider>

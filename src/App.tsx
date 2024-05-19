@@ -8,6 +8,7 @@ import { LocalStorageEventTarget, ThemeStyles } from '@/utils'
 import { AppContext, useTheme } from '@/contexts'
 import AppRoutes from '@/routes/AppRoutes'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import Sidebar from '@/components/Sidebar'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -27,6 +28,7 @@ function App() {
       <ErrorBoundary>
         <ThemeProvider theme={{ theme: theme }}>
           <ThemeStyles />
+          <Sidebar />
           <AppRoutes />
           <ToastContainer />
         </ThemeProvider>

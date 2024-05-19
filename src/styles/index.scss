@@ -38,6 +38,7 @@
 
     --shadow-light: 0px 3px 14px rgba(226, 225, 225, 0.75);
     --shadow-dark: 0px 3px 14px #00285d;
+    --highlight-dark: #273241;
 
     --gray: #8d8d99;
     --red: #ff5470;
@@ -109,6 +110,46 @@
 
   .tool-btn {
     @apply inline-flex w-fit items-center gap-[10px] font-heading text-[14px] font-bold leading-[1] transition duration-300 hover:text-accent focus:text-accent;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .menu-item {
+    height: 44px;
+    border-radius: 6px;
+    padding: 0 18px 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 11px;
+    font-size: 16px;
+    font-family: var(--heading-font);
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all var(--transition);
+    color: var(--header);
+
+    &:hover,
+    &:focus,
+    &.active {
+      background-color: var(--body);
+      color: var(--header);
+      border-color: var(--border);
+
+      .icon {
+        color: var(--header);
+      }
+    }
+  }
+
+  .menu-divider {
+    height: 1px;
+    background: var(--border);
   }
 }
 

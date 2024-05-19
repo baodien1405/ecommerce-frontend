@@ -4,14 +4,15 @@ import classNames from 'classnames'
 
 import Image from '@/components/Image'
 import svgs from '@/assets/svgs'
+import { useTheme } from '@/contexts'
 
 interface LogoProps {
-  imgClass: string
-  textClass: string
+  imgClass?: string
+  textClass?: string
 }
 
 const Logo = ({ imgClass, textClass }: LogoProps) => {
-  const theme = 'light'
+  const { theme } = useTheme()
 
   return (
     <NavLink className='inline-flex items-center gap-3' to='/'>

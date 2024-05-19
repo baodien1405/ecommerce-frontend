@@ -11,7 +11,7 @@ import Image from '@/components/Image'
 import LocaleMenu from '@/components/LocalMenu'
 import Search from '@/components/Search'
 import { LOCALES, path } from '@/constants'
-import { useTheme } from '@/contexts'
+import { useSidebar, useTheme } from '@/contexts'
 
 export default function Header() {
   const navigate = useNavigate()
@@ -21,6 +21,7 @@ export default function Header() {
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [notificationsPanelOpen, setNotificationsPanelOpen] = useState(false)
   const [messagesPanelOpen, setMessagesPanelOpen] = useState(false)
+  const { setOpen } = useSidebar()
 
   const currentLanguage = i18n.language as 'en' | 'vi'
   const currentLocal = LOCALES.find((x) => x.value === currentLanguage) || LOCALES[0]
@@ -38,7 +39,7 @@ export default function Header() {
               width='30px'
               height='30px'
               className='text-2xl leading-none text-accent hover:cursor-pointer'
-              onClick={() => {}}
+              onClick={() => setOpen(true)}
             />
           )}
 
@@ -70,7 +71,9 @@ export default function Header() {
 
             <div className='relative mt-1.5 h-fit xl:mr-1.5 xl:mt-0 xl:self-end'>
               <BellSolidIcon
-                className='dark:text-gray-red text-lg leading-none text-gray xl:text-[20px]'
+                className={cn('text-lg leading-none text-gray xl:text-[20px]', {
+                  'text-gray-red': theme === 'dark'
+                })}
                 onClick={() => setNotificationsPanelOpen(true)}
               />
 
@@ -88,7 +91,9 @@ export default function Header() {
 
             <div className='relative mt-1.5 h-fit xl:mr-1.5 xl:mt-0 xl:self-end'>
               <MessageSolidIcon
-                className='dark:text-gray-red text-lg leading-none text-gray xl:text-[20px]'
+                className={cn('text-lg leading-none text-gray xl:text-[20px]', {
+                  'text-gray-red': theme === 'dark'
+                })}
                 onClick={() => setMessagesPanelOpen(true)}
               />
 
