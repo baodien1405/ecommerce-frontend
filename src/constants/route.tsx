@@ -1,7 +1,19 @@
+import {
+  ShoppingCartIcon,
+  ChartBarIcon,
+  CreditCardIcon,
+  RectangleGroupIcon,
+  RectangleStackIcon,
+  SettingIcon,
+  SquareStack3DIcon,
+  StartFillHalfIcon,
+  UserGroupIcon
+} from '@/components/Icons'
+
 export const ROUTES = [
   {
     name: 'Dashboard',
-    icon: 'rectangle-history-circle-user-regular',
+    icon: <RectangleStackIcon />,
     links: [
       { name: 'Sales Analytics', path: '/' },
       { name: 'Sellers List', path: '/sellers-list' },
@@ -13,7 +25,7 @@ export const ROUTES = [
   },
   {
     name: 'Products',
-    icon: 'boxes-stacked-regular',
+    icon: <RectangleGroupIcon />,
     links: [
       { name: 'Top Products', path: '/top-products' },
       { name: 'Products Grid', path: '/products-grid' },
@@ -24,33 +36,33 @@ export const ROUTES = [
   },
   {
     name: 'Orders',
-    icon: 'cart-shopping-regular',
+    icon: <ShoppingCartIcon />,
     path: '/orders'
   },
   {
     name: 'Statistics',
-    icon: 'chart-simple-regular',
+    icon: <ChartBarIcon />,
     path: '/statistics'
   },
   {
     name: 'Reviews',
-    icon: 'star-half-stroke-solid',
+    icon: <StartFillHalfIcon />,
     path: '/reviews'
   },
   {
     name: 'Customers',
-    icon: 'chart-user-regular',
+    icon: <UserGroupIcon />,
     path: '/customers'
   },
   {
     name: 'Transactions',
-    icon: 'money-check-dollar-pen-regular',
+    icon: <CreditCardIcon />,
     path: '/transactions',
     qty: 279
   },
   {
     name: 'Pages',
-    icon: 'layer-group-regular',
+    icon: <SquareStack3DIcon />,
     links: [
       { name: 'Login', path: '/login' },
       { name: 'Page 404', path: '/404' }
@@ -58,7 +70,7 @@ export const ROUTES = [
   },
   {
     name: 'Profile',
-    icon: 'gear-regular',
+    icon: <SettingIcon />,
     links: [
       { name: 'Profile', path: '/profile' },
       { name: 'Connected Apps', path: '/connected-apps' }

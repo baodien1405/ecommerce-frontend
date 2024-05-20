@@ -21,7 +21,7 @@ export default function Sidebar() {
       onClose={() => setOpen(false)}
       open={open}
       placement='left'
-      className='!bg-widget'
+      className='!bg-widget !shadow-default'
       autoFocus={false}
     >
       <nav className='menu'>
@@ -38,7 +38,7 @@ export default function Sidebar() {
                       onClick={() => setActive(active === route.name ? '' : route.name)}
                     >
                       <div className='flex items-center gap-2.5'>
-                        <i className={`icon icon-${route.icon}`} />
+                        {route.icon}
                         <span className='text'>{route.name}</span>
                       </div>
 
@@ -70,7 +70,7 @@ export default function Sidebar() {
                 <>
                   <NavLink className='menu-item' to={route.path}>
                     <div className='flex items-center gap-2.5'>
-                      <i className={`icon icon-${route.icon}`} />
+                      {route.icon}
                       <span className='text'>{route.name}</span>
                     </div>
                     {route.qty && <span className='badge rounded bg-green xl:hidden'>{route.qty}</span>}
