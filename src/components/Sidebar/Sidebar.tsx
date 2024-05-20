@@ -2,6 +2,7 @@ import { Drawer } from 'antd'
 import { Fragment, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import cn from 'classnames'
+import { CaretRightOutlined } from '@ant-design/icons'
 
 import { useSidebar } from '@/contexts'
 import Logo from '@/components/Logo'
@@ -42,25 +43,24 @@ export default function Sidebar() {
                         <span className='text'>{route.name}</span>
                       </div>
 
-                      <button className='xl:hidden 4xl:block' aria-label='Toggle submenu'>
-                        <i className='icon icon-caret-right-solid' />
+                      <button className='text-accent xl:hidden 4xl:block' aria-label='Toggle submenu'>
+                        <CaretRightOutlined />
                       </button>
                     </div>
 
-                    {/* <Collapse in={active === route.name} timeout='auto' unmountOnExit>
-                      <div className='submenu flex flex-col gap-2.5'>
+                    {active === route.name && (
+                      <div className='mt-[14px] flex flex-col gap-2.5 pl-10 transition-all'>
                         {route.links.map((link) => {
                           return (
-                            <NavLink className='submenu_item menu_item' to={link.path} key={link.name}>
+                            <NavLink className={cn('menu-item text-[14px]')} to={link.path} key={link.name}>
                               <span className='flex items-center gap-2.5'>
-                                <i className='icon icon-circle-solid' />
-                                <span>{link.name}</span>
+                                <li>{link.name}</li>
                               </span>
                             </NavLink>
                           )
                         })}
                       </div>
-                    </Collapse> */}
+                    )}
                   </div>
                   {index === ROUTES.length - 2 && <span className='menu-divider' />}
                 </>
