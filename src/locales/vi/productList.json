@@ -6,5 +6,7 @@
     "price": "Giá"
   },
   "view more": "Xem thêm",
-  "loading": "Đang tải..."
+  "loading": "Đang tải...",
+
+  "PRODUCTS_TITLE": "Danh sách sản phẩm"
 }

@@ -2,7 +2,7 @@ export default function ProductCardSkeleton() {
   return (
     <div
       role='status'
-      className='w-[200px] animate-pulse rounded border border-gray-200 p-2 shadow dark:border-gray-700 md:p-2'
+      className='card animate-pulse rounded border border-gray-200 p-2 shadow dark:border-gray-700 md:p-2'
     >
       <div className='mb-4 flex h-48 items-center justify-center rounded bg-gray-300 dark:bg-gray-700'>
         <svg

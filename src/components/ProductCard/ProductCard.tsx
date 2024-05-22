@@ -1,68 +1,79 @@
-import { StarFilled } from '@ant-design/icons'
-import { Card } from 'antd'
+import { NavLink } from 'react-router-dom'
+import cn from 'classnames'
+import { Rate } from 'antd'
+
 import Image from '@/components/Image'
-import images from '@/assets/images'
 import { Product } from '@/types'
 import { formatAmount } from '@/utils'
-import { useNavigate } from 'react-router-dom'
-import { path } from '@/constants'
+import Spring from '@/components/Spring'
+import Button from '@/components/Button'
+import { PencilSolidIcon } from '@/components/Icons'
+import SubmenuTrigger from '@/components/SubmenuTrigger'
 
 interface ProductCardProps {
   product: Product
+  isSlide?: boolean
+  index?: number
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const navigate = useNavigate()
+export default function ProductCard({ product, isSlide, index }: ProductCardProps) {
+  const Wrapper: any = isSlide ? 'div' : Spring
+  const wrapperProps = isSlide ? {} : { type: 'slideUp', index }
+
   if (!product) return null
 
   return (
-    <Card
-      hoverable
-      style={{ width: 200 }}
-      bodyStyle={{ padding: 10 }}
-      className='relative overflow-hidden rounded'
-      cover={<Image className='h-[200px] w-[200px] object-contain' alt='example' src={product.product_thumb} />}
-      onClick={() => navigate(`${path.product}${product._id}`)}
-    >
-      <Image
-        className='absolute -top-[6px] -left-[1px] h-[24px] w-[68px] max-w-full object-contain'
-        src={images.officialBadge}
-        alt='official badge'
-      />
-      <div className='break-words text-xs font-normal text-[#38383d]'>{product.product_name}</div>
-
-      <div className='flex items-center text-xs font-normal'>
-        <div className='flex items-center'>
-          <span>4.95</span>
-          <StarFilled className='text-[#fdd836]' />
+    <Wrapper className='card flex h-full flex-col' {...wrapperProps}>
+      <div className='mb-2.5 flex items-start gap-[14px]'>
+        <div className='flex flex-1 items-center justify-center overflow-hidden rounded-md border-[1px] border-solid border-border bg-white'>
+          <Image src={product.product_thumb} alt={product.product_name} />
         </div>
-        <div className='flex items-center'>
-          <div className='mx-[6px] h-[9px] w-[1px] bg-[#c7c7c7]'></div>
-          <div>Đã bán 1000+</div>
+        <SubmenuTrigger className='text-accent' onClick={() => {}} />
+      </div>
+
+      <NavLink
+        className={cn('h6 block max-w-[180px] text-ellipsis !leading-[1.4] transition hover:text-accent', {
+          'mb-3': isSlide
+        })}
+        to='/product-editor'
+      >
+        {product.product_name}
+      </NavLink>
+
+      {isSlide && <Rate allowHalf value={product.product_ratingsAverage} />}
+
+      <div className={`flex flex-1 flex-col ${isSlide ? 'mt-1.5 gap-1' : 'mt-2.5 gap-2.5'}`}>
+        <p className='font-heading text-sm font-bold leading-[1.4] text-green'>
+          Available : {product.product_quantity || 0}
+        </p>
+        <p className='font-heading text-sm font-bold leading-[1.4] text-accent'>
+          Already sold : {product.product_quantity || 0}
+        </p>
+
+        {!isSlide && (
+          <>
+            <p className='font-heading text-sm font-bold leading-[1.4]'>
+              Regular price : {formatAmount(product.product_price || 0)}
+            </p>
+            <p className='font-heading text-sm font-bold leading-[1.4]'>
+              Sale price : {formatAmount(product.product_price || 0)}
+            </p>
+          </>
+        )}
+      </div>
+
+      {!isSlide && (
+        <div className='mt-4 grid grid-cols-2 gap-1.5'>
+          <Button variant='outline' outlineColor='blue' size='large' className='mx-auto gap-2'>
+            <PencilSolidIcon width='16px' height='16px' />
+            Edit
+          </Button>
+
+          <Button variant='outline' outlineColor='red' size='large' className='mx-auto'>
+            Delete
+          </Button>
         </div>
-      </div>
-
-      <div className='mt-[6px] flex items-center text-[#ff424e]'>
-        <div className='text-base font-medium'>{formatAmount(product.product_price, 'vi-VN', 'VND')}</div>
-        <div className='ml-1 mt-[3px] px-[2px] text-xs font-medium'>-34%</div>
-      </div>
-
-      <div className='min-h-[24px] text-[12px] font-normal leading-3 text-[#808089]'>
-        {'Tặng tới 802 ASA (181k ₫)'}
-        <br />
-        {'≈ 2.5% hoàn tiền'}
-      </div>
-
-      <div className='mt-[6px] flex min-h-[17px] flex-wrap gap-1'>
-        {['Freeship+', 'Trả góp'].map((item) => (
-          <div
-            key={item}
-            className='rounded-sm border-[0.5px] border-[#1a94ff] py-[2px] px-1 text-[12px] font-normal leading-3 text-[#1a94ff]'
-          >
-            {item}
-          </div>
-        ))}
-      </div>
-    </Card>
+      )}
+    </Wrapper>
   )
 }

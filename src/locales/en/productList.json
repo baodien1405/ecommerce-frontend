@@ -6,5 +6,7 @@
     "price": "Price"
   },
   "view more": "View more",
-  "loading": "Loading..."
+  "loading": "Loading...",
+
+  "PRODUCTS_TITLE": "Products"
 }
