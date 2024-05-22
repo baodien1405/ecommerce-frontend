@@ -1,8 +1,4 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-
   &::-webkit-scrollbar {
     @apply w-2.5;
   }
@@ -57,4 +53,23 @@ img {
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+svg:focus,
+svg *:focus {
+  outline: none !important;
+}
+
+// iOS fix
+input[type='search'] {
+  -webkit-appearance: none;
+}
+
+textarea {
+  resize: none;
+  white-space: unset !important;
+}
+
+label {
+  cursor: pointer;
 }

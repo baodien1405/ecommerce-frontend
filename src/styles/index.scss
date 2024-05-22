@@ -1,13 +1,9 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
-// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import './global';
 @import './font';
-@import './element';
 @import './typo';
 
 @layer base {
@@ -116,30 +112,15 @@
     @apply flex flex-col gap-5;
 
     &-item {
-      height: 44px;
-      border-radius: 6px;
-      padding: 0 18px 0 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 11px;
-      font-size: 16px;
-      font-family: var(--heading-font);
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: all var(--transition);
-      color: var(--header);
+      @apply flex h-11 cursor-pointer items-center justify-between gap-[11px] rounded-md border-[1px] border-solid border-transparent py-0 pl-3 pr-[18px] font-heading text-[16px] font-bold text-header transition-all ease-in-out;
 
       &:hover,
       &:focus,
       &.active {
-        background-color: var(--body);
-        color: var(--header);
-        border-color: var(--border);
+        @apply border-border bg-body text-header;
 
         .icon {
-          color: var(--header);
+          @apply text-header;
         }
       }
     }
@@ -148,10 +129,42 @@
       @apply h-[1px] bg-border;
     }
   }
+
+  .text-btn {
+    @apply relative inline-flex w-fit items-center gap-1 font-heading text-[14px] font-semibold leading-[1] text-accent;
+    &:after {
+      @apply absolute -bottom-0.5 left-0 h-[1px] w-0 bg-accent transition-all ease-in-out content-[''];
+    }
+
+    &--white {
+      @apply text-white after:bg-white;
+    }
+
+    &:hover,
+    &:focus {
+      &:after {
+        @apply w-full;
+      }
+    }
+  }
 }
 
 @layer utilities {
   .widgets-grid {
     @apply grid gap-5 md:gap-[26px];
+  }
+
+  .outline-none-override {
+    outline: none;
+  }
+
+  .ant-input-group-addon > button {
+    @apply bg-[#0d5cb6];
+  }
+
+  .ant-pagination-item-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
