@@ -147,6 +147,25 @@
       }
     }
   }
+
+  .page-btn {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+
+    &.active,
+    &:hover,
+    &:focus {
+      background-color: var(--accent);
+      color: #fff;
+    }
+  }
 }
 
 @layer utilities {

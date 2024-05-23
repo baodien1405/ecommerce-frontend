@@ -1,19 +1,20 @@
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 import productApi from '@/api/product.api'
-import ProductCard from '@/components/ProductCard'
-import ProductCardSkeleton from '@/components/ProductCardSkeleton'
 import { useQueryConfig } from '@/hooks'
 import { ProductListConfig } from '@/types'
-
 import PageHeader from '@/components/PageHeader'
-import { Pagination } from 'antd'
+import Pagination from '@/components/Pagination'
+import { path } from '@/constants'
+import { ProductListGrid } from '@/pages/ProductList/components'
 
 export default function ProductList() {
   const [t] = useTranslation('productList')
   const queryConfig = useQueryConfig()
+  const navigate = useNavigate()
 
   const productsQuery = useQuery({
     queryKey: ['products', queryConfig],
@@ -30,29 +31,37 @@ export default function ProductList() {
     retry: 0
   })
 
+  const productList = productsQuery.data?.data.metadata.items || []
+  const { page, limit, totalRows } = productsQuery.data?.data.metadata.pagination || {
+    page: 1,
+    limit: 10,
+    totalRows: 0
+  }
+  const totalPages = totalRows ? Math.ceil(totalRows / limit) : 0
+
+  const handlePageChange = (page: number) => {
+    navigate({
+      pathname: path.product,
+      search: createSearchParams({
+        _page: String(page),
+        _limit: String(Number(queryConfig.limit))
+      }).toString()
+    })
+  }
+
   return (
-    <div className='py-5'>
+    <div>
       <Helmet>
-        <title>Homepage | ShopFood</title>
-        <meta name='description' content='Homepage' />
+        <title>Products | ShopFood</title>
+        <meta name='description' content='Products' />
       </Helmet>
 
-      <div className='container'>
+      <div className='px-[15px] 3xl:px-[26px]'>
         <PageHeader title={t('PRODUCTS_TITLE')} />
 
-        <div
-          className='mb-[30px] mt-5 grid flex-1 items-start gap-[26px] sm:grid-cols-2 md:mt-7 md:grid-cols-3
-                 lg:grid-cols-4 2xl:grid-cols-6'
-        >
-          {productsQuery.isLoading && <ProductCardSkeleton />}
+        <ProductListGrid loading={productsQuery.isLoading} productList={productList} />
 
-          {!productsQuery.isLoading &&
-            productsQuery.data?.data.metadata.items.map((product, index) => (
-              <ProductCard key={product._id} product={product} index={index} />
-            ))}
-        </div>
-
-        <Pagination defaultCurrent={1} total={50} />
+        <Pagination page={page} count={totalPages} onChange={handlePageChange} />
       </div>
     </div>
   )

@@ -64,12 +64,12 @@ export default function ProductCard({ product, isSlide, index }: ProductCardProp
 
       {!isSlide && (
         <div className='mt-4 grid grid-cols-2 gap-1.5'>
-          <Button variant='outline' outlineColor='blue' size='large' className='mx-auto gap-2'>
+          <Button variant='outline' outlineColor='blue' size='large' className='mx-auto w-full gap-1.5'>
             <PencilSolidIcon width='16px' height='16px' />
             Edit
           </Button>
 
-          <Button variant='outline' outlineColor='red' size='large' className='mx-auto'>
+          <Button variant='outline' outlineColor='red' size='large' className='mx-auto w-full'>
             Delete
           </Button>
         </div>
