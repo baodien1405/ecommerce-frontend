@@ -26,7 +26,7 @@ export default function ProductCard({ product, isSlide, index }: ProductCardProp
     <Wrapper className='card flex h-full flex-col' {...wrapperProps}>
       <div className='mb-2.5 flex items-start gap-[14px]'>
         <div className='flex flex-1 items-center justify-center overflow-hidden rounded-md border-[1px] border-solid border-border bg-white'>
-          <Image src={product.product_thumb} alt={product.product_name} />
+          <Image src={'http://localhost:3000/src/assets/products/electronics/10.webp'} alt={product.product_name} />
         </div>
         <SubmenuTrigger className='text-accent' onClick={() => {}} />
       </div>
@@ -64,12 +64,17 @@ export default function ProductCard({ product, isSlide, index }: ProductCardProp
 
       {!isSlide && (
         <div className='mt-4 grid grid-cols-2 gap-1.5'>
-          <Button variant='outline' outlineColor='blue' size='large' className='mx-auto w-full gap-1.5'>
+          <Button
+            variant='outline'
+            outlineColor='blue'
+            size='large'
+            className='mx-auto !h-[38px] w-full gap-1.5 text-sm'
+          >
             <PencilSolidIcon width='16px' height='16px' />
             Edit
           </Button>
 
-          <Button variant='outline' outlineColor='red' size='large' className='mx-auto w-full'>
+          <Button variant='outline' outlineColor='red' size='large' className='mx-auto !h-[38px] w-full text-sm'>
             Delete
           </Button>
         </div>

@@ -31,6 +31,7 @@
     "i18next": "^22.4.10",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "lucide-react": "^0.379.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-headroom": "^3.2.1",

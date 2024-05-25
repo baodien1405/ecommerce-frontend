@@ -166,6 +166,14 @@
       color: #fff;
     }
   }
+
+  .badge-icon {
+    @apply flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-md text-[25px] text-widget;
+
+    &--sm {
+      @apply h-[40px] w-[40px] text-[20px];
+    }
+  }
 }
 
 @layer utilities {

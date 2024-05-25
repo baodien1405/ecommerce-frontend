@@ -9,7 +9,8 @@ import { ProductListConfig } from '@/types'
 import PageHeader from '@/components/PageHeader'
 import Pagination from '@/components/Pagination'
 import { path } from '@/constants'
-import { ProductListGrid } from '@/pages/ProductList/components'
+import { ProductFilters, ProductListGrid } from '@/pages/ProductList/components'
+import CategoryHeader from '@/components/CategoryHeader'
 
 export default function ProductList() {
   const [t] = useTranslation('productList')
@@ -44,7 +45,7 @@ export default function ProductList() {
       pathname: path.product,
       search: createSearchParams({
         _page: String(page),
-        _limit: String(Number(queryConfig.limit))
+        _limit: queryConfig.limit || ''
       }).toString()
     })
   }
@@ -58,6 +59,20 @@ export default function ProductList() {
 
       <div className='px-[15px] 3xl:px-[26px]'>
         <PageHeader title={t('PRODUCTS_TITLE')} />
+
+        <div className='grid gap-[26px] lg:grid-cols-4 2xl:grid-cols-6'>
+          <div className='card flex min-w-[218px] items-center gap-4 !p-5'>
+            <CategoryHeader category='clothes' />
+          </div>
+
+          <div className='flex flex-col-reverse gap-4 lg:col-start-3 lg:col-end-5 lg:flex-col lg:gap-3 2xl:col-start-5 2xl:col-end-7'>
+            <span className='lg:text-right'>
+              View products: {productList.length}/{totalRows}
+            </span>
+
+            <ProductFilters />
+          </div>
+        </div>
 
         <ProductListGrid loading={productsQuery.isLoading} productList={productList} />
 
