@@ -24,7 +24,7 @@ export function ProductFilters({ onSubmit }: ProductFiltersProps) {
       <SelectField
         name='category'
         control={control}
-        placeholder='-- Select one --'
+        placeholder='Select category'
         options={[
           { label: 'Clothes', value: 'clothes' },
           { label: 'Electronics', value: 'electronics' },
@@ -35,7 +35,7 @@ export function ProductFilters({ onSubmit }: ProductFiltersProps) {
       <SelectField
         name='price'
         control={control}
-        placeholder='-- Select one --'
+        placeholder='Select price'
         options={[
           { label: 'Price: Low to High', value: 'price_min' },
           { label: 'Price: High to Low', value: 'price_max' }

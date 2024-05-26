@@ -8,7 +8,6 @@ import { formatAmount } from '@/utils'
 import Spring from '@/components/Spring'
 import Button from '@/components/Button'
 import { PencilSolidIcon } from '@/components/Icons'
-import SubmenuTrigger from '@/components/SubmenuTrigger'
 
 interface ProductCardProps {
   product: Product
@@ -26,9 +25,9 @@ export default function ProductCard({ product, isSlide, index }: ProductCardProp
     <Wrapper className='card flex h-full flex-col' {...wrapperProps}>
       <div className='mb-2.5 flex items-start gap-[14px]'>
         <div className='flex flex-1 items-center justify-center overflow-hidden rounded-md border-[1px] border-solid border-border bg-white'>
-          <Image src={'http://localhost:3000/src/assets/products/electronics/10.webp'} alt={product.product_name} />
+          <Image src={product.product_thumb} alt={product.product_name} />
         </div>
-        <SubmenuTrigger className='text-accent' onClick={() => {}} />
+        {/* <SubmenuTrigger className='text-accent' onClick={() => {}} /> */}
       </div>
 
       <NavLink

@@ -39,80 +39,82 @@ export const SelectField = ({
   const selectedOption = options.find((option) => option.value === value)
 
   const selectStyles = {
-    option: (provided: any, state: any) => ({
+    option: (provided: any) => ({
       ...provided,
-      // fontSize: '1rem',
       fontSize: '0.875rem',
-      color: '#6B7280',
+      color: 'var(--text)',
       paddingLeft: 16,
       paddingRight: 16,
-      paddingTop: 12,
-      paddingBottom: 12,
+      paddingTop: 10,
+      paddingBottom: 10,
       cursor: 'pointer',
-      borderBottom: '1px solid #E5E7EB',
-      backgroundColor: state.isSelected ? '#E5E7EB' : state.isFocused ? '#F9FAFB' : '#ffffff'
+      backgroundColor: 'var(--widget)',
+      '&:hover': {
+        color: 'var(--accent)',
+        backgroundColor: 'var(--body)'
+      }
     }),
     control: (_: any, state: any) => ({
       display: 'flex',
       alignItems: 'center',
-      minHeight: size === 'small' ? 36 : 50,
-      // backgroundColor: '#F3F4F6',
-      backgroundColor: '#ffffff',
-      borderRadius: 5,
-      border: '1px solid #D1D5DB',
-      borderColor: state.isFocused ? 'rgb(var(--color-accent-500))' : '#D1D5DB',
+      minHeight: size === 'small' ? 36 : 44,
+      backgroundColor: 'var(--input-bg)',
+      borderRadius: 8,
+      border: '1px solid var(--input-border)',
+      borderColor: state.isFocused ? 'var(--accent)' : 'var(--input-border)',
       boxShadow: state.menuIsOpen && '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'
     }),
     indicatorSeparator: () => ({
       display: 'none'
     }),
-    dropdownIndicator: (provided: any, state: any) => ({
+    dropdownIndicator: (provided: any) => ({
       ...provided,
-      color: state.isFocused ? '#9CA3AF' : '#cccccc',
+      color: 'var(--accent)',
       '&:hover': {
-        color: '#9CA3AF'
+        color: 'var(--accent)'
       }
     }),
-    clearIndicator: (provided: any, state: any) => ({
+    clearIndicator: (provided: any) => ({
       ...provided,
-      color: state.isFocused ? '#9CA3AF' : '#cccccc',
+      color: 'var(--red)',
       padding: 0,
       cursor: 'pointer',
 
       '&:hover': {
-        color: '#9CA3AF'
+        color: 'var(--red)'
       }
     }),
     menu: (provided: any) => ({
       ...provided,
-      borderRadius: 5,
-      border: '1px solid #E5E7EB',
-      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'
+      borderRadius: 6,
+      border: '1px solid var(--input-border)',
+      // boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      boxShadow: 'var(--shadow)',
+      backgroundColor: 'var(--widget)'
     }),
-    valueContainer: (provided: any, _: any) => ({
+    valueContainer: (provided: any) => ({
       ...provided,
       paddingLeft: 16
     }),
-    singleValue: (provided: any, _: any) => ({
+    singleValue: (provided: any) => ({
       ...provided,
-      // fontSize: '1rem',
       fontSize: '0.875rem',
-      color: '#4B5563'
+      color: 'var(--text)'
     }),
-    multiValue: (provided: any, _: any) => ({
+    multiValue: (provided: any) => ({
       ...provided,
-      backgroundColor: 'rgb(var(--color-accent-400))',
+      backgroundColor: 'var(--input-bg)',
       borderRadius: 9999,
       overflow: 'hidden',
       boxShadow: '0 0px 3px 0 rgba(0, 0, 0, 0.1), 0 0px 2px 0 rgba(0, 0, 0, 0.06)'
     }),
-    multiValueLabel: (provided: any, _: any) => ({
+    multiValueLabel: (provided: any) => ({
       ...provided,
       paddingLeft: 10,
       fontSize: '0.875rem',
       color: '#ffffff'
     }),
-    multiValueRemove: (provided: any, _: any) => ({
+    multiValueRemove: (provided: any) => ({
       ...provided,
       paddingLeft: 0,
       paddingRight: 8,
@@ -120,19 +122,19 @@ export const SelectField = ({
       cursor: 'pointer',
 
       '&:hover': {
-        backgroundColor: 'rgb(var(--color-accent-300))',
+        backgroundColor: 'var(--input-bg)',
         color: '#F3F4F6'
       }
     }),
-    placeholder: (provided: any, _: any) => ({
+    placeholder: (provided: any) => ({
       ...provided,
       fontSize: '0.875rem',
       color: 'rgba(107, 114, 128, 0.7)'
     }),
-    noOptionsMessage: (provided: any, _: any) => ({
+    noOptionsMessage: (provided: any) => ({
       ...provided,
       fontSize: '0.875rem',
-      color: 'rgba(107, 114, 128, 0.7)'
+      color: 'var(--text)'
     })
   }
 
@@ -146,7 +148,6 @@ export const SelectField = ({
 
       <Select
         id={name}
-        className='min-h-9'
         styles={selectStyles}
         name={name}
         value={selectedOption}
@@ -156,7 +157,7 @@ export const SelectField = ({
         options={options}
         ref={ref}
         onBlur={onBlur}
-        onChange={(val: any) => onChange(val.value)}
+        onChange={(val) => onChange(val?.value)}
         {...rest}
       />
     </div>
