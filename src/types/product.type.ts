@@ -75,3 +75,8 @@ export interface ProductListConfig {
   type?: string
   category?: string
 }
+
+export interface ProductFiltersPayload {
+  category: string
+  order: string
+}

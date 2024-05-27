@@ -1,21 +1,23 @@
 import { useForm } from 'react-hook-form'
 
 import { SelectField } from '@/components/FormFields'
+import { ProductFiltersPayload } from '@/types'
 
 export interface ProductFiltersProps {
-  loading?: boolean
-  onSubmit?: (values: any) => void
+  initialValues?: Partial<ProductFiltersPayload>
+  onSubmit?: (values: ProductFiltersPayload) => void
 }
 
-export function ProductFilters({ onSubmit }: ProductFiltersProps) {
-  const { control, handleSubmit } = useForm<any>({
+export function ProductFilters({ initialValues, onSubmit }: ProductFiltersProps) {
+  const { control, handleSubmit } = useForm<ProductFiltersPayload>({
     defaultValues: {
-      email: '',
-      password: ''
+      category: '',
+      order: '',
+      ...initialValues
     }
   })
 
-  const handleLogin = async (values: any) => {
+  const handleLogin = async (values: ProductFiltersPayload) => {
     await onSubmit?.(values)
   }
 
@@ -30,16 +32,18 @@ export function ProductFilters({ onSubmit }: ProductFiltersProps) {
           { label: 'Electronics', value: 'electronics' },
           { label: 'Furniture', value: 'furniture' }
         ]}
+        onChange={() => handleSubmit(handleLogin)()}
       />
 
       <SelectField
-        name='price'
+        name='order'
         control={control}
         placeholder='Select price'
         options={[
-          { label: 'Price: Low to High', value: 'price_min' },
-          { label: 'Price: High to Low', value: 'price_max' }
+          { label: 'Price: Low to High', value: 'asc' },
+          { label: 'Price: High to Low', value: 'desc' }
         ]}
+        onChange={() => handleSubmit(handleLogin)()}
       />
     </form>
   )

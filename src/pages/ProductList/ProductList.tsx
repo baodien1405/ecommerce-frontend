@@ -5,7 +5,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 
 import productApi from '@/api/product.api'
 import { useQueryConfig } from '@/hooks'
-import { ProductListConfig } from '@/types'
+import { ProductFiltersPayload, ProductListConfig } from '@/types'
 import PageHeader from '@/components/PageHeader'
 import Pagination from '@/components/Pagination'
 import { path } from '@/constants'
@@ -40,6 +40,18 @@ export default function ProductList() {
   }
   const totalPages = totalRows ? Math.ceil(totalRows / limit) : 0
 
+  const handleFiltersChange = (payload: ProductFiltersPayload) => {
+    navigate({
+      pathname: path.product,
+      search: createSearchParams({
+        _page: String(page),
+        _limit: queryConfig.limit || '',
+        sort_by: 'price',
+        ...payload
+      }).toString()
+    })
+  }
+
   const handlePageChange = (page: number) => {
     navigate({
       pathname: path.product,
@@ -62,7 +74,7 @@ export default function ProductList() {
 
         <div className='grid gap-[26px] lg:grid-cols-4 2xl:grid-cols-6'>
           <div className='card flex min-w-[218px] items-center gap-4 !p-5'>
-            <CategoryHeader category='clothes' />
+            <CategoryHeader category={queryConfig.category || 'electronics'} />
           </div>
 
           <div className='flex flex-col-reverse gap-4 lg:col-start-3 lg:col-end-5 lg:flex-col lg:gap-3 2xl:col-start-5 2xl:col-end-7'>
@@ -70,7 +82,10 @@ export default function ProductList() {
               View products: {productList.length}/{totalRows}
             </span>
 
-            <ProductFilters />
+            <ProductFilters
+              initialValues={{ category: queryConfig.category || 'electronics', order: queryConfig.order || 'asc' }}
+              onSubmit={handleFiltersChange}
+            />
           </div>
         </div>
 

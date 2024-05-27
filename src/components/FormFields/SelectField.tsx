@@ -16,6 +16,7 @@ interface SelectFieldProps {
   clearable?: boolean
   control?: Control<any>
   options: Array<SelectOption>
+  onChange?: (value?: string) => void
 }
 
 export const SelectField = ({
@@ -28,6 +29,7 @@ export const SelectField = ({
   disabled,
   clearable,
   options,
+  onChange: externalOnChange,
   ...rest
 }: SelectFieldProps) => {
   const {
@@ -157,7 +159,10 @@ export const SelectField = ({
         options={options}
         ref={ref}
         onBlur={onBlur}
-        onChange={(val) => onChange(val?.value)}
+        onChange={(val) => {
+          onChange(val?.value)
+          externalOnChange?.(val?.value)
+        }}
         {...rest}
       />
     </div>
