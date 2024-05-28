@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { Navigate, useRoutes } from 'react-router-dom'
 import { path } from '@/constants'
 import { AdminLayout, DefaultLayout, MainLayout } from '@/layouts'
 import { AdminProductDraft, AdminProductPublished, AdminUser, AdminUserTrash } from '@/pages/Admin/pages'
@@ -139,7 +139,11 @@ export default function AppRoutes() {
       ]
     },
     {
-      path: '*',
+      path: path.notFound,
+      element: <Navigate to='/404' />
+    },
+    {
+      path: '/404',
       element: (
         <MainLayout>
           <Suspense fallback={<Spinner />}>

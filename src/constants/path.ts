@@ -14,5 +14,6 @@ export const path = {
   adminProduct: '/admin/product',
   adminProductDraft: '/admin/product/draft',
   adminProductPublished: '/admin/product/published',
+  '404': '/404',
   notFound: '*'
 } as const
