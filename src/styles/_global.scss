@@ -4,17 +4,12 @@
   }
 
   &::-webkit-scrollbar-track {
-    @apply rounded-md border border-solid bg-transparent;
+    @apply rounded-md border border-solid border-input-border bg-transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply rounded-md;
+    @apply rounded-md bg-input-border;
   }
-}
-
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
 }
 
 html {
@@ -39,6 +34,11 @@ html {
       zoom: 1.25;
     }
   }
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
 }
 
 html,

@@ -112,14 +112,6 @@ export default function AppRoutes() {
             </AdminLayout>
           )
         },
-        // {
-        //   path: path.adminProduct,
-        //   element: (
-        //     <AdminLayout>
-        //       <AdminProduct />
-        //     </AdminLayout>
-        //   )
-        // },
         {
           path: path.adminProductDraft,
           element: (
