@@ -42,7 +42,7 @@ export default function ProductList() {
 
   const handleFiltersChange = (payload: ProductFiltersPayload) => {
     navigate({
-      pathname: path.product,
+      pathname: path.productGrid,
       search: createSearchParams({
         _page: String(page),
         _limit: queryConfig.limit || '',
@@ -54,7 +54,7 @@ export default function ProductList() {
 
   const handlePageChange = (page: number) => {
     navigate({
-      pathname: path.product,
+      pathname: path.productGrid,
       search: createSearchParams({
         _page: String(page),
         _limit: queryConfig.limit || ''

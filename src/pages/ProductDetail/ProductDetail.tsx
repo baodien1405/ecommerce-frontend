@@ -72,7 +72,7 @@ export default function ProductDetail() {
       </Helmet>
       <div className='container'>
         <h4 className='flex items-center gap-2 py-[10px] text-sm font-light text-[#808089]'>
-          <Link to={path.product}>Trang chủ</Link>
+          <Link to={path.productGrid}>Trang chủ</Link>
           <RightOutlined />
           <span>{product?.product_name}</span>
         </h4>

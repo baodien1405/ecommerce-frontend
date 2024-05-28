@@ -1,3 +1,5 @@
+import { Empty } from 'antd'
+
 import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
 import { Product } from '@/types'
@@ -10,6 +12,14 @@ interface ProductListGridProps {
 export function ProductListGrid({ loading, productList }: ProductListGridProps) {
   if (loading) {
     return Array.from({ length: 12 }).map((_x, idx) => <ProductCardSkeleton key={idx} />)
+  }
+
+  if (!productList.length) {
+    return (
+      <div className='flex h-full items-center justify-center'>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description='Empty product' />
+      </div>
+    )
   }
 
   return (

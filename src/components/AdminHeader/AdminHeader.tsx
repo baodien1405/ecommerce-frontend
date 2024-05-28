@@ -29,7 +29,7 @@ export default function AdminHeader() {
               src={images.blueLogo}
               alt='logo'
               className='w-[60px] cursor-pointer'
-              onClick={() => navigate(path.product)}
+              onClick={() => navigate(path.productGrid)}
             />
           </div>
 
@@ -38,13 +38,13 @@ export default function AdminHeader() {
               title={
                 <>
                   <div
-                    className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
+                    className='rounded px-2 py-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
                     onClick={handleLogout}
                   >
                     {t('logout')}
                   </div>
                   <div
-                    className='rounded py-2 px-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
+                    className='rounded px-2 py-2 text-black transition hover:cursor-pointer hover:bg-slate-500 hover:text-white'
                     onClick={() => navigate(path.profile)}
                   >
                     {t('customer information')}
@@ -53,7 +53,7 @@ export default function AdminHeader() {
               }
               color='white'
             >
-              <div className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]'>
+              <div className='flex cursor-pointer items-center rounded-lg px-4 py-2 hover:bg-[#27272a1f]'>
                 <Image
                   className='mr-1 h-[24px] w-[24px] rounded-full object-cover'
                   alt='image'
@@ -66,7 +66,7 @@ export default function AdminHeader() {
             </Tooltip>
           ) : (
             <div
-              className='flex cursor-pointer items-center rounded-lg py-2 px-4 hover:bg-[#27272a1f]'
+              className='flex cursor-pointer items-center rounded-lg px-4 py-2 hover:bg-[#27272a1f]'
               onClick={() => navigate(path.login)}
             >
               <UserOutlined className='text-[20px]' />

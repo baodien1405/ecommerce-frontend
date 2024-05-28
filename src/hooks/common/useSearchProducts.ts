@@ -25,7 +25,7 @@ export function useSearchProducts() {
           name: data.name
         }
     navigate({
-      pathname: path.product,
+      pathname: path.productGrid,
       search: createSearchParams(config).toString()
     })
   }

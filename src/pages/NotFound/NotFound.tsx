@@ -22,7 +22,7 @@ export default function NotFound() {
           htmlType='submit'
           size='large'
           className={styles.main_btn}
-          onClick={() => navigate(path.product)}
+          onClick={() => navigate(path.productGrid)}
         >
           Back to Home Page
         </Button>

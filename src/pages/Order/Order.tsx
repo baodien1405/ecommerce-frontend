@@ -9,13 +9,13 @@ export default function Order() {
   const handleCheckAll = () => {}
 
   return (
-    <div className='bg-neutral-100 pt-2 pb-5'>
+    <div className='bg-neutral-100 pb-5 pt-2'>
       <div className='container'>
         <h4 className='my-5 text-[20px] font-medium uppercase leading-7 text-black'>Giỏ hàng</h4>
         <div className='flex gap-5 overflow-auto'>
           <div className='max-w-[910px]'>
             {/* Heading */}
-            <div className='grid grid-cols-12 rounded-sm bg-white py-[9px] px-4 text-sm text-gray-500 shadow'>
+            <div className='grid grid-cols-12 rounded-sm bg-white px-4 py-[9px] text-sm text-gray-500 shadow'>
               <div className='col-span-6'>
                 <div className='flex items-center'>
                   <div className='flex flex-shrink-0 items-center justify-center pr-3'>
@@ -45,7 +45,7 @@ export default function Order() {
             <div className='my-3 rounded-sm bg-white shadow'>
               <div
                 key={'id'}
-                className='mb-5 grid grid-cols-12 items-center rounded-sm bg-white py-5 px-4 text-center text-sm text-gray-500 first:mt-0'
+                className='mb-5 grid grid-cols-12 items-center rounded-sm bg-white px-4 py-5 text-center text-sm text-gray-500 first:mt-0'
               >
                 <div className='col-span-6'>
                   <div className='flex'>
@@ -59,7 +59,7 @@ export default function Order() {
                     </div>
                     <div className='flex-grow'>
                       <div className='flex'>
-                        <Link className='h-20 w-20 flex-shrink-0' to={`${path.product}/123`}>
+                        <Link className='h-20 w-20 flex-shrink-0' to={`${path.productGrid}/123`}>
                           <img
                             alt={'product name'}
                             src='https://salt.tikicdn.com/cache/w78/ts/product/f5/52/80/675e31a670afc560e7b0e46c0b65fb4f.png.webp'
@@ -67,8 +67,8 @@ export default function Order() {
                         </Link>
                         <div className='flex flex-grow items-center px-2'>
                           <Link
-                            to={`${path.product}/123`}
-                            className='text-left text-[13px] leading-5 text-[#242424] line-clamp-2'
+                            to={`${path.productGrid}/123`}
+                            className='line-clamp-2 text-left text-[13px] leading-5 text-[#242424]'
                           >
                             {'Apple iPhone 14 Pro Max 128GB Tím'}
                           </Link>

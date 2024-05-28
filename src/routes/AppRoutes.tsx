@@ -90,7 +90,7 @@ export default function AppRoutes() {
       )
     },
     {
-      path: '',
+      path: path.productGrid,
       index: true,
       element: (
         <MainLayout>

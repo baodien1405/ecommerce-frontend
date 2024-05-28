@@ -1,11 +1,12 @@
 export const path = {
   product: '/',
+  productGrid: '/product-grid',
   order: '/order',
   login: '/login',
   register: '/register',
   forgotPassword: '/forgotPassword',
   profile: '/profile',
-  productDetail: ':productId',
+  productDetail: '/product-grid/:productId',
   productType: '/products',
   systemAdmin: '/system/admin',
   adminUser: '/admin/user',

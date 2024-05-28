@@ -38,7 +38,7 @@ export default function Login() {
         if (location?.state) {
           navigate(location.state)
         } else {
-          navigate(path.product)
+          navigate(path.productGrid)
         }
       },
       onError: (error) => {
