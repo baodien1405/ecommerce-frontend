@@ -57,7 +57,6 @@ export function AdminProductDraft() {
       }, 10000)
       return productApi.getDraftProducts(controller.signal)
     },
-    keepPreviousData: true,
     retry: 0
   })
 
@@ -117,7 +116,7 @@ export function AdminProductDraft() {
       render: (record) => {
         return (
           <span
-            className='cursor-pointer whitespace-normal rounded-full bg-red-500 px-3 py-1 text-xs text-white'
+            className='bg-red-500 cursor-pointer whitespace-normal rounded-full px-3 py-1 text-xs text-white'
             onClick={() => handlePublishProduct(record)}
           >
             draft
@@ -324,7 +323,7 @@ export function AdminProductDraft() {
         onCancel={() => setIsModalOpen(false)}
       >
         <ProductForm
-          loading={addProductMutation.isLoading}
+          loading={addProductMutation.isPending}
           isSuccess={addProductMutation.isSuccess}
           onSubmit={handleAddProductSubmit}
         />
@@ -342,9 +341,9 @@ export function AdminProductDraft() {
         dataSource={data}
         loading={
           productsQuery.isFetching ||
-          deleteProductMutation.isLoading ||
-          updateProductMutation.isLoading ||
-          deleteManyProductsMutation.isLoading
+          deleteProductMutation.isPending ||
+          updateProductMutation.isPending ||
+          deleteManyProductsMutation.isPending
         }
       />
 
@@ -360,7 +359,7 @@ export function AdminProductDraft() {
         <Spin spinning={loadingProduct}>
           <ProductForm
             type='update'
-            loading={updateProductMutation.isLoading}
+            loading={updateProductMutation.isPending}
             isSuccess={updateProductMutation.isSuccess}
             initialValues={initialValueEditForm}
             onSubmit={handleUpdateProductSubmit}

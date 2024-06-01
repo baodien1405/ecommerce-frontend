@@ -1,7 +1,7 @@
-import Button from '@/components/Button'
-import { FileInputField, InputField, SelectField, TextAreaField } from '@/components/FormFields'
-import { ACCEPT_FILE_TYPES, MAX_SIZE_UPLOAD } from '@/constants'
 import { useForm } from 'react-hook-form'
+
+import Button from '@/components/Button'
+import { InputField, PhotoField, SelectField, TextAreaField } from '@/components/FormFields'
 
 interface AddEditProductFormProps {
   initialValues?: any
@@ -46,35 +46,13 @@ export function AddEditProductForm({ initialValues }: AddEditProductFormProps) {
   return (
     <form className='grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,550px)] xl:gap-10'>
       <div>
-        <div>
-          <span className='field-label mb-2.5 block'>Product Images</span>
-          <div className='grid grid-cols-2 gap-5 md:grid-cols-4 2xl:grid-cols-[repeat(5,minmax(0,1fr))]'>
-            <div className='col-span-2 grid grid-cols-2 gap-5 2xl:col-span-1 2xl:grid-cols-1'>
-              <FileInputField
-                label='Image'
-                name='image'
-                control={control}
-                accept='.png,.jpeg,.pdf,.webp'
-                acceptFileTypes={ACCEPT_FILE_TYPES}
-                maxSize={MAX_SIZE_UPLOAD}
-                register={register}
-                watch={watch}
-                className='mb-5'
-              />
-            </div>
+        <div className='grid grid-cols-2 gap-5 md:grid-cols-4 2xl:grid-cols-[repeat(5,minmax(0,1fr))]'>
+          <div className='col-span-2 grid grid-cols-2 gap-5 2xl:col-span-1 2xl:grid-cols-1'>
+            <PhotoField name='thumbnail' label='Product Thumbnail' control={control} />
           </div>
         </div>
-        <div>
-          <button className='text-btn mb-2.5 mt-4'>More Gallery Options</button>
-          <p>
-            Donec luctus metus nec enim imperdiet, in dignissim risus fringilla. Fusce bibendum vulputate scelerisque.
-            Donec in nunc quam. Suspendisse at lorem eleifend
-          </p>
-          <button className='text-btn mb-6 mt-3'>
-            Attachment files <i className='icon-paperclip-vertical-regular text-16' />
-          </button>
-        </div>
-        <div className='flex flex-col gap-4'>
+
+        <div className='mt-4 flex flex-col gap-4'>
           <div className='grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,205px)]'>
             <SelectField
               label='Attributes'

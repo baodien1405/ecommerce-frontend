@@ -4,10 +4,13 @@ import { useParams } from 'react-router-dom'
 import PageHeader from '@/components/PageHeader'
 import Spring from '@/components/Spring'
 import { AddEditProductForm } from '@/pages/AddEditProduct/components'
+import { useProductDetails } from '@/hooks'
 
 export default function AddEditProduct() {
   const { productId } = useParams()
   const isAddMode = productId === 'add'
+
+  useProductDetails(productId as string)
 
   return (
     <div>

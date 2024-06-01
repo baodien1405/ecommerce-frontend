@@ -167,6 +167,16 @@
     }
   }
 
+  .media-dropzone {
+    background: var(--body);
+    aspect-ratio: 288 / 262;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--input-border);
+  }
+
   .badge-icon {
     @apply flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-md text-[25px] text-widget;
 
