@@ -1,6 +1,7 @@
 export const path = {
   product: '/',
   productGrid: '/products-grid',
+  addEditProduct: '/add-edit-product/:productId',
   order: '/order',
   login: '/login',
   register: '/register',

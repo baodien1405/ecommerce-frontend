@@ -49,7 +49,7 @@ export const FileInputField = ({
         <label
           htmlFor='file'
           className={cn(
-            'z-1 absolute top-0 left-0 flex h-full w-full cursor-pointer items-center justify-center rounded border border-solid border-accent bg-white',
+            'z-1 absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded border border-solid border-accent bg-white',
             {
               'border-red-500': invalid
             }

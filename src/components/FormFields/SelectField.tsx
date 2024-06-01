@@ -143,7 +143,7 @@ export const SelectField = ({
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={name} className='text-body-dark leading-non mb-3 block text-sm font-semibold'>
+        <label htmlFor={name} className='mb-[10px] block w-fit text-[12px] font-bold text-gray'>
           {label}
         </label>
       )}

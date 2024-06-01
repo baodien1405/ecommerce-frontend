@@ -14,11 +14,11 @@ export interface TextAreaFieldProps extends TextareaHTMLAttributes<HTMLTextAreaE
 }
 
 const classes = {
-  root: 'py-3 px-4 w-full rounded appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0',
-  normal: 'bg-gray-100 border border-border-base focus:shadow focus:bg-light focus:border-accent',
-  solid: 'bg-gray-100 border border-border-100 focus:bg-light focus:border-accent',
-  outline: 'border border-border-base focus:border-accent',
-  error: 'border border-red-500 focus:border-red-500',
+  root: 'py-3 px-4 w-full rounded-lg appearance-none transition duration-300 ease-in-out focus:outline-none focus:ring-0 placeholder:opacity-70 placeholder:text-sm placeholder:text-[#6b7280] placeholder:transition-opacity',
+  normal: 'bg-input-bg border border-solid border-input-border focus:shadow focus:border-accent',
+  solid: 'bg-input-bg border border-border-100 focus:border-accent',
+  outline: 'bg-input-bg border border-border-base focus:border-accent',
+  error: 'border border-red focus:border-red',
   shadow: 'focus:shadow'
 }
 
@@ -56,7 +56,11 @@ export const TextAreaField = ({
 
   return (
     <div className={className}>
-      {label && <label className='text-body-dark mb-3 block text-sm font-semibold leading-none'>{label}</label>}
+      {label && (
+        <label htmlFor={name} className='mb-[10px] block w-fit text-[12px] font-bold text-gray'>
+          {label}
+        </label>
+      )}
 
       <textarea
         id={name}
@@ -74,7 +78,7 @@ export const TextAreaField = ({
         {...rest}
       />
 
-      {error && <p className='my-1 text-xs text-red-500'>{error.message}</p>}
+      {error && <p className='text-red-500 my-1 text-xs'>{error.message}</p>}
     </div>
   )
 }

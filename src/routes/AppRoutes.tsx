@@ -10,7 +10,7 @@ const Login = lazy(() => import('@/pages/Login'))
 const Register = lazy(() => import('@/pages/Register'))
 const ProductList = lazy(() => import('@/pages/ProductList'))
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'))
-const ProductType = lazy(() => import('@/pages/ProductType'))
+const AddEditProduct = lazy(() => import('@/pages/AddEditProduct'))
 const Profile = lazy(() => import('@/pages/Profile'))
 const Order = lazy(() => import('@/pages/Order'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
@@ -79,12 +79,12 @@ export default function AppRoutes() {
       )
     },
     {
-      path: path.productType,
+      path: path.addEditProduct,
       index: true,
       element: (
         <MainLayout>
           <Suspense fallback={<Spinner />}>
-            <ProductType />
+            <AddEditProduct />
           </Suspense>
         </MainLayout>
       )
