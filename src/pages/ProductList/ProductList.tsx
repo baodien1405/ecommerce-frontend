@@ -11,6 +11,7 @@ import Pagination from '@/components/Pagination'
 import { path } from '@/constants'
 import { ProductFilters, ProductListGrid } from '@/pages/ProductList/components'
 import CategoryHeader from '@/components/CategoryHeader'
+import Button from '@/components/Button'
 
 export default function ProductList() {
   const [t] = useTranslation('productList')

@@ -13,9 +13,10 @@ interface ProductCardProps {
   product: Product
   isSlide?: boolean
   index?: number
+  onClick?: (productId: string) => void
 }
 
-export default function ProductCard({ product, isSlide, index }: ProductCardProps) {
+export default function ProductCard({ product, isSlide, index, onClick }: ProductCardProps) {
   const Wrapper: any = isSlide ? 'div' : Spring
   const wrapperProps = isSlide ? {} : { type: 'slideUp', index }
 
@@ -68,6 +69,7 @@ export default function ProductCard({ product, isSlide, index }: ProductCardProp
             outlineColor='blue'
             size='large'
             className='mx-auto !h-[38px] w-full gap-1.5 text-sm'
+            onClick={() => onClick?.(product._id)}
           >
             <PencilSolidIcon width='16px' height='16px' />
             Edit

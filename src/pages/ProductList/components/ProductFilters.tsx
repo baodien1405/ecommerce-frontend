@@ -1,7 +1,9 @@
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import { SelectField } from '@/components/FormFields'
 import { ProductFiltersPayload } from '@/types'
+import Button from '@/components/Button'
 
 export interface ProductFiltersProps {
   initialValues?: Partial<ProductFiltersPayload>
@@ -9,6 +11,7 @@ export interface ProductFiltersProps {
 }
 
 export function ProductFilters({ initialValues, onSubmit }: ProductFiltersProps) {
+  const navigate = useNavigate()
   const { control, handleSubmit } = useForm<ProductFiltersPayload>({
     defaultValues: {
       category: '',
@@ -22,7 +25,7 @@ export function ProductFilters({ initialValues, onSubmit }: ProductFiltersProps)
   }
 
   return (
-    <form className='grid gap-2.5 sm:grid-cols-2 sm:gap-[26px]' onSubmit={handleSubmit(handleLogin)}>
+    <form className='grid gap-2.5 sm:grid-cols-3 sm:gap-[26px]' onSubmit={handleSubmit(handleLogin)}>
       <SelectField
         name='category'
         control={control}
@@ -45,6 +48,17 @@ export function ProductFilters({ initialValues, onSubmit }: ProductFiltersProps)
         ]}
         onChange={() => handleSubmit(handleLogin)()}
       />
+
+      <Button
+        type='button'
+        loading={false}
+        disabled={false}
+        variant='secondary'
+        size='large'
+        onClick={() => navigate('/add-edit-product/add')}
+      >
+        Add Product
+      </Button>
     </form>
   )
 }
