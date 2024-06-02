@@ -12,6 +12,6 @@ export const useProductDetails = (productId: string, options?: UseProductDetails
     ...options,
     queryKey: [QueryKeys.PRODUCT_DETAILS, productId],
     queryFn: () => productApi.getProduct(productId),
-    enabled: !!productId
+    enabled: !!productId && productId !== 'add'
   }) as UseQueryResult<AxiosResponse<SuccessResponse<Product>>>
 }

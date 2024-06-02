@@ -1,4 +1,5 @@
 export const path = {
+  home: '/',
   product: '/',
   productGrid: '/products-grid',
   addEditProduct: '/add-edit-product/:productId',

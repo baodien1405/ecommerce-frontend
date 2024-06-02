@@ -14,7 +14,7 @@ export interface TextAreaFieldProps extends TextareaHTMLAttributes<HTMLTextAreaE
 }
 
 const classes = {
-  root: 'py-3 px-4 w-full rounded-lg appearance-none transition duration-300 ease-in-out focus:outline-none focus:ring-0 placeholder:opacity-70 placeholder:text-sm placeholder:text-[#6b7280] placeholder:transition-opacity focus:placeholder:opacity-0',
+  root: 'py-3 px-4 w-full rounded-lg appearance-none transition duration-300 ease-in-out focus:outline-none focus:ring-0 placeholder:opacity-70 text-sm placeholder:text-sm placeholder:text-[#6b7280] placeholder:transition-opacity focus:placeholder:opacity-0',
   normal: 'bg-input-bg border border-solid border-input-border focus:shadow focus:border-accent',
   solid: 'bg-input-bg border border-border-100 focus:border-accent',
   outline: 'bg-input-bg border border-border-base focus:border-accent',

@@ -139,6 +139,11 @@ export default function AppRoutes() {
       ]
     },
     {
+      path: path.home,
+      index: true,
+      element: <Navigate to={path.productGrid} />
+    },
+    {
       path: path.notFound,
       element: <Navigate to='/404' />
     },

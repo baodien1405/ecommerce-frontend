@@ -32,6 +32,13 @@ export interface Product {
   product_attributes: Clothing & Furniture & Electronics
 }
 
+export interface ProductPayload extends Product {
+  product_thumbnail: null | {
+    file: File | null
+    previewUrl: string
+  }
+}
+
 export interface ProductListResponse {
   status: string
   message: string

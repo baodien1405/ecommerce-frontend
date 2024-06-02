@@ -2,173 +2,139 @@ import { useForm } from 'react-hook-form'
 
 import Button from '@/components/Button'
 import { InputField, PhotoField, SelectField, TextAreaField } from '@/components/FormFields'
+import { ProductPayload } from '@/types'
 
 interface AddEditProductFormProps {
-  initialValues?: any
+  initialValues?: Partial<ProductPayload>
+  onSubmit?: (payload: Partial<ProductPayload>) => void
 }
 
-const PROMOTIONAL_OPTIONS = [
-  { value: 'category-1', label: 'Category 1' },
-  { value: 'category-2', label: 'Category 2' },
-  { value: 'category-3', label: 'Category 3' },
-  { value: 'category-4', label: 'Category 4' },
-  { value: 'category-5', label: 'Category 5' }
-]
-
-const PRODUCT_TYPE_OPTIONS = [
-  { value: 'simple', label: 'Simple Product' },
-  { value: 'variable', label: 'Variable Product' },
-  { value: 'grouped', label: 'Grouped Product' },
-  { value: 'service', label: 'Services Product' }
-]
-
-const STOCK_STATUS_OPTIONS = [
-  { value: 'in-stock', label: 'In Stock' },
-  { value: 'low-inventory', label: 'Low Inventory' },
-  { value: 'out-of-stock', label: 'Out of Stock' },
-  { value: 'on-demand', label: 'On Demand' },
-  { value: 'unavailable', label: 'Temporarily Unavailable' }
-]
-
-const UNITS_OPTIONS = [
-  { value: 'pcs', label: 'Pieces' },
-  { value: 'box', label: 'Boxes' },
-  { value: 'kg', label: 'Kilograms' }
-]
-
-export function AddEditProductForm({ initialValues }: AddEditProductFormProps) {
-  const { control, handleSubmit, register, watch } = useForm<any>({
+export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFormProps) {
+  const { control, watch, handleSubmit } = useForm<ProductPayload>({
     defaultValues: {
-      ...initialValues
+      ...initialValues,
+      product_thumbnail: initialValues?._id ? { file: null, previewUrl: initialValues.product_thumb } : null
     }
   })
 
+  const watchProductType = watch('product_type')
+
+  const handleFormSubmit = (payload: Partial<ProductPayload>) => {
+    onSubmit?.(payload)
+  }
+
   return (
-    <form className='grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,550px)] xl:gap-10'>
+    <form
+      className='grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,550px)] xl:gap-10'
+      onSubmit={handleSubmit(handleFormSubmit)}
+    >
       <div>
         <div className='grid grid-cols-2 gap-5 md:grid-cols-4 2xl:grid-cols-[repeat(5,minmax(0,1fr))]'>
           <div className='col-span-2 grid grid-cols-2 gap-5 2xl:col-span-1 2xl:grid-cols-1'>
-            <PhotoField name='thumbnail' label='Product Thumbnail' control={control} />
+            <PhotoField name='product_thumbnail' label='Product Thumbnail' control={control} />
           </div>
         </div>
 
         <div className='mt-4 flex flex-col gap-4'>
-          <div className='grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,205px)]'>
-            <SelectField
-              label='Attributes'
-              name='productType'
-              control={control}
-              placeholder='Select an attribute'
-              options={[
-                { label: 'Clothes', value: 'clothes' },
-                { label: 'Electronics', value: 'electronics' },
-                { label: 'Furniture', value: 'furniture' }
-              ]}
-            />
-
-            <InputField
-              label='L * W * H, inches'
-              name='dimensions'
-              control={control}
-              placeholder='Product dimensions'
-            />
-
-            <InputField label='Weight, kg' name='weight' control={control} placeholder='Product weight' />
-          </div>
-
           <TextAreaField
-            label='Description'
-            name='description'
+            label='Product Description'
+            name='product_description'
             control={control}
             variant='normal'
-            placeholder='Product description'
-            className='mb-5'
+            placeholder='Enter a product description'
             inputClassName='resize-none h-[160px] py-[15px] overflow-y-auto'
           />
         </div>
       </div>
+
       <div className='grid grid-cols-1 gap-x-2 gap-y-4'>
-        <InputField label='Product Name' name='productName' control={control} placeholder='Enter product name' />
-
-        <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2'>
-          <InputField label='Brand Name' name='brandName' control={control} placeholder='Enter brand name' />
-
-          <SelectField
-            label='Category'
-            name='category'
-            control={control}
-            placeholder='Select category'
-            options={[
-              { label: 'Clothes', value: 'clothes' },
-              { label: 'Electronics', value: 'electronics' },
-              { label: 'Furniture', value: 'furniture' }
-            ]}
-          />
-        </div>
-
-        <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2'>
-          <InputField label='Regular Price' name='regularPrice' control={control} placeholder='$99.99' />
-
-          <InputField label='Sale Price' name='salePrice' control={control} placeholder='$99.99' />
-        </div>
-
-        <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2'>
-          <InputField label='Schedule' name='productSchedule' control={control} placeholder='' />
-
-          <SelectField
-            label='Promotion'
-            name='promoType'
-            control={control}
-            placeholder='Select promotion'
-            options={PROMOTIONAL_OPTIONS}
-          />
-        </div>
+        <InputField label='Product Name' name='product_name' control={control} placeholder='Enter a product name' />
 
         <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2'>
           <SelectField
             label='Product Type'
-            name='productType'
+            name='product_type'
             control={control}
-            placeholder='Select product type'
-            options={PRODUCT_TYPE_OPTIONS}
+            placeholder='Select an product type'
+            options={[
+              { label: 'Clothing', value: 'Clothing' },
+              { label: 'Electronics', value: 'Electronics' },
+              { label: 'Furniture', value: 'Furniture' }
+            ]}
           />
 
           <SelectField
-            label='Stock Status'
-            name='stockStatus'
-            placeholder='Select stock status'
+            label='Product Rating'
+            name='product_ratingsAverage'
             control={control}
-            options={STOCK_STATUS_OPTIONS}
+            placeholder='Select a rating'
+            options={[
+              { label: '1', value: 1 },
+              { label: '1.5', value: 1.5 },
+              { label: '2', value: 2 },
+              { label: '2.5', value: 2.5 },
+              { label: '3', value: 3 },
+              { label: '3.5', value: 3.5 },
+              { label: '4', value: 4 },
+              { label: '4.5', value: 4.5 },
+              { label: '5', value: 5 }
+            ]}
           />
         </div>
 
-        <InputField label='SKU' name='productSKU' control={control} placeholder='SKU' />
+        {['Clothing', 'Furniture'].includes(watchProductType) && (
+          <div className='grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]'>
+            <InputField label='Brand' name='product_attributes.brand' control={control} placeholder='Enter a brand' />
+            <InputField label='Size' name='product_attributes.size' control={control} placeholder='Enter a size' />
+            <InputField
+              label='Material'
+              name='product_attributes.material'
+              control={control}
+              placeholder='Enter a material'
+            />
+          </div>
+        )}
+
+        {watchProductType === 'Electronics' && (
+          <div className='grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]'>
+            <InputField
+              label='Manufacturer'
+              name='product_attributes.manufacturer'
+              control={control}
+              placeholder='Enter a manufacturer'
+            />
+            <InputField label='Model' name='product_attributes.model' control={control} placeholder='Enter a model' />
+            <InputField label='Color' name='product_attributes.color' control={control} placeholder='Enter a color' />
+          </div>
+        )}
 
         <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2'>
-          <SelectField
-            label='Stock Status'
-            name='stockStatus'
-            control={control}
-            placeholder='Select stock status'
-            options={STOCK_STATUS_OPTIONS}
-          />
+          <InputField label='Product Price' name='product_price' control={control} placeholder='$99.99' />
+          <InputField label='Product Quantity' name='product_quantity' control={control} placeholder='0' />
+        </div>
 
-          <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-[minmax(0,1fr)_,minmax(0,112px)]'>
-            <InputField label='Quantity in Stock' name='qty' control={control} placeholder='0' />
+        {initialValues?._id ? (
+          <Button
+            type='submit'
+            loading={false}
+            disabled={false}
+            variant='secondary'
+            size='large'
+            className='mx-auto mt-4 w-full'
+          >
+            Update
+          </Button>
+        ) : (
+          <div className='mt-4 grid gap-2 sm:grid-cols-2'>
+            <Button loading={false} disabled={false} variant='secondary' size='large' className='mx-auto w-full'>
+              Save to Drafts
+            </Button>
 
-            <SelectField label='Unit' name='unit' control={control} placeholder='Pieces' options={UNITS_OPTIONS} />
+            <Button loading={false} disabled={false} variant='primary' size='large' className='mx-auto w-full'>
+              Publish Product
+            </Button>
           </div>
-        </div>
-
-        <div className='mt-4 grid gap-2 sm:grid-cols-2'>
-          <Button loading={false} disabled={false} variant='secondary' size='large' className='mx-auto w-full'>
-            Save to Drafts
-          </Button>
-
-          <Button loading={false} disabled={false} variant='primary' size='large' className='mx-auto w-full'>
-            Publish Product
-          </Button>
-        </div>
+        )}
       </div>
     </form>
   )

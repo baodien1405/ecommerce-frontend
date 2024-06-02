@@ -10,7 +10,8 @@ export default function AddEditProduct() {
   const { productId } = useParams()
   const isAddMode = productId === 'add'
 
-  useProductDetails(productId as string)
+  const { data } = useProductDetails(productId as string)
+  const productDetails = data?.data.metadata
 
   return (
     <div>
@@ -25,7 +26,7 @@ export default function AddEditProduct() {
         <Spring type='fade' className='card flex-1 xl:py-10'>
           <h5 className='mb-[15px]'>Product Settings</h5>
 
-          <AddEditProductForm />
+          {(isAddMode || Boolean(productDetails)) && <AddEditProductForm initialValues={productDetails} />}
         </Spring>
       </div>
     </div>

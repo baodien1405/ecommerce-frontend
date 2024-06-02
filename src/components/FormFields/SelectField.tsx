@@ -3,7 +3,7 @@ import { Control, useController } from 'react-hook-form'
 
 interface SelectOption {
   label: string
-  value: string
+  value: string | number
 }
 
 interface SelectFieldProps {
@@ -16,7 +16,7 @@ interface SelectFieldProps {
   clearable?: boolean
   control?: Control<any>
   options: Array<SelectOption>
-  onChange?: (value?: string) => void
+  onChange?: (value?: string | number) => void
 }
 
 export const SelectField = ({
