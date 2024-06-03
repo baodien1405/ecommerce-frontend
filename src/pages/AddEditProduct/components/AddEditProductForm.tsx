@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import Button from '@/components/Button'
 import { InputField, PhotoField, SelectField, TextAreaField } from '@/components/FormFields'
 import { ProductPayload } from '@/types'
+import { useProductSchema } from '@/pages/AddEditProduct/hooks'
 
 interface AddEditProductFormProps {
   initialValues?: Partial<ProductPayload>
@@ -10,11 +12,19 @@ interface AddEditProductFormProps {
 }
 
 export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFormProps) {
-  const { control, watch, handleSubmit } = useForm<ProductPayload>({
+  const productSchema = useProductSchema(initialValues)
+
+  const {
+    control,
+    watch,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<ProductPayload>({
     defaultValues: {
       ...initialValues,
       product_thumbnail: initialValues?._id ? { file: null, previewUrl: initialValues.product_thumb } : null
-    }
+    },
+    resolver: yupResolver(productSchema)
   })
 
   const watchProductType = watch('product_type')
@@ -23,6 +33,7 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
     onSubmit?.(payload)
   }
 
+  console.log('🚀 ~ AddEditProductForm ~ errors:', errors)
   return (
     <form
       className='grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,550px)] xl:gap-10'

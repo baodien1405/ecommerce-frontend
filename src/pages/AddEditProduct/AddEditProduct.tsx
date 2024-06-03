@@ -5,6 +5,7 @@ import PageHeader from '@/components/PageHeader'
 import Spring from '@/components/Spring'
 import { AddEditProductForm } from '@/pages/AddEditProduct/components'
 import { useProductDetails } from '@/hooks'
+import { ProductPayload } from '@/types'
 
 export default function AddEditProduct() {
   const { productId } = useParams()
@@ -12,6 +13,10 @@ export default function AddEditProduct() {
 
   const { data } = useProductDetails(productId as string)
   const productDetails = data?.data.metadata
+
+  const handleAddEditProduct = (payload: Partial<ProductPayload>) => {
+    console.log('🚀 ~ handleAddEditProduct ~ payload:', payload)
+  }
 
   return (
     <div>
@@ -26,7 +31,9 @@ export default function AddEditProduct() {
         <Spring type='fade' className='card flex-1 xl:py-10'>
           <h5 className='mb-[15px]'>Product Settings</h5>
 
-          {(isAddMode || Boolean(productDetails)) && <AddEditProductForm initialValues={productDetails} />}
+          {(isAddMode || Boolean(productDetails)) && (
+            <AddEditProductForm initialValues={productDetails} onSubmit={handleAddEditProduct} />
+          )}
         </Spring>
       </div>
     </div>
