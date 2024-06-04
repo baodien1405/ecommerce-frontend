@@ -1,9 +1,12 @@
 import * as yup from 'yup'
 
-import { ACCEPT_FILE_TYPES, MAX_SIZE_UPLOAD } from '@/constants'
+import { ACCEPT_FILE_TYPES, MAX_SIZE_UPLOAD, ProductType } from '@/constants'
 import { ProductPayload } from '@/types'
+import { useRef } from 'react'
 
 export const useProductSchema = (initialValues?: Partial<ProductPayload>) => {
+  const productRef = useRef<string>(initialValues?.product_type || '')
+
   const schema = yup.object().shape({
     product_thumbnail: yup
       .object()
@@ -35,43 +38,45 @@ export const useProductSchema = (initialValues?: Partial<ProductPayload>) => {
       .trim('Please enter a suffix with no leading or trailing spaces')
       .required('Please enter a product description'),
 
-    product_type: yup.string().oneOf(['Clothing', 'Electronics', 'Furniture']).required('Please select a product type'),
+    product_type: yup
+      .string()
+      .oneOf([ProductType.CLOTHING, ProductType.ELECTRONICS, ProductType.FURNITURE])
+      .required('Please select a product type')
+      .test((value) => {
+        productRef.current = value
+        return true
+      }),
 
     product_attributes: yup.object().shape({
-      brand: yup.string().when('product_type', {
-        is: 'Clothing',
-        then: (schema) => schema.required('Please enter a brand'),
-        otherwise: (schema) => schema.notRequired()
-      }),
-      size: yup.string().when('product_type', {
-        is: 'Clothing',
-        then: (schema) => schema.required('Please enter a size'),
-        otherwise: (schema) => schema.notRequired()
-      }),
+      brand:
+        productRef.current === ProductType.CLOTHING || productRef.current === ProductType.FURNITURE
+          ? yup.string().required('Please enter a brand')
+          : yup.string().notRequired(),
 
-      material: yup.string().when('product_type', {
-        is: 'Clothing',
-        then: (schema) => schema.required('Please enter a material'),
-        otherwise: (schema) => schema.notRequired()
-      }),
+      size:
+        productRef.current === ProductType.CLOTHING || productRef.current === ProductType.FURNITURE
+          ? yup.string().required('Please enter a size')
+          : yup.string().notRequired(),
 
-      manufacturer: yup.string().when('product_type', {
-        is: 'Electronics',
-        then: (schema) => schema.required('Please enter a manufacturer'),
-        otherwise: (schema) => schema.notRequired()
-      }),
+      material:
+        productRef.current === ProductType.CLOTHING || productRef.current === ProductType.FURNITURE
+          ? yup.string().required('Please enter a material')
+          : yup.string().notRequired(),
 
-      model: yup.string().when('product_type', {
-        is: 'Electronics',
-        then: (schema) => schema.required('Please enter a model'),
-        otherwise: (schema) => schema.notRequired()
-      }),
+      manufacturer:
+        productRef.current === ProductType.ELECTRONICS
+          ? yup.string().required('Please enter a manufacturer')
+          : yup.string().notRequired(),
 
-      color: yup.string().when('product_type', {
-        is: 'Electronics',
-        then: (schema) => schema.required('Please enter a color'),
-        otherwise: (schema) => schema.notRequired()
-      })
+      model:
+        productRef.current === ProductType.ELECTRONICS
+          ? yup.string().required('Please enter a model')
+          : yup.string().notRequired(),
+
+      color:
+        productRef.current === ProductType.ELECTRONICS
+          ? yup.string().required('Please enter a color')
+          : yup.string().notRequired()
     }),
 
     product_ratingsAverage: yup.number().strict().required('Please select a product rating'),

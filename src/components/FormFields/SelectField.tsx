@@ -61,6 +61,7 @@ export const SelectField = ({
       alignItems: 'center',
       minHeight: size === 'small' ? 36 : 44,
       backgroundColor: 'var(--input-bg)',
+      opacity: disabled ? 0.6 : 1,
       borderRadius: 8,
       border: '1px solid var(--input-border)',
       borderColor: state.isFocused ? 'var(--accent)' : 'var(--input-border)',

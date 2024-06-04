@@ -8,6 +8,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   note?: string
   type?: string
+  disabled?: boolean
   shadow?: boolean
   variant?: 'normal' | 'solid' | 'outline'
   name: string
@@ -16,7 +17,8 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const classes = {
   root: 'h-11 px-5 bg-input-bg w-full overflow-hidden text-sm text-ellipsis whitespace-nowrap rounded-lg border border-solid border-input-border transition-all ease-in-out duration-300 focus-within:outline-none-override placeholder:opacity-70 placeholder:text-sm placeholder:text-[#6b7280] placeholder:transition-opacity focus:placeholder:opacity-0 hover:border-accent focus:border-accent',
-  error: 'border border-red focus:border-red'
+  error: 'border border-red focus:border-red',
+  disabled: 'opacity-60 cursor-not-allowed hover:border-input-border'
 }
 
 export const InputField = ({
@@ -26,6 +28,7 @@ export const InputField = ({
   name,
   type = 'text',
   inputClassName,
+  disabled,
   control,
   ...rest
 }: InputFieldProps) => {
@@ -40,7 +43,8 @@ export const InputField = ({
   const rootClassName = cn(
     classes.root,
     {
-      [classes.error]: invalid
+      [classes.error]: invalid,
+      [classes.disabled]: disabled
     },
     inputClassName
   )
@@ -57,6 +61,7 @@ export const InputField = ({
         id={name}
         name={name}
         type={type}
+        disabled={disabled}
         className={rootClassName}
         autoComplete='off'
         autoCorrect='off'

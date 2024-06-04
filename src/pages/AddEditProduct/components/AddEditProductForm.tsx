@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import { InputField, PhotoField, SelectField, TextAreaField } from '@/components/FormFields'
 import { ProductPayload } from '@/types'
 import { useProductSchema } from '@/pages/AddEditProduct/hooks'
+import { ProductType } from '@/constants'
 
 interface AddEditProductFormProps {
   initialValues?: Partial<ProductPayload>
@@ -14,12 +15,7 @@ interface AddEditProductFormProps {
 export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFormProps) {
   const productSchema = useProductSchema(initialValues)
 
-  const {
-    control,
-    watch,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<ProductPayload>({
+  const { control, watch, handleSubmit } = useForm<ProductPayload>({
     defaultValues: {
       ...initialValues,
       product_thumbnail: initialValues?._id ? { file: null, previewUrl: initialValues.product_thumb } : null
@@ -33,7 +29,6 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
     onSubmit?.(payload)
   }
 
-  console.log('🚀 ~ AddEditProductForm ~ errors:', errors)
   return (
     <form
       className='grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(0,550px)] xl:gap-10'
@@ -67,10 +62,11 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
             name='product_type'
             control={control}
             placeholder='Select an product type'
+            disabled={!!initialValues?._id}
             options={[
-              { label: 'Clothing', value: 'Clothing' },
-              { label: 'Electronics', value: 'Electronics' },
-              { label: 'Furniture', value: 'Furniture' }
+              { label: 'Clothing', value: ProductType.CLOTHING },
+              { label: 'Electronics', value: ProductType.ELECTRONICS },
+              { label: 'Furniture', value: ProductType.FURNITURE }
             ]}
           />
 

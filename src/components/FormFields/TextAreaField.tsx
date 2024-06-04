@@ -9,6 +9,7 @@ export interface TextAreaFieldProps extends TextareaHTMLAttributes<HTMLTextAreaE
   name: string
   error?: string
   shadow?: boolean
+  disabled?: boolean
   control?: Control<any>
   variant?: 'normal' | 'solid' | 'outline'
 }
@@ -19,7 +20,8 @@ const classes = {
   solid: 'bg-input-bg border border-border-100 focus:border-accent',
   outline: 'bg-input-bg border border-border-base focus:border-accent',
   error: 'border border-red focus:border-red',
-  shadow: 'focus:shadow'
+  shadow: 'focus:shadow',
+  disabled: 'opacity-60 cursor-not-allowed hover:border-input-border'
 }
 
 export const TextAreaField = ({
@@ -28,6 +30,7 @@ export const TextAreaField = ({
   name,
   variant = 'normal',
   shadow = false,
+  disabled = false,
   inputClassName,
   control,
   ...rest
@@ -49,7 +52,8 @@ export const TextAreaField = ({
     },
     {
       [classes.shadow]: shadow,
-      [classes.error]: invalid
+      [classes.error]: invalid,
+      [classes.disabled]: disabled
     },
     inputClassName
   )
@@ -71,6 +75,7 @@ export const TextAreaField = ({
         autoCapitalize='off'
         spellCheck='false'
         rows={4}
+        disabled={disabled}
         value={value}
         ref={ref}
         onChange={onChange}
