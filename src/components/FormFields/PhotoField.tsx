@@ -1,8 +1,10 @@
 import { ChangeEvent } from 'react'
 import { ImageIcon } from 'lucide-react'
 import { Control, FieldValues, Path, useController } from 'react-hook-form'
+import cn from 'classnames'
 
 import Image from '@/components/Image'
+import { ACCEPT_FILE_TYPES, MAX_SIZE_UPLOAD } from '@/constants'
 
 export type PhotoFieldProps<T extends FieldValues> = {
   name: Path<T>
@@ -41,16 +43,38 @@ export function PhotoField<T extends FieldValues>({ name, control, label }: Phot
         </label>
       )}
 
-      <label className='media-dropzone cursor-pointer overflow-hidden 2xl:col-span-2' htmlFor={inputId} ref={ref}>
+      <label
+        className={cn('media-dropzone cursor-pointer overflow-hidden 2xl:col-span-2', {
+          'border-red': error?.message
+        })}
+        htmlFor={inputId}
+        ref={ref}
+      >
         {previewUrl ? (
           <Image src={previewUrl} className='h-[180px] w-[246px]' alt={label || ''} />
         ) : (
           <div className='flex flex-col items-center gap-2.5'>
             <ImageIcon className='text-[20px] text-[#AEAEAE]' />
-            <p className='subheading-3'>Browse image</p>
+            <p
+              className={cn('subheading-3', {
+                '!text-red': error?.message
+              })}
+            >
+              Browse image
+            </p>
           </div>
         )}
       </label>
+
+      {value?.file?.name && (
+        <div
+          className={cn('my-2 text-start text-xs text-green', {
+            'text-red': value?.file?.size >= MAX_SIZE_UPLOAD || !ACCEPT_FILE_TYPES.includes(value?.file?.type)
+          })}
+        >
+          {value?.file?.name}
+        </div>
+      )}
 
       {error?.message && <p className='my-2 text-start text-xs text-red'>{error.message}</p>}
 

@@ -17,7 +17,7 @@ export const useProductSchema = (initialValues?: Partial<ProductPayload>) => {
         return context.createError({ message: 'Please select an image.' })
       })
       .test('accept-file', 'Please upload the correct file type', (value: any) => {
-        if (!value.file) return true
+        if (!value?.file) return true
 
         return ACCEPT_FILE_TYPES.includes(value?.file?.type)
       })

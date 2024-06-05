@@ -64,6 +64,16 @@ export default function AppRoutes() {
               </Suspense>
             </MainLayout>
           )
+        },
+        {
+          path: path.addEditProduct,
+          element: (
+            <MainLayout>
+              <Suspense fallback={<Spinner />}>
+                <AddEditProduct />
+              </Suspense>
+            </MainLayout>
+          )
         }
       ]
     },
@@ -74,17 +84,6 @@ export default function AppRoutes() {
         <MainLayout>
           <Suspense fallback={<Spinner />}>
             <ProductDetail />
-          </Suspense>
-        </MainLayout>
-      )
-    },
-    {
-      path: path.addEditProduct,
-      index: true,
-      element: (
-        <MainLayout>
-          <Suspense fallback={<Spinner />}>
-            <AddEditProduct />
           </Suspense>
         </MainLayout>
       )

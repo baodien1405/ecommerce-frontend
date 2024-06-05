@@ -33,7 +33,8 @@ export const SelectField = ({
   ...rest
 }: SelectFieldProps) => {
   const {
-    field: { onBlur, onChange, value, ref }
+    field: { onBlur, onChange, value, ref },
+    fieldState: { error }
   } = useController({
     name,
     control
@@ -64,7 +65,7 @@ export const SelectField = ({
       opacity: disabled ? 0.6 : 1,
       borderRadius: 8,
       border: '1px solid var(--input-border)',
-      borderColor: state.isFocused ? 'var(--accent)' : 'var(--input-border)',
+      borderColor: state.isFocused ? 'var(--accent)' : error?.message ? 'var(--red)' : 'var(--input-border)',
       boxShadow: state.menuIsOpen && '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)'
     }),
     indicatorSeparator: () => ({
@@ -166,6 +167,8 @@ export const SelectField = ({
         }}
         {...rest}
       />
+
+      {error?.message && <p className='my-2 text-start text-xs text-red'>{error.message}</p>}
     </div>
   )
 }

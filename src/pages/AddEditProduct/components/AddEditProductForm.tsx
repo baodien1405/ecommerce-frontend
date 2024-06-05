@@ -6,6 +6,7 @@ import { InputField, PhotoField, SelectField, TextAreaField } from '@/components
 import { ProductPayload } from '@/types'
 import { useProductSchema } from '@/pages/AddEditProduct/hooks'
 import { ProductType } from '@/constants'
+import { getBase64 } from '@/utils'
 
 interface AddEditProductFormProps {
   initialValues?: Partial<ProductPayload>
@@ -17,6 +18,15 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
 
   const { control, watch, handleSubmit } = useForm<ProductPayload>({
     defaultValues: {
+      product_name: '',
+      product_attributes: {
+        brand: '',
+        color: '',
+        manufacturer: '',
+        material: '',
+        model: '',
+        size: ''
+      },
       ...initialValues,
       product_thumbnail: initialValues?._id ? { file: null, previewUrl: initialValues.product_thumb } : null
     },
@@ -25,7 +35,13 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
 
   const watchProductType = watch('product_type')
 
-  const handleFormSubmit = (payload: Partial<ProductPayload>) => {
+  const handleFormSubmit = async (payload: Partial<ProductPayload>) => {
+    if (payload.product_thumbnail?.file) {
+      payload.product_thumb = await getBase64(payload.product_thumbnail?.file)
+    }
+
+    delete payload.product_thumbnail
+
     onSubmit?.(payload)
   }
 

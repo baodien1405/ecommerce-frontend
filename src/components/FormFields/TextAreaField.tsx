@@ -83,7 +83,7 @@ export const TextAreaField = ({
         {...rest}
       />
 
-      {error && <p className='text-red-500 my-1 text-xs'>{error.message}</p>}
+      {error?.message && <p className='my-1 text-xs text-red'>{error.message}</p>}
     </div>
   )
 }
