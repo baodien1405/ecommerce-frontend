@@ -81,9 +81,13 @@ export const useProductSchema = (initialValues?: Partial<ProductPayload>) => {
 
     product_ratingsAverage: yup.number().strict().required('Please select a product rating'),
 
-    product_quantity: yup.number().strict().required('Please enter a product quantity'),
+    product_quantity: yup
+      .number()
+      .max(1000, 'Maximum quantity is 1000')
+      .strict()
+      .required('Please enter a product quantity'),
 
-    product_price: yup.number().strict().required('Please enter a product price')
+    product_price: yup.number().max(1000, 'Maximum price is 5000').strict().required('Please enter a product price')
   })
   return schema
 }

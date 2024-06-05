@@ -132,8 +132,14 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
         )}
 
         <div className='grid grid-cols-1 gap-x-2 gap-y-4 sm:grid-cols-2'>
-          <InputField label='Product Price' name='product_price' control={control} placeholder='$99.99' />
-          <InputField label='Product Quantity' name='product_quantity' control={control} placeholder='0' />
+          <InputField label='Product Price' name='product_price' control={control} placeholder='$99.99' type='number' />
+          <InputField
+            label='Product Quantity'
+            name='product_quantity'
+            control={control}
+            placeholder='0'
+            type='number'
+          />
         </div>
 
         {initialValues?._id ? (

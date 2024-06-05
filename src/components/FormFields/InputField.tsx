@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { InputHTMLAttributes } from 'react'
+import { HTMLInputTypeAttribute, InputHTMLAttributes } from 'react'
 import { Control, useController } from 'react-hook-form'
 
 export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -7,7 +7,7 @@ export interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string
   label?: string
   note?: string
-  type?: string
+  type?: HTMLInputTypeAttribute
   disabled?: boolean
   shadow?: boolean
   variant?: 'normal' | 'solid' | 'outline'
@@ -68,9 +68,12 @@ export const InputField = ({
         autoCapitalize='off'
         spellCheck='false'
         aria-invalid={error ? 'true' : 'false'}
-        value={value}
+        value={type === 'number' ? Number(value || 0) : value}
         ref={ref}
-        onChange={onChange}
+        onChange={(e) => {
+          const value = type === 'number' ? Number(e.target.value) : e.target.value
+          onChange(value)
+        }}
         onBlur={onBlur}
         {...rest}
       />
