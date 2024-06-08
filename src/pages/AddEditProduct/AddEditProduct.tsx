@@ -70,7 +70,11 @@ export default function AddEditProduct() {
           <h5 className='mb-[15px]'>Product Settings</h5>
 
           {(isAddMode || Boolean(productDetails)) && (
-            <AddEditProductForm initialValues={productDetails} onSubmit={handleAddEditProduct} />
+            <AddEditProductForm
+              loading={addProductMutation.isPending || updateProductMutation.isPending}
+              initialValues={productDetails}
+              onSubmit={handleAddEditProduct}
+            />
           )}
         </Spring>
       </div>

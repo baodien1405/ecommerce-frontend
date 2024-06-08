@@ -9,11 +9,12 @@ import { ProductType } from '@/constants'
 import { getBase64 } from '@/utils'
 
 interface AddEditProductFormProps {
+  loading?: boolean
   initialValues?: Partial<ProductPayload>
   onSubmit?: (payload: Partial<ProductPayload>) => void
 }
 
-export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFormProps) {
+export function AddEditProductForm({ loading, initialValues, onSubmit }: AddEditProductFormProps) {
   const productSchema = useProductSchema(initialValues)
 
   const { control, watch, handleSubmit } = useForm<ProductPayload>({
@@ -145,8 +146,8 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
         {initialValues?._id ? (
           <Button
             type='submit'
-            loading={false}
-            disabled={false}
+            loading={loading}
+            disabled={loading}
             variant='secondary'
             size='large'
             className='mx-auto mt-4 w-full'
@@ -155,7 +156,14 @@ export function AddEditProductForm({ initialValues, onSubmit }: AddEditProductFo
           </Button>
         ) : (
           <div className='mt-4 grid gap-2 sm:grid-cols-2'>
-            <Button loading={false} disabled={false} variant='secondary' size='large' className='mx-auto w-full'>
+            <Button
+              type='submit'
+              loading={loading}
+              disabled={loading}
+              variant='secondary'
+              size='large'
+              className='mx-auto w-full'
+            >
               Save to Drafts
             </Button>
 
