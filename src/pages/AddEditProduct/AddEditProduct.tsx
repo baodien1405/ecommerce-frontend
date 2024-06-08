@@ -1,15 +1,13 @@
 import { Helmet } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { useMutation } from '@tanstack/react-query'
 
 import PageHeader from '@/components/PageHeader'
 import Spring from '@/components/Spring'
-import { AddEditProductForm } from '@/pages/AddEditProduct/components'
-import { useProductDetails } from '@/hooks'
-import { ErrorResponse, Product, ProductPayload } from '@/types'
-import productApi from '@/api/product.api'
 import { path } from '@/constants'
+import { useAddProduct, useEditProduct, useProductDetails } from '@/hooks'
+import { AddEditProductForm } from '@/pages/AddEditProduct/components'
+import { ErrorResponse, ProductPayload } from '@/types'
 import { isAxiosUnprocessableEntityError } from '@/utils'
 
 export default function AddEditProduct() {
@@ -20,39 +18,30 @@ export default function AddEditProduct() {
   const { data } = useProductDetails(productId as string)
   const productDetails = data?.data.metadata
 
-  const addProductMutation = useMutation({
-    mutationFn: (body: Partial<Product>) => productApi.addProduct(body)
-  })
-
-  const updateProductMutation = useMutation({
-    mutationFn: (body: Partial<Product>) => productApi.updateProduct(String(body?._id), body)
-  })
+  const addProductMutation = useAddProduct()
+  const updateProductMutation = useEditProduct()
 
   const handleAddEditProduct = (payload: Partial<ProductPayload>) => {
-    if (payload._id) {
-      updateProductMutation.mutate(payload, {
-        onSuccess: async (data) => {
-          toast.success(data.data?.message)
-          navigate(path.productGrid)
-        },
-        onError: (error) => {
-          if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
-            toast.error(error.response?.data?.message)
+    try {
+      if (payload._id) {
+        updateProductMutation.mutate(payload, {
+          onSuccess: (data) => {
+            toast.success(data.data?.message)
           }
-        }
-      })
-    } else {
-      addProductMutation.mutate(payload, {
-        onSuccess: async (data) => {
-          toast.success(data.data?.message)
-          navigate(path.productGrid)
-        },
-        onError: (error) => {
-          if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
-            toast.error(error.response?.data?.message)
+        })
+      } else {
+        addProductMutation.mutate(payload, {
+          onSuccess: (data) => {
+            toast.success(data.data?.message)
           }
-        }
-      })
+        })
+      }
+
+      navigate(path.productGrid)
+    } catch (error) {
+      if (isAxiosUnprocessableEntityError<ErrorResponse<any>>(error)) {
+        toast.error(error.response?.data?.message)
+      }
     }
   }
 

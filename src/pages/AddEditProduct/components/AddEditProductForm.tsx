@@ -7,6 +7,7 @@ import { ProductPayload } from '@/types'
 import { useProductSchema } from '@/pages/AddEditProduct/hooks'
 import { ProductType } from '@/constants'
 import { getBase64 } from '@/utils'
+import { useUnPublishProduct } from '@/hooks'
 
 interface AddEditProductFormProps {
   loading?: boolean
@@ -16,6 +17,7 @@ interface AddEditProductFormProps {
 
 export function AddEditProductForm({ loading, initialValues, onSubmit }: AddEditProductFormProps) {
   const productSchema = useProductSchema(initialValues)
+  const unPublishProductMutation = useUnPublishProduct()
 
   const { control, watch, handleSubmit } = useForm<ProductPayload>({
     defaultValues: {
@@ -35,6 +37,10 @@ export function AddEditProductForm({ loading, initialValues, onSubmit }: AddEdit
   })
 
   const watchProductType = watch('product_type')
+
+  const handleUnPublicProduct = (productId: string) => {
+    unPublishProductMutation.mutate(productId)
+  }
 
   const handleFormSubmit = async (payload: Partial<ProductPayload>) => {
     if (payload.product_thumbnail?.file) {
@@ -144,16 +150,30 @@ export function AddEditProductForm({ loading, initialValues, onSubmit }: AddEdit
         </div>
 
         {initialValues?._id ? (
-          <Button
-            type='submit'
-            loading={loading}
-            disabled={loading}
-            variant='secondary'
-            size='large'
-            className='mx-auto mt-4 w-full'
-          >
-            Update
-          </Button>
+          <div className='mt-4 grid gap-2 sm:grid-cols-2'>
+            <Button
+              type='submit'
+              loading={loading}
+              disabled={loading}
+              variant='secondary'
+              size='large'
+              className='mx-auto w-full'
+            >
+              Update
+            </Button>
+
+            <Button
+              type='button'
+              loading={unPublishProductMutation.isPending}
+              disabled={unPublishProductMutation.isPending}
+              variant='primary'
+              size='large'
+              className='mx-auto w-full'
+              onClick={() => handleUnPublicProduct(initialValues._id as string)}
+            >
+              UnPublish
+            </Button>
+          </div>
         ) : (
           <div className='mt-4 grid gap-2 sm:grid-cols-2'>
             <Button
@@ -164,7 +184,7 @@ export function AddEditProductForm({ loading, initialValues, onSubmit }: AddEdit
               size='large'
               className='mx-auto w-full'
             >
-              Save to Drafts
+              Add
             </Button>
 
             <Button loading={false} disabled={false} variant='primary' size='large' className='mx-auto w-full'>
