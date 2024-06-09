@@ -1,3 +1,5 @@
 export * from './useUnPublishProduct'
 export * from './useAddProduct'
 export * from './useEditProduct'
+export * from './useUpdateProfile'
+export * from './useLogout'

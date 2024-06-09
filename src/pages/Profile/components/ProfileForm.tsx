@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -6,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import { InputField } from '@/components/FormFields'
 import { FormDataProfile } from '@/types'
 import { useProfileFormSchema } from '@/hooks'
-import { UploadAvatar } from './UploadAvatar'
 import Spring from '@/components/Spring'
 import Button from '@/components/Button'
 import { AdminPanelTools } from './AdminPanelTools'
@@ -18,7 +16,6 @@ export interface ProfileFormProps {
 }
 
 export function ProfileForm({ initialValues, loading, onSubmit }: ProfileFormProps) {
-  const [avatar, setAvatar] = useState(initialValues?.avatar || '')
   const [t] = useTranslation('profile')
   const schema = useProfileFormSchema()
   const {
@@ -31,12 +28,8 @@ export function ProfileForm({ initialValues, loading, onSubmit }: ProfileFormPro
     resolver: yupResolver(schema)
   })
 
-  const handleAvatarUpload = (avatar: string) => {
-    setAvatar(avatar)
-  }
-
   const handleUpdateProfile = async (values: FormDataProfile) => {
-    await onSubmit?.({ ...values, avatar })
+    await onSubmit?.(values)
   }
 
   return (

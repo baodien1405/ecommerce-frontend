@@ -1,24 +1,20 @@
-import { useMutation } from '@tanstack/react-query'
 import omit from 'lodash/omit'
 import { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
-import userApi from '@/api/user.api'
 import PageHeader from '@/components/PageHeader'
 import { AppContext } from '@/contexts'
 import { ErrorResponse, FormDataProfile } from '@/types'
 import { isAxiosUnprocessableEntityError, setProfileToLS } from '@/utils'
 import { ProfileCard, ProfileForm, ProfileInfo, ProfilePanel } from './components'
+import { useUpdateProfile } from '@/hooks'
 
 export default function Profile() {
   const [t] = useTranslation('profile')
   const { profile, setProfile } = useContext(AppContext)
-
-  const updateProfileMutation = useMutation({
-    mutationFn: (body: Omit<FormDataProfile, 'email'>) => userApi.updateProfile(String(profile?._id), body)
-  })
+  const updateProfileMutation = useUpdateProfile(profile?._id as string)
 
   const initialProfileFormValues = {
     name: profile?.name || '',
@@ -67,7 +63,7 @@ export default function Profile() {
           </div>
 
           <ProfileForm
-            loading={updateProfileMutation.isLoading}
+            loading={updateProfileMutation.isPending}
             initialValues={initialProfileFormValues}
             onSubmit={handleProfileFormSubmit}
           />
