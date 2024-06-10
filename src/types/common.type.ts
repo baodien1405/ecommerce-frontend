@@ -30,3 +30,8 @@ export interface IconProps {
   className?: string
   onClick?: () => void
 }
+
+export interface DeleteItemResponse {
+  acknowledged: boolean
+  deletedCount: number
+}

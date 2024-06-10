@@ -11,7 +11,6 @@ import Pagination from '@/components/Pagination'
 import { path } from '@/constants'
 import { ProductFilters, ProductListGrid } from '@/pages/ProductList/components'
 import CategoryHeader from '@/components/CategoryHeader'
-import Button from '@/components/Button'
 
 export default function ProductList() {
   const [t] = useTranslation('productList')
@@ -28,9 +27,7 @@ export default function ProductList() {
       }, 10000)
 
       return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
-    },
-    keepPreviousData: true,
-    retry: 0
+    }
   })
 
   const productList = productsQuery.data?.data.metadata.items || []

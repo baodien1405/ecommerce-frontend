@@ -13,10 +13,11 @@ interface ProductCardProps {
   product: Product
   isSlide?: boolean
   index?: number
-  onClick?: (productId: string) => void
+  onEdit?: (productId: string) => void
+  onDelete?: (productId: string) => void
 }
 
-export default function ProductCard({ product, isSlide, index, onClick }: ProductCardProps) {
+export default function ProductCard({ product, isSlide, index, onEdit, onDelete }: ProductCardProps) {
   const Wrapper: any = isSlide ? 'div' : Spring
   const wrapperProps = isSlide ? {} : { type: 'slideUp', index }
 
@@ -69,13 +70,19 @@ export default function ProductCard({ product, isSlide, index, onClick }: Produc
             outlineColor='blue'
             size='large'
             className='mx-auto !h-[38px] w-full gap-1.5 text-sm'
-            onClick={() => onClick?.(product._id)}
+            onClick={() => onEdit?.(product._id)}
           >
             <PencilSolidIcon width='16px' height='16px' />
             Edit
           </Button>
 
-          <Button variant='outline' outlineColor='red' size='large' className='mx-auto !h-[38px] w-full text-sm'>
+          <Button
+            variant='outline'
+            outlineColor='red'
+            size='large'
+            className='mx-auto !h-[38px] w-full text-sm'
+            onClick={() => onDelete?.(product._id)}
+          >
             Delete
           </Button>
         </div>
