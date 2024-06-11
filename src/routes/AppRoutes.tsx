@@ -9,6 +9,7 @@ import Spinner from '@/components/Spinner'
 const Login = lazy(() => import('@/pages/Login'))
 const Register = lazy(() => import('@/pages/Register'))
 const ProductList = lazy(() => import('@/pages/ProductList'))
+const ProductManagement = lazy(() => import('@/pages/ProductManagement'))
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'))
 const AddEditProduct = lazy(() => import('@/pages/AddEditProduct'))
 const Profile = lazy(() => import('@/pages/Profile'))
@@ -95,6 +96,17 @@ export default function AppRoutes() {
         <MainLayout>
           <Suspense fallback={<Spinner />}>
             <ProductList />
+          </Suspense>
+        </MainLayout>
+      )
+    },
+    {
+      path: path.productManagement,
+      index: true,
+      element: (
+        <MainLayout>
+          <Suspense fallback={<Spinner />}>
+            <ProductManagement />
           </Suspense>
         </MainLayout>
       )

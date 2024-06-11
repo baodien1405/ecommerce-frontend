@@ -2,6 +2,7 @@ export const path = {
   home: '/',
   product: '/',
   productGrid: '/products-grid',
+  productManagement: '/products-management',
   addEditProduct: '/add-edit-product/:productId',
   order: '/order',
   login: '/login',
