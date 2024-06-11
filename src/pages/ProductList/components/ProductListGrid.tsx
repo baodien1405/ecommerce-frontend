@@ -7,6 +7,7 @@ import ProductCard from '@/components/ProductCard'
 import ProductCardSkeleton from '@/components/ProductCardSkeleton'
 import { Product } from '@/types'
 import { useDeleteProduct, useQueryConfig } from '@/hooks'
+import { QueryKeys } from '@/constants'
 
 interface ProductListGridProps {
   loading: boolean
@@ -44,7 +45,7 @@ export function ProductListGrid({ loading, productList }: ProductListGridProps) 
         deleteProductMutation.mutate(productId, {
           onSuccess: (data) => {
             toast.success(data.data?.message)
-            queryClient.invalidateQueries({ queryKey: ['products', queryConfig], exact: true })
+            queryClient.invalidateQueries({ queryKey: [QueryKeys.PRODUCT_LIST, queryConfig], exact: true })
           },
           onError: (error) => {
             toast.error(error?.message)

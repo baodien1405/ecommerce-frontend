@@ -1,34 +1,21 @@
-import { useTranslation } from 'react-i18next'
-import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 
-import productApi from '@/api/product.api'
-import { useQueryConfig } from '@/hooks'
-import { ProductFiltersPayload, ProductListConfig } from '@/types'
+import CategoryHeader from '@/components/CategoryHeader'
 import PageHeader from '@/components/PageHeader'
 import Pagination from '@/components/Pagination'
 import { path } from '@/constants'
+import { useProductList, useQueryConfig } from '@/hooks'
 import { ProductFilters, ProductListGrid } from '@/pages/ProductList/components'
-import CategoryHeader from '@/components/CategoryHeader'
+import { ProductFiltersPayload, ProductListConfig } from '@/types'
 
 export default function ProductList() {
   const [t] = useTranslation('productList')
   const queryConfig = useQueryConfig()
   const navigate = useNavigate()
 
-  const productsQuery = useQuery({
-    queryKey: ['products', queryConfig],
-    queryFn: () => {
-      const controller = new AbortController()
-
-      setTimeout(() => {
-        controller.abort()
-      }, 10000)
-
-      return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
-    }
-  })
+  const productsQuery = useProductList(queryConfig as ProductListConfig)
 
   const productList = productsQuery.data?.data.metadata.items || []
   const { page, limit, totalRows } = productsQuery.data?.data.metadata.pagination || {
