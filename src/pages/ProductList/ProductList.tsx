@@ -74,7 +74,7 @@ export default function ProductList() {
           </div>
         </div>
 
-        <ProductListGrid loading={productsQuery.isLoading} productList={productList} />
+        <ProductListGrid loading={productsQuery.isPending} productList={productList} />
 
         <Pagination page={page} count={totalPages} onChange={handlePageChange} />
       </div>

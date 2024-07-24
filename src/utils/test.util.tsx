@@ -23,12 +23,6 @@ export const createWrapper = () => {
       mutations: {
         retry: false
       }
-    },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      // no more errors on the console
-      error: () => {}
     }
   })
   const Provider = ({ children }: { children: ReactNode }) => (

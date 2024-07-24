@@ -53,7 +53,6 @@ export function AdminProductPublished() {
       }, 10000)
       return productApi.getPublishedProducts(controller.signal)
     },
-    keepPreviousData: true,
     retry: 0
   })
 
@@ -270,9 +269,9 @@ export function AdminProductPublished() {
         dataSource={data}
         loading={
           productsQuery.isFetching ||
-          deleteProductMutation.isLoading ||
-          updateProductMutation.isLoading ||
-          deleteManyProductsMutation.isLoading
+          deleteProductMutation.isPending ||
+          updateProductMutation.isPending ||
+          deleteManyProductsMutation.isPending
         }
       />
 
@@ -288,7 +287,7 @@ export function AdminProductPublished() {
         <Spin spinning={loadingProduct}>
           <ProductForm
             type='update'
-            loading={updateProductMutation.isLoading}
+            loading={updateProductMutation.isPending}
             isSuccess={updateProductMutation.isSuccess}
             initialValues={initialValueEditForm}
             onSubmit={handleUpdateProductSubmit}

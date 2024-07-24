@@ -76,7 +76,7 @@ export default function Login() {
               <p className='m-auto lg:max-w-[300px] 4xl:max-w-[unset]'>{t('LOGIN_SUB_TITLE')}</p>
             </div>
 
-            <LoginForm loading={loginMutation.isLoading} onSubmit={handleLogin} />
+            <LoginForm loading={loginMutation.isPending} onSubmit={handleLogin} />
 
             <div className='mt-10'>
               <div className='relative mb-[30px] '>

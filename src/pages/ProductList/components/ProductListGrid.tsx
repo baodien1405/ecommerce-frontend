@@ -21,7 +21,13 @@ export function ProductListGrid({ loading, productList }: ProductListGridProps) 
   const queryConfig = useQueryConfig()
 
   if (loading) {
-    return Array.from({ length: 12 }).map((_x, idx) => <ProductCardSkeleton key={idx} />)
+    return (
+      <div>
+        {Array.from({ length: 12 }).map((_x, idx) => (
+          <ProductCardSkeleton key={idx} />
+        ))}
+      </div>
+    )
   }
 
   if (!productList.length) {

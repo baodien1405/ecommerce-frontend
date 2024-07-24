@@ -39,7 +39,6 @@ export function AdminUser() {
       }, 10000)
       return userApi.getUserList(controller.signal)
     },
-    keepPreviousData: true,
     retry: 0
   })
 
@@ -164,7 +163,7 @@ export function AdminUser() {
       <Table
         columns={columns}
         dataSource={data}
-        loading={usersQuery.isLoading || usersQuery.isFetching || deleteUserMutation.isLoading}
+        loading={usersQuery.isPending || usersQuery.isFetching || deleteUserMutation.isPending}
         rowSelection={{
           type: 'checkbox'
         }}
@@ -181,7 +180,7 @@ export function AdminUser() {
       >
         <Spin spinning={loadingUser}>
           <UserForm
-            loading={updateUserMutation.isLoading}
+            loading={updateUserMutation.isPending}
             isSuccess={updateUserMutation.isSuccess}
             initialValues={initialUserForm}
             onSubmit={handleUpdateUserSubmit}

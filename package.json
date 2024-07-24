@@ -1,7 +1,7 @@
 {
   "name": "tiki-clone-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -64,7 +64,6 @@
     "@types/jsdom": "^21.1.0",
     "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.18",
-    "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@types/react-headroom": "^3.2.3",
     "@types/styled-theming": "^2.2.8",

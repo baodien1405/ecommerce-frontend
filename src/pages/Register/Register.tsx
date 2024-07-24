@@ -71,7 +71,7 @@ export default function Register() {
               <p className='m-auto lg:max-w-[300px] 4xl:max-w-[unset]'>{t('REGISTER_SUB_TITLE')}</p>
             </div>
 
-            <RegisterForm loading={registerAccountMutation.isLoading} onSubmit={handleRegister} />
+            <RegisterForm loading={registerAccountMutation.isPending} onSubmit={handleRegister} />
 
             <div className='mt-10'>
               <div className='relative mb-[30px]'>

@@ -31,7 +31,6 @@ export function AdminUserTrash() {
       }, 10000)
       return userApi.getTrashUserList(controller.signal)
     },
-    keepPreviousData: true,
     retry: 0
   })
 
@@ -158,10 +157,10 @@ export function AdminUserTrash() {
         columns={columns}
         dataSource={data}
         loading={
-          usersQuery.isLoading ||
+          usersQuery.isPending ||
           usersQuery.isFetching ||
-          restoreUserMutation.isLoading ||
-          forceDeleteUserMutation.isLoading
+          restoreUserMutation.isPending ||
+          forceDeleteUserMutation.isPending
         }
       />
     </div>

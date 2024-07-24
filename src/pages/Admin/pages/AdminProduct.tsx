@@ -58,7 +58,6 @@ export function AdminProduct() {
       }, 10000)
       return productApi.getProductList(queryConfig as ProductListConfig, controller.signal)
     },
-    keepPreviousData: true,
     retry: 0
   })
 
@@ -313,7 +312,7 @@ export function AdminProduct() {
       <div className='flex justify-between'>
         <div className='mb-3 w-[500px]'>
           <ActionForm
-            loading={deleteManyProductsMutation.isLoading}
+            loading={deleteManyProductsMutation.isPending}
             disabled={productIdList.length === 0}
             onSubmit={handleActionFormSubmit}
           />
@@ -340,7 +339,7 @@ export function AdminProduct() {
         onCancel={() => setIsModalOpen(false)}
       >
         <ProductForm
-          loading={addProductMutation.isLoading}
+          loading={addProductMutation.isPending}
           isSuccess={addProductMutation.isSuccess}
           onSubmit={handleAddProductSubmit}
         />
@@ -354,9 +353,9 @@ export function AdminProduct() {
         dataSource={data}
         loading={
           productsQuery.isFetching ||
-          deleteProductMutation.isLoading ||
-          updateProductMutation.isLoading ||
-          deleteManyProductsMutation.isLoading
+          deleteProductMutation.isPending ||
+          updateProductMutation.isPending ||
+          deleteManyProductsMutation.isPending
         }
         rowSelection={{
           type: 'checkbox',
@@ -391,7 +390,7 @@ export function AdminProduct() {
         <Spin spinning={loadingProduct}>
           <ProductForm
             type='update'
-            loading={updateProductMutation.isLoading}
+            loading={updateProductMutation.isPending}
             isSuccess={updateProductMutation.isSuccess}
             initialValues={initialValueEditForm}
             onSubmit={handleUpdateProductSubmit}
